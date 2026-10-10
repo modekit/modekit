@@ -1,0 +1,45 @@
+[data-mk-color-scheme='light'] {
+  --mk-color-bg: #ffffff;
+  --mk-color-surface-normal: #f5f6f8;
+  --mk-color-surface-high: #e8ebef;
+  --mk-color-text: #15171a;
+  --mk-color-text-secondary-normal: #5c626b;
+  --mk-color-text-secondary-high: #34383e;
+  --mk-color-primary: #146bd1;
+  --mk-color-on-primary: #ffffff;
+  --mk-color-accent: var(--mk-color-primary);
+  --mk-color-on-accent: var(--mk-color-on-primary);
+  --mk-color-destructive: #c62828;
+  --mk-color-on-destructive: #ffffff;
+  --mk-color-border-normal: #8a9099;
+  --mk-color-border-high: #5d636c;
+  --mk-color-focus-normal: #146bd1;
+  --mk-color-focus-high: #084d9c;
+  --mk-color-disabled-normal: #8b919a;
+  --mk-color-disabled-high: #646a73;
+  --mk-color-disabled-bg-normal: #e8eaed;
+  --mk-color-disabled-bg-high: #dfe3e8;
+}
+
+[data-mk-color-scheme='dark'] {
+  --mk-color-bg: #111317;
+  --mk-color-surface-normal: #1b1e24;
+  --mk-color-surface-high: #2c323d;
+  --mk-color-text: #f4f5f7;
+  --mk-color-text-secondary-normal: #aeb4bd;
+  --mk-color-text-secondary-high: #d3d7dd;
+  --mk-color-primary: #6aaeff;
+  --mk-color-on-primary: #081525;
+  --mk-color-accent: var(--mk-color-primary);
+  --mk-color-on-accent: var(--mk-color-on-primary);
+  --mk-color-destructive: #ff6b6b;
+  --mk-color-on-destructive: #260606;
+  --mk-color-border-normal: #69717d;
+  --mk-color-border-high: #a1a8b2;
+  --mk-color-focus-normal: #8bc1ff;
+  --mk-color-focus-high: #b8d7ff;
+  --mk-color-disabled-normal: #717985;
+  --mk-color-disabled-high: #929aa6;
+  --mk-color-disabled-bg-normal: #282d35;
+  --mk-color-disabled-bg-high: #343a45;
+}

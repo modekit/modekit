@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, provide } from 'vue'
+import { computed, defineComponent, h, provide } from 'vue'
 
 import type { ColorScheme, Contrast, Density, Platform, ThemeConfig } from '../theme/index.js'
 import { defaultThemeConfig } from '../theme/index.js'
@@ -35,6 +35,16 @@ export const ModeKitProvider = defineComponent({
 
     provide(themeConfigKey, config)
 
-    return () => slots.default?.()
+    return () =>
+      h(
+        'div',
+        {
+          'data-mk-platform': props.platform,
+          'data-mk-color-scheme': props.colorScheme,
+          'data-mk-density': props.density,
+          'data-mk-contrast': props.contrast,
+        },
+        slots.default?.(),
+      )
   },
 })

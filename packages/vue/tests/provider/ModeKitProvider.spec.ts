@@ -23,16 +23,20 @@ const ThemeConsumer = defineComponent({
 })
 
 describe('ModeKitProvider', () => {
-  it('provides the default theme config without adding a wrapper element', () => {
+  it('provides the default theme config and exposes it as data attributes', () => {
     const wrapper = mount(ModeKitProvider, {
       slots: {
         default: () => h(ThemeConsumer),
       },
     })
 
-    expect(wrapper.html()).toBe(
-      '<output data-testid="config">web:light:comfortable:normal</output>',
-    )
+    expect(wrapper.attributes()).toMatchObject({
+      'data-mk-platform': 'web',
+      'data-mk-color-scheme': 'light',
+      'data-mk-density': 'comfortable',
+      'data-mk-contrast': 'normal',
+    })
+    expect(wrapper.get('[data-testid="config"]').text()).toBe('web:light:comfortable:normal')
   })
 
   it('provides reactive theme config from its props', async () => {
@@ -49,10 +53,17 @@ describe('ModeKitProvider', () => {
     })
 
     expect(wrapper.get('[data-testid="config"]').text()).toBe('ios:dark:compact:high')
+    expect(wrapper.attributes()).toMatchObject({
+      'data-mk-platform': 'ios',
+      'data-mk-color-scheme': 'dark',
+      'data-mk-density': 'compact',
+      'data-mk-contrast': 'high',
+    })
 
     await wrapper.setProps({ platform: 'android' })
 
     expect(wrapper.get('[data-testid="config"]').text()).toBe('android:dark:compact:high')
+    expect(wrapper.attributes('data-mk-platform')).toBe('android')
   })
 })
 

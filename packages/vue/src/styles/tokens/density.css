@@ -1,0 +1,9 @@
+[data-mk-density='comfortable'] {
+  --mk-control-height: var(--mk-control-height-comfortable);
+  --mk-control-radius: var(--mk-control-radius-comfortable);
+}
+
+[data-mk-density='compact'] {
+  --mk-control-height: var(--mk-control-height-compact);
+  --mk-control-radius: var(--mk-control-radius-compact);
+}
