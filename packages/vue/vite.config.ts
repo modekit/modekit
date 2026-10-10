@@ -20,7 +20,7 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['reka-ui', 'vue'],
     },
     sourcemap: true,
   },

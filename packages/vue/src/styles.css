@@ -1,9 +1,9 @@
 @layer modekit.tokens.base, modekit.tokens.platform, modekit.tokens.scheme,
-  modekit.tokens.contrast, modekit.tokens.density, modekit.tokens.compound,
-  modekit.components;
+  modekit.tokens.contrast, modekit.tokens.density, modekit.tokens.compound;
 
 @import './styles/tokens/base.css' layer(modekit.tokens.base);
 @import './styles/tokens/platform.css' layer(modekit.tokens.platform);
 @import './styles/tokens/scheme.css' layer(modekit.tokens.scheme);
 @import './styles/tokens/contrast.css' layer(modekit.tokens.contrast);
 @import './styles/tokens/density.css' layer(modekit.tokens.density);
+@import './styles/components/button.css';
