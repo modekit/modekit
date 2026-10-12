@@ -10,6 +10,8 @@
   "scripts": {
     "build": "pnpm --recursive --if-present build",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
+    "docs:dev": "pnpm --filter @modekit/docs dev",
+    "docs:preview": "pnpm --filter @modekit/docs preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --max-warnings 0",

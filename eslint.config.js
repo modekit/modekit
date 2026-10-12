@@ -15,7 +15,13 @@ function forTypedFiles(config) {
 
 export default tseslint.config(
   {
-    ignores: ['**/coverage/**', '**/dist/**', '**/node_modules/**', '**/playwright-report/**'],
+    ignores: [
+      '**/.vitepress/cache/**',
+      '**/coverage/**',
+      '**/dist/**',
+      '**/node_modules/**',
+      '**/playwright-report/**',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked.map(forTypedFiles),
