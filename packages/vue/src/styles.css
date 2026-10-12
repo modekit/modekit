@@ -16,7 +16,7 @@
 
 :root,
 :host {
-  --primary: oklch(20.5% 0 none);
+  --primary: var(--color-neutral-900);
   --primary-foreground: var(--color-white);
   --muted: var(--color-neutral-100);
   --muted-foreground: var(--color-neutral-600);
@@ -25,7 +25,7 @@
 }
 
 .dark {
-  --primary: var(--color-blue-500);
+  --primary: var(--color-neutral-50);
   --primary-foreground: var(--color-blue-950);
   --muted: var(--color-neutral-800);
   --muted-foreground: var(--color-neutral-300);
