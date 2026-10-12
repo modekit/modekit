@@ -1,14 +1,16 @@
 import { fileURLToPath, URL } from 'node:url'
 
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lang: 'en-US',
   title: 'ModeKit',
-  description: 'Adaptive Vue components for Web, iOS, and Android interfaces.',
+  description: 'Accessible, feature-rich UI components for Vue applications.',
   cleanUrls: true,
   lastUpdated: true,
   vite: {
+    plugins: [tailwindcss()],
     resolve: {
       alias: [
         {
@@ -32,7 +34,7 @@ export default defineConfig({
         {
           text: 'Foundations',
           items: [
-            { text: 'Adaptive modes', link: '/guide/adaptive-modes' },
+            { text: 'Styling', link: '/guide/styling' },
             { text: 'Accessibility', link: '/guide/accessibility' },
           ],
         },

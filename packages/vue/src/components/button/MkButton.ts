@@ -7,25 +7,31 @@ import type {
   PropType,
 } from 'vue'
 
-import { buttonSizes, buttonTypes, buttonVariants } from './types.js'
+import { useModeKitOptions } from '../../config/context.js'
+import { getButtonClasses } from './styles/index.js'
+import { buttonColors, buttonSizes, buttonTypes, buttonVariants } from './types.js'
 import type {
+  ButtonColor,
   ButtonOptions,
   ButtonProps,
   ButtonSize,
   ButtonSlots,
   ButtonType,
+  ButtonUI,
   ButtonVariant,
 } from './types.js'
 
 const runtimeProps = {
+  color: {
+    type: String as PropType<ButtonColor>,
+    validator: (value: ButtonColor) => buttonColors.includes(value),
+  },
   variant: {
     type: String as PropType<ButtonVariant>,
-    default: 'primary',
     validator: (value: ButtonVariant) => buttonVariants.includes(value),
   },
   size: {
     type: String as PropType<ButtonSize>,
-    default: 'md',
     validator: (value: ButtonSize) => buttonSizes.includes(value),
   },
   type: {
@@ -41,19 +47,24 @@ const runtimeProps = {
     type: Boolean,
     default: false,
   },
+  ui: {
+    type: Object as PropType<ButtonUI>,
+    default: undefined,
+  },
 } satisfies ComponentObjectPropsOptions<ButtonOptions>
 
 export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, ButtonSlots> = (
   props,
   { attrs, slots },
 ) => {
-  const {
-    variant = 'primary',
-    size = 'md',
-    type = 'button',
-    disabled = false,
-    loading = false,
-  } = props
+  const options = useModeKitOptions()
+  const buttonConfig = options.ui?.button
+  const color = props.color ?? buttonConfig?.defaultVariants?.color ?? 'primary'
+  const variant = props.variant ?? buttonConfig?.defaultVariants?.variant ?? 'default'
+  const size = props.size ?? buttonConfig?.defaultVariants?.size ?? 'md'
+  const type = props.type ?? 'button'
+  const disabled = props.disabled ?? false
+  const loading = props.loading ?? false
   const attributes: ButtonHTMLAttributes = attrs
 
   return h(
@@ -61,10 +72,18 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
     {
       ...attributes,
       as: 'button',
-      class: ['mk-button', attributes.class],
+      class: getButtonClasses({
+        color,
+        variant,
+        size,
+        config: buttonConfig,
+        ui: props.ui,
+        className: attributes.class,
+      }),
       type,
       disabled: disabled || loading,
       'aria-busy': loading ? 'true' : attributes['aria-busy'],
+      'data-mk-color': color,
       'data-mk-variant': variant,
       'data-mk-size': size,
       'data-mk-loading': loading ? '' : undefined,

@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: ModeKit
-  text: Adaptive Vue components
-  tagline: One typed component API for Web, iOS, and Android interfaces.
+  text: UI components for Vue
+  tagline: Accessible, feature-rich components with predictable APIs and flexible theming.
   actions:
     - theme: brand
       text: Read the guide
@@ -14,10 +14,10 @@ hero:
       link: /components/
 
 features:
+  - title: Product-ready components
+    details: Cover real application states, variants, composition, and accessibility instead of stopping at visual primitives.
   - title: Predictable Vue APIs
-    details: Keep props, slots, events, and native attributes consistent across every supported mode.
-  - title: Independent appearance modes
-    details: Configure platform, color scheme, density, and contrast without coupling unrelated choices.
-  - title: Accessible foundations
-    details: Build keyboard, screen-reader, reduced-motion, and high-contrast behavior into the library.
+    details: Use typed props, slots, events, and native attribute forwarding consistently across the library.
+  - title: Flexible styling
+    details: Override CVA recipes globally or locally through typed component configuration and merged classes.
 ---

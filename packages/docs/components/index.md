@@ -1,11 +1,11 @@
 # Components
 
-ModeKit components provide one typed Vue API while adapting their presentation to the active
-platform, color scheme, density, and contrast.
+ModeKit components provide typed Vue APIs, accessible behavior, polished Tailwind styling, and CVA
+variants for the choices that belong to each component.
 
-Component reference pages will live in this section. Each page will document the public API,
-behavior, accessibility contract, customization tokens, and examples for one component.
+Each component reference documents its public API, behavior, accessibility contract, class-based
+customization, and working examples.
 
 ## Available components
 
-Detailed component pages and interactive previews are the next documentation phase.
+- [Button](/components/button)

@@ -17,7 +17,7 @@ For every interactive component we need to answer:
 - How are validation errors announced?
 - Is the touch target large enough?
 - What changes when reduced motion is enabled?
-- Does it remain readable in light, dark, and high-contrast modes?
+- Does it remain readable in light, dark, and increased-contrast environments?
 
 ## How we test it
 
@@ -26,7 +26,7 @@ For every interactive component we need to answer:
 3. Automated accessibility checks in a real browser
 4. Keyboard interaction tests
 5. Manual screen-reader review for complex components
-6. Visual regression across platform and color modes
+6. Visual regression across component variants, sizes, states, and color schemes
 
 Automated tools catch useful problems, but a passing scan does not prove that a component is
 accessible. Dialogs, menus, selects, and tabs still need manual keyboard and screen-reader testing.

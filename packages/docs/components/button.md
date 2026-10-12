@@ -1,45 +1,157 @@
 # Button
 
-Buttons let users trigger an action or make a choice. ModeKit keeps one native button API while
-adapting its presentation to the active platform mode.
-
-## Preview
-
-Use the platform switcher to compare the same example on Web, iOS, and Android. The preview and the
-source panel both come from the same Vue single-file component.
-
-<ComponentPreview name="button/ButtonOverview" />
+Buttons let users trigger an action or make a choice. `MkButton` combines native button semantics,
+independent color and surface variants, Tailwind state classes, and native attribute forwarding.
 
 ## Usage
 
-```vue
-<script setup lang="ts">
-import { MkButton } from '@modekit/vue'
-</script>
+### Color
 
-<template>
-  <MkButton variant="primary">Continue</MkButton>
-</template>
+Use the `color` prop to communicate semantic intent. It defaults to `primary`.
+
+<ComponentPreview name="button/ButtonColor" />
+
+Available colors are `primary` and `destructive`.
+
+### Variant
+
+Use the `variant` prop to change the surface treatment without changing semantic intent. It defaults to
+`default`.
+
+<ComponentPreview name="button/ButtonVariant" />
+
+Available variants are `default`, `outline`, `soft`, `subtle`, `ghost`, and `link`. `outline` renders
+a transparent surface with a semantic border. `subtle` combines the soft tinted surface with that
+outline border. Every variant can be combined with every color.
+
+### Size
+
+Use the `size` prop to change the control dimensions. It defaults to `md`.
+
+<ComponentPreview name="button/ButtonSize" />
+
+### Loading
+
+Use the `loading` prop to mark the button busy and prevent additional activation. Provide a `loader`
+slot when the action needs a visible progress indicator.
+
+<ComponentPreview name="button/ButtonLoading" />
+
+### Disabled
+
+Use the native `disabled` prop to prevent interaction.
+
+<ComponentPreview name="button/ButtonDisabled" />
+
+## API
+
+### Props
+
+| Prop       | Type                                                                | Default     | Description                                               |
+| ---------- | ------------------------------------------------------------------- | ----------- | --------------------------------------------------------- |
+| `color`    | `'primary' \| 'destructive'`                                        | `'primary'` | Sets the action's semantic color intent.                  |
+| `variant`  | `'default' \| 'outline' \| 'soft' \| 'subtle' \| 'ghost' \| 'link'` | `'default'` | Sets the surface treatment independently of color.        |
+| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`                                      | `'md'`      | Sets the control size.                                    |
+| `loading`  | `boolean`                                                           | `false`     | Marks the button busy and prevents additional activation. |
+| `disabled` | `boolean`                                                           | `false`     | Disables the native button.                               |
+| `type`     | `'button' \| 'submit' \| 'reset'`                                   | `'button'`  | Sets the native button type.                              |
+| `ui`       | `{ base?: ModeKitClassValue }`                                      | —           | Adds or overrides classes for this Button instance.       |
+
+All other native button attributes, listeners, and classes are forwarded to the underlying
+`<button>`.
+
+### Slots
+
+| Slot       | Description                                           |
+| ---------- | ----------------------------------------------------- |
+| `leading`  | Content rendered before the loader and label.         |
+| `loader`   | Loading indicator rendered when `loading` is enabled. |
+| `default`  | Button label or content.                              |
+| `trailing` | Content rendered after the label.                     |
+
+## Styling
+
+### Theme colors
+
+ModeKit exposes a deliberately small semantic layer backed by colors from Tailwind's packaged
+palette. Button uses `primary` and `destructive`; `muted` is available for supporting component
+surfaces and text.
+
+| Role          | Default light palette | Default dark palette |
+| ------------- | --------------------- | -------------------- |
+| `primary`     | `blue-600`            | `blue-500`           |
+| `muted`       | `neutral-100`         | `neutral-800`        |
+| `destructive` | `red-600`             | `red-500`            |
+
+Override `--primary`, `--primary-foreground`, `--muted`, `--muted-foreground`, `--destructive`, or
+`--destructive-foreground` after importing ModeKit styles to theme these roles without rewriting
+component recipes.
+
+### Local overrides
+
+Use `ui.base` when an override belongs to the Button's styling contract. Native `class` is applied
+last and remains useful for layout or a one-off adjustment.
+
+```vue
+<MkButton color="primary" variant="default" :ui="{ base: 'rounded-full' }" class="w-full sm:w-auto">
+  Continue
+</MkButton>
 ```
 
-## Props
+Tailwind Merge removes conflicting defaults rather than duplicating them.
 
-| Prop       | Type                                                      | Default     | Description                                               |
-| ---------- | --------------------------------------------------------- | ----------- | --------------------------------------------------------- |
-| `variant`  | `'primary' \| 'secondary' \| 'tertiary' \| 'destructive'` | `'primary'` | Sets the semantic visual emphasis.                        |
-| `size`     | `'sm' \| 'md' \| 'lg'`                                    | `'md'`      | Sets the control size.                                    |
-| `loading`  | `boolean`                                                 | `false`     | Marks the button busy and prevents additional activation. |
-| `disabled` | `boolean`                                                 | `false`     | Disables the native button.                               |
-| `type`     | `'button' \| 'submit' \| 'reset'`                         | `'button'`  | Sets the native button type.                              |
+### Global component configuration
 
-All other native button attributes and listeners are forwarded to the underlying `<button>`.
+Install the optional ModeKit Vue plugin to override Button axes, specific combinations, or default
+values for an entire application:
 
-## Slots
+```ts
+import { createApp } from 'vue'
+import { createModeKit } from '@modekit/vue'
+import App from './App.vue'
 
-| Slot      | Description                                           |
-| --------- | ----------------------------------------------------- |
-| `default` | Button label or content.                              |
-| `loader`  | Loading indicator rendered when `loading` is enabled. |
+const app = createApp(App)
+
+app.use(
+  createModeKit({
+    ui: {
+      button: {
+        base: 'font-semibold',
+        variants: {
+          variant: {
+            outline: 'border-2',
+          },
+          size: {
+            lg: 'h-14 px-6',
+          },
+        },
+        compoundVariants: [
+          {
+            color: 'primary',
+            variant: 'outline',
+            class: 'uppercase tracking-wide',
+          },
+        ],
+        defaultVariants: {
+          color: 'primary',
+          variant: 'default',
+          size: 'lg',
+        },
+      },
+    },
+  }),
+)
+
+app.mount('#app')
+```
+
+`compoundVariants` can target one value or an array of values for `color`, `variant`, and `size`.
+Resolution order is: built-in CVA recipe → global base/axis/compound config → local `ui.base` →
+native `class`. Later classes win conflicts.
+
+ModeKit ships the utilities used by its built-in recipe. If an application supplies additional
+Tailwind utility names, its own Tailwind build must scan that application code. Applications without
+Tailwind can use ordinary class names backed by their own CSS.
 
 ## Accessibility
 

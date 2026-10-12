@@ -13,24 +13,26 @@
 - Use the Composition API and `<script setup lang="ts">` for single-file components.
 - Keep props, events, slots, and exposed methods explicitly typed.
 - Do not mutate consumer-owned objects.
-- Keep shared mutable state inside a provider or another clearly owned service.
-- Make components work under nested providers where applicable.
+- Forward appropriate native attributes and listeners to the semantic root element.
 
-## CSS
+## Styling
 
-- Make components consume semantic or component tokens.
-- Do not add application-specific selectors.
-- Avoid unnecessary specificity and `!important`.
-- Treat internal class names as implementation details, not public API.
-- Try tokens before adding platform-specific markup. Use structural branches only when behavior or
-  semantics genuinely differ.
+- Keep each component's CVA recipe and class-resolution function outside its render component.
+- Compose base, variant, size, and state utilities with CVA.
+- Resolve classes in this order: built-in recipe, global component config, local `ui`, native `class`.
+- Merge conflicts with Tailwind Merge so the later source wins.
+- Keep internal class names and DOM structure out of the public API.
+- Prefer Tailwind modifiers for hover, focus, disabled, dark, and reduced-motion states.
+- Do not introduce a custom token resolver, theme provider, or cascade-layer architecture.
+- Keep the package stylesheet limited to Tailwind build directives.
 
 ## Components
 
 - Prefer native elements before recreating semantics with ARIA.
+- Use Reka UI when it removes meaningful accessibility and interaction maintenance.
 - Separate state logic from presentation when it improves understanding or testability; do not split
   files only to follow a pattern.
-- Document every public prop, event, slot, and CSS customization point.
+- Document every public prop, event, slot, and supported customization point.
 - Include loading, disabled, error, empty, and overflow states where relevant.
 - Add a dependency only when it saves enough maintenance to justify its cost.
 

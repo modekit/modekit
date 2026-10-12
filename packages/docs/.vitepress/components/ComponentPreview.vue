@@ -1,19 +1,31 @@
 <script setup lang="ts">
-import { ModeKitProvider, platforms } from '@modekit/vue'
 import { useData } from 'vitepress'
 import { computed, defineCustomElement, h, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import type { ColorScheme, Platform } from '@modekit/vue'
-import type { Component, ComponentObjectPropsOptions } from 'vue'
+import type { Component, ComponentObjectPropsOptions, PropType } from 'vue'
 
+import { highlightVueTemplate } from './highlight.js'
+import type { HighlightedCode } from './highlight.js'
 import { modeKitStyles } from './modekit-styles.js'
+import PreviewControl from './PreviewControl.vue'
+import { createPreviewCode } from './preview.js'
+import type {
+  PreviewControl as PreviewControlDefinition,
+  PreviewControlValue,
+  PreviewDefinition,
+} from './preview.js'
 
 type StyledComponent = Component & {
   styles?: string[]
 }
 
+interface ExampleModule {
+  default: StyledComponent
+  preview: PreviewDefinition
+}
+
 interface PreviewElement extends HTMLElement {
-  colorScheme: ColorScheme
-  platform: Platform
+  dark: boolean
+  values: Record<string, PreviewControlValue>
 }
 
 const props = defineProps<{
@@ -22,15 +34,8 @@ const props = defineProps<{
 
 const { isDark } = useData()
 
-const componentModules = import.meta.glob<StyledComponent>('../examples/**/*.ce.vue', {
+const exampleModules = import.meta.glob<ExampleModule>('../examples/**/*.ce.vue', {
   eager: true,
-  import: 'default',
-})
-
-const sourceModules = import.meta.glob<string>('../examples/**/*.ce.vue', {
-  eager: true,
-  import: 'default',
-  query: '?raw',
 })
 
 const frameStyles = `
@@ -44,51 +49,81 @@ const frameStyles = `
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 14rem;
+  min-height: 10rem;
   padding: 2rem;
-  background: var(--mk-color-bg);
-  color: var(--mk-color-text);
-  font-family: var(--mk-font-family);
+  background: #ffffff;
+  color: #0f172a;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.mk-docs-preview-surface.dark {
+  background: #020617;
+  color: #f8fafc;
 }
 
 @media (max-width: 639px) {
   .mk-docs-preview-surface {
-    min-height: 12rem;
+    min-height: 8rem;
     padding: 1.5rem 1rem;
   }
 }
 `
 
 const examplePath = computed(() => `../examples/${props.name}.ce.vue`)
-const example = computed(() => componentModules[examplePath.value])
-const source = computed(() => sourceModules[examplePath.value])
-const colorScheme = computed<ColorScheme>(() => (isDark.value ? 'dark' : 'light'))
-const platform = ref<Platform>('web')
-const isSourceVisible = ref(false)
-const copyStatus = ref<'idle' | 'copied' | 'failed'>('idle')
+const exampleModule = computed(() => exampleModules[examplePath.value])
+const example = computed(() => exampleModule.value?.default)
+const definition = computed(() => exampleModule.value?.preview)
 const previewHost = ref<HTMLElement>()
-let copyStatusTimeout: number | undefined
+const controlValues = ref<Record<string, PreviewControlValue>>({})
+const highlightedSource = ref<HighlightedCode>([])
+let highlightRevision = 0
 let previewElement: PreviewElement | undefined
 
-function platformLabel(value: Platform): string {
-  if (value === 'ios') {
-    return 'iOS'
+const source = computed(() => {
+  const currentDefinition = definition.value
+
+  if (!currentDefinition) {
+    return ''
   }
 
-  return value === 'web' ? 'Web' : 'Android'
+  return (
+    currentDefinition.code?.(controlValues.value) ??
+    createPreviewCode(currentDefinition, controlValues.value)
+  )
+})
+
+async function updateHighlightedSource(value: string): Promise<void> {
+  const revision = ++highlightRevision
+  highlightedSource.value = []
+
+  if (!value || typeof window === 'undefined') {
+    return
+  }
+
+  const highlighted = await highlightVueTemplate(value)
+
+  if (revision === highlightRevision) {
+    highlightedSource.value = highlighted
+  }
 }
 
 function customElementName(name: string): string {
   return `mk-docs-example-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 }
 
-function syncPreviewProps(): void {
+function resetControlValues(): void {
+  controlValues.value = Object.fromEntries(
+    (definition.value?.controls ?? []).map((control) => [control.prop, control.defaultValue]),
+  )
+}
+
+function syncPreview(): void {
   if (!previewElement) {
     return
   }
 
-  previewElement.platform = platform.value
-  previewElement.colorScheme = colorScheme.value
+  previewElement.dark = isDark.value
+  previewElement.values = { ...controlValues.value }
 }
 
 function mountPreview(): void {
@@ -103,13 +138,13 @@ function mountPreview(): void {
 
   if (!customElements.get(elementName)) {
     const previewProps = {
-      platform: {
-        type: String,
-        default: 'web',
+      dark: {
+        type: Boolean,
+        default: false,
       },
-      colorScheme: {
-        type: String,
-        default: 'light',
+      values: {
+        type: Object as PropType<Record<string, PreviewControlValue>>,
+        default: () => ({}),
       },
     } satisfies ComponentObjectPropsOptions
 
@@ -120,13 +155,11 @@ function mountPreview(): void {
       setup(elementProps) {
         return () =>
           h(
-            ModeKitProvider,
+            'div',
             {
-              class: 'mk-docs-preview-surface',
-              platform: elementProps.platform as Platform,
-              colorScheme: elementProps.colorScheme as ColorScheme,
+              class: ['mk-docs-preview-surface', { dark: elementProps.dark }],
             },
-            () => h(component),
+            h(component, elementProps.values),
           )
       },
     })
@@ -135,83 +168,62 @@ function mountPreview(): void {
   }
 
   previewElement = document.createElement(elementName) as PreviewElement
-  syncPreviewProps()
+  syncPreview()
   host.replaceChildren(previewElement)
 }
 
-async function copySource(): Promise<void> {
-  if (!source.value) {
-    return
-  }
-
-  try {
-    await navigator.clipboard.writeText(source.value)
-    copyStatus.value = 'copied'
-  } catch {
-    copyStatus.value = 'failed'
-  }
-
-  window.clearTimeout(copyStatusTimeout)
-  copyStatusTimeout = window.setTimeout(() => {
-    copyStatus.value = 'idle'
-  }, 1600)
+function controlId(control: PreviewControlDefinition): string {
+  return `${customElementName(props.name)}-${control.prop}`
 }
 
-function copyLabel(): string {
-  if (copyStatus.value === 'copied') {
-    return 'Copied'
-  }
-
-  return copyStatus.value === 'failed' ? 'Copy failed' : 'Copy code'
+function updateControlValue(control: PreviewControlDefinition, value: PreviewControlValue): void {
+  controlValues.value[control.prop] = value
 }
 
+resetControlValues()
 onMounted(mountPreview)
-watch([platform, colorScheme], syncPreviewProps)
+watch(isDark, syncPreview)
+watch(controlValues, syncPreview, { deep: true })
+watch(source, updateHighlightedSource, { immediate: true })
 
 onBeforeUnmount(() => {
-  window.clearTimeout(copyStatusTimeout)
   previewElement?.remove()
 })
 </script>
 
 <template>
   <section class="mk-docs-preview">
-    <header v-if="source" class="mk-docs-preview__toolbar">
-      <div class="mk-docs-preview__platforms" aria-label="Preview platform">
-        <button
-          v-for="option in platforms"
-          :key="option"
-          type="button"
-          :class="{ 'is-active': platform === option }"
-          :aria-pressed="platform === option"
-          @click="platform = option"
-        >
-          {{ platformLabel(option) }}
-        </button>
-      </div>
-
-      <div class="mk-docs-preview__actions">
-        <button
-          type="button"
-          :aria-expanded="isSourceVisible"
-          @click="isSourceVisible = !isSourceVisible"
-        >
-          {{ isSourceVisible ? 'Hide code' : 'View code' }}
-        </button>
-        <button type="button" @click="copySource">
-          {{ copyLabel() }}
-        </button>
+    <header v-if="definition?.controls.length" class="mk-docs-preview__toolbar">
+      <div class="mk-docs-preview__controls">
+        <PreviewControl
+          v-for="control in definition.controls"
+          :id="controlId(control)"
+          :key="control.prop"
+          :control="control"
+          :model-value="controlValues[control.prop] ?? control.defaultValue"
+          @update:model-value="updateControlValue(control, $event)"
+        />
       </div>
     </header>
 
-    <div v-if="example" ref="previewHost" class="mk-docs-preview__canvas" />
+    <div v-if="example && definition" ref="previewHost" class="mk-docs-preview__canvas" />
 
     <p v-else class="mk-docs-preview__error">
       Example <code>{{ name }}</code> could not be found.
     </p>
 
-    <div v-if="source && isSourceVisible" class="mk-docs-preview__source">
-      <pre><code>{{ source }}</code></pre>
+    <div v-if="source" class="mk-docs-preview__source">
+      <pre v-if="highlightedSource.length" class="mk-docs-preview__highlighted"><code><span
+        v-for="(line, lineIndex) in highlightedSource"
+        :key="lineIndex"
+        class="mk-docs-preview__line"
+      ><span
+        v-for="(token, tokenIndex) in line"
+        :key="tokenIndex"
+        class="mk-docs-preview__token"
+        :style="token.style"
+      >{{ token.content }}</span></span></code></pre>
+      <pre v-else><code>{{ source }}</code></pre>
     </div>
   </section>
 </template>
