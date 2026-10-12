@@ -37,7 +37,7 @@ const buttonStyles = cva(buttonBaseClasses, {
       link: 'mk:border-0 mk:bg-transparent mk:underline-offset-4 mk:hover:underline mk:active:opacity-80',
     },
     size: {
-      xs: 'mk:h-6 mk:min-w-6 mk:gap-1 mk:rounded mk:px-2 mk:text-xs mk:leading-3',
+      xs: 'mk:h-6 mk:min-w-6 mk:gap-1 mk:rounded-sm mk:px-2 mk:text-xs mk:leading-3',
       sm: 'mk:h-8 mk:min-w-8 mk:gap-1.5 mk:rounded-md mk:px-3 mk:text-sm mk:leading-4',
       md: 'mk:h-10 mk:min-w-10 mk:gap-2 mk:rounded-lg mk:px-4 mk:text-sm mk:leading-5',
       lg: 'mk:h-12 mk:min-w-12 mk:gap-2.5 mk:rounded-xl mk:px-5 mk:text-base mk:leading-6',

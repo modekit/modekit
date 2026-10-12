@@ -91,6 +91,41 @@ rewriting component recipes:
 Add `dark` to an ancestor to activate ModeKit's dark defaults. The application remains responsible
 for deciding when that class is present; ModeKit does not require a theme provider.
 
+## Shape and elevation
+
+ModeKit uses `--mk-radius` as the base for its corner scale. Controls and containers derive their
+corners from that value instead of declaring unrelated pixel values:
+
+```css
+:root {
+  --mk-radius: 0.5rem;
+}
+```
+
+With the default base, the scale resolves to 4, 6, 8, 12, and 16 pixels. Small controls use the
+smaller steps, while larger controls and containing surfaces use the larger steps. This preserves a
+visible hierarchy when a Button or another control is placed inside a Card.
+
+Override the base once to make the whole library sharper or rounder:
+
+```css
+:root {
+  --mk-radius: 0.375rem;
+}
+```
+
+Raised surfaces use the semantic `--mk-elevation-raised` shadow. The light and dark defaults differ
+because the same shadow opacity does not read equally against both schemes:
+
+```css
+:root {
+  --mk-elevation-raised: 0 1px 3px rgb(0 0 0 / 0.1);
+}
+```
+
+Components consume the radius scale and semantic elevation role through namespaced Tailwind
+utilities. Component recipes must not introduce raw palette colors or one-off shadows.
+
 ## Component configuration
 
 Component classes are collected in this order:
@@ -166,6 +201,7 @@ CSS.
 
 - Keep rendering and behavior separate from the CVA recipe.
 - Use semantic theme roles instead of palette colors in component recipes.
+- Use the shared radius scale and semantic elevation roles instead of one-off geometry or shadows.
 - Keep finite visual choices in CVA variants.
 - Keep state styling in explicit modifiers such as `disabled:` and `focus-visible:`.
 - Keep global overrides aligned with the component's named variants.

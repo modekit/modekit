@@ -87,6 +87,12 @@ Override `--mk-primary`, `--mk-primary-foreground`, `--mk-muted`, `--mk-muted-fo
 `--mk-destructive`, or `--mk-destructive-foreground` after importing ModeKit styles to theme these
 roles without rewriting component recipes.
 
+### Corner scale
+
+Button corners come from ModeKit's shared radius scale. With the default `--mk-radius`, the `xs`,
+`sm`, `md`, and `lg` sizes resolve to 4, 6, 8, and 12 pixels. Cards and other containing surfaces use
+the same scale at larger steps, keeping nested controls and containers visually related.
+
 ### Local overrides
 
 Use `ui.base` when an override belongs to the Button's styling contract. Native `class` is applied

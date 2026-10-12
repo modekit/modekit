@@ -115,20 +115,24 @@ describe('MkButton', () => {
   )
 
   it.each([
-    ['xs', 'mk:h-6'],
-    ['sm', 'mk:h-8'],
-    ['md', 'mk:h-10'],
-    ['lg', 'mk:h-12'],
-  ] as const)('exposes the %s size without changing native button behavior', (size, height) => {
-    const wrapper = mount(MkButton, {
-      props: { size },
-      slots: { default: 'Continue' },
-    })
+    ['xs', 'mk:h-6', 'mk:rounded-sm'],
+    ['sm', 'mk:h-8', 'mk:rounded-md'],
+    ['md', 'mk:h-10', 'mk:rounded-lg'],
+    ['lg', 'mk:h-12', 'mk:rounded-xl'],
+  ] as const)(
+    'exposes the %s size without changing native button behavior',
+    (size, height, radius) => {
+      const wrapper = mount(MkButton, {
+        props: { size },
+        slots: { default: 'Continue' },
+      })
 
-    expect(wrapper.attributes('data-mk-size')).toBe(size)
-    expect(wrapper.classes()).toContain(height)
-    expect(wrapper.attributes('type')).toBe('button')
-  })
+      expect(wrapper.attributes('data-mk-size')).toBe(size)
+      expect(wrapper.classes()).toContain(height)
+      expect(wrapper.classes()).toContain(radius)
+      expect(wrapper.attributes('type')).toBe('button')
+    },
+  )
 
   it('forwards native button attributes and events', async () => {
     const onClick = vi.fn()

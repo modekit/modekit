@@ -9,16 +9,8 @@ import type {
 
 import { useModeKitOptions } from '../../config/context.js'
 import { getCardClasses, getCardSlotClasses } from './styles/index.js'
-import { cardBodies, cardSizes, cardVariants } from './types.js'
-import type {
-  CardBody,
-  CardOptions,
-  CardProps,
-  CardSize,
-  CardSlots,
-  CardUI,
-  CardVariant,
-} from './types.js'
+import { cardSizes, cardVariants } from './types.js'
+import type { CardOptions, CardProps, CardSize, CardSlots, CardUI, CardVariant } from './types.js'
 
 const runtimeProps = {
   variant: {
@@ -28,10 +20,6 @@ const runtimeProps = {
   size: {
     type: String as PropType<CardSize>,
     validator: (value: CardSize) => cardSizes.includes(value),
-  },
-  body: {
-    type: String as PropType<CardBody>,
-    validator: (value: CardBody) => cardBodies.includes(value),
   },
   ui: {
     type: Object as PropType<CardUI>,
@@ -47,7 +35,6 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
   const cardConfig = options.ui?.card
   const variant = props.variant ?? cardConfig?.defaultVariants?.variant ?? 'default'
   const size = props.size ?? cardConfig?.defaultVariants?.size ?? 'md'
-  const body = props.body ?? cardConfig?.defaultVariants?.body ?? 'seamless'
   const attributes: HTMLAttributes = attrs
 
   return h(
@@ -64,7 +51,6 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
       }),
       'data-mk-variant': variant,
       'data-mk-size': size,
-      'data-mk-body': body,
     },
     {
       default: () => [
@@ -74,9 +60,6 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
               {
                 class: getCardSlotClasses({
                   slot: 'header',
-                  body,
-                  size,
-                  variant,
                   config: cardConfig,
                   ui: props.ui,
                 }),
@@ -90,9 +73,6 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
               {
                 class: getCardSlotClasses({
                   slot: 'body',
-                  body,
-                  size,
-                  variant,
                   config: cardConfig,
                   ui: props.ui,
                 }),
@@ -106,9 +86,6 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
               {
                 class: getCardSlotClasses({
                   slot: 'footer',
-                  body,
-                  size,
-                  variant,
                   config: cardConfig,
                   ui: props.ui,
                 }),

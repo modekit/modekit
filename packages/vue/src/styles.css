@@ -31,6 +31,12 @@
   --color-info-foreground: var(--mk-info-foreground);
   --color-destructive: var(--mk-destructive);
   --color-destructive-foreground: var(--mk-destructive-foreground);
+  --radius-sm: max(0px, calc(var(--mk-radius) - 0.25rem));
+  --radius-md: max(0px, calc(var(--mk-radius) - 0.125rem));
+  --radius-lg: var(--mk-radius);
+  --radius-xl: calc(var(--mk-radius) + 0.25rem);
+  --radius-2xl: calc(var(--mk-radius) + 0.5rem);
+  --shadow-raised: var(--mk-elevation-raised);
 }
 
 :root,
@@ -59,6 +65,8 @@
   --mk-info-foreground: var(--mk-color-white);
   --mk-destructive: var(--mk-color-red-700);
   --mk-destructive-foreground: var(--mk-color-white);
+  --mk-radius: 0.5rem;
+  --mk-elevation-raised: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
 .dark {
@@ -86,6 +94,7 @@
   --mk-info-foreground: var(--mk-color-sky-950);
   --mk-destructive: var(--mk-color-red-400);
   --mk-destructive-foreground: var(--mk-color-red-950);
+  --mk-elevation-raised: 0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.3);
 }
 
 @keyframes mk-spinner-spin {

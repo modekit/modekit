@@ -11,9 +11,8 @@ export type {
   ButtonUI,
   ButtonVariant,
 } from './button/index.js'
-export { cardBodies, cardSizes, cardVariants, MkCard } from './card/index.js'
+export { cardSizes, cardVariants, MkCard } from './card/index.js'
 export type {
-  CardBody,
   CardOptions,
   CardProps,
   CardSize,

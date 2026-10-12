@@ -19,26 +19,19 @@ Available variants are `default`, `muted`, and `outline`. Available sizes are `s
 - `muted` uses the existing semantic muted surface.
 - `outline` uses a stronger transparent outline without a shadow.
 
-### Body treatment
-
-`body="seamless"` keeps every slot on one surface and is the default. Use `body="inset"` to
-place the default slot in a wide inner panel while the header and footer retain the Card's normal
-padding. The treatment is independent from `variant` and scales its offset, padding, and radius with
-`size`. On a muted Card the panel is raised; on default and outline Cards it becomes a recessed muted
-surface.
-
-<ComponentPreview name="card/CardInset" />
+Card corners use the container steps of ModeKit's shared radius scale. With the default
+`--mk-radius`, `sm`, `md`, and `lg` resolve to 8, 12, and 16 pixels. Controls use lower steps at the
+same size, so a Button placed inside a Card remains visually subordinate to its container.
 
 ## API
 
 ### Props
 
-| Prop      | Type                                | Default      | Description                                      |
-| --------- | ----------------------------------- | ------------ | ------------------------------------------------ |
-| `variant` | `'default' \| 'muted' \| 'outline'` | `'default'`  | Sets the neutral surface treatment.              |
-| `body`    | `'seamless' \| 'inset'`             | `'seamless'` | Sets the default-slot body treatment.            |
-| `size`    | `'sm' \| 'md' \| 'lg'`              | `'md'`       | Sets the gap and padding scale.                  |
-| `ui`      | `CardUI`                            | —            | Adds or overrides root and slot wrapper classes. |
+| Prop      | Type                                | Default     | Description                                      |
+| --------- | ----------------------------------- | ----------- | ------------------------------------------------ |
+| `variant` | `'default' \| 'muted' \| 'outline'` | `'default'` | Sets the neutral surface treatment.              |
+| `size`    | `'sm' \| 'md' \| 'lg'`              | `'md'`      | Sets the gap and padding scale.                  |
+| `ui`      | `CardUI`                            | —           | Adds or overrides root and slot wrapper classes. |
 
 All other native div attributes, listeners, and classes are forwarded to the root `<div>`.
 
@@ -82,6 +75,7 @@ app.use(
         base: 'rounded-2xl',
         slots: {
           header: 'gap-2',
+          body: 'text-sm',
           footer: 'justify-between',
         },
         variants: {
@@ -91,13 +85,9 @@ app.use(
           size: {
             lg: 'p-10',
           },
-          body: {
-            inset: 'border-2',
-          },
         },
         defaultVariants: {
           variant: 'default',
-          body: 'seamless',
           size: 'md',
         },
       },
@@ -107,9 +97,8 @@ app.use(
 ```
 
 Resolution order for the root is: built-in CVA recipe → global base/axis config → local `ui.base` →
-native `class`. Slot wrapper classes resolve as: built-in slot classes → global body treatment when
-applicable → global slot config → local slot config. Conflicts are merged independently within the
-ModeKit and application namespaces.
+native `class`. Slot wrapper classes resolve as: built-in slot classes → global slot config → local
+slot config. Conflicts are merged independently within the ModeKit and application namespaces.
 
 ## Accessibility
 
