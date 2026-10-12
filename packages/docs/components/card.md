@@ -108,7 +108,8 @@ app.use(
 
 Resolution order for the root is: built-in CVA recipe → global base/axis config → local `ui.base` →
 native `class`. Slot wrapper classes resolve as: built-in slot classes → global body treatment when
-applicable → global slot config → local slot config. Later classes win conflicts.
+applicable → global slot config → local slot config. Conflicts are merged independently within the
+ModeKit and application namespaces.
 
 ## Accessibility
 

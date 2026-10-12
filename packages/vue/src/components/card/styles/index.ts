@@ -4,41 +4,33 @@ import type { ModeKitClassValue } from '../../../types/classes.js'
 import { cn } from '../../../utils/cn.js'
 import type { CardBody, CardSize, CardStyleConfig, CardUI, CardVariant } from '../types.js'
 
-const shadowFoundation =
-  '[--tw-inset-shadow:0_0_#0000] [--tw-inset-ring-shadow:0_0_#0000] [--tw-ring-offset-shadow:0_0_#0000] [--tw-ring-shadow:0_0_#0000]'
-
 const cardStyles = cva(
   [
-    'mk-card box-border flex min-w-0 flex-col',
-    // ModeKit excludes Preflight, so borders and shadow variables are explicit.
-    'border-solid',
-    shadowFoundation,
+    'mk-card mk:box-border mk:flex mk:min-w-0 mk:flex-col mk:text-surface-foreground',
+    // ModeKit excludes Preflight, so the border style must be explicit.
+    'mk:border-solid',
   ],
   {
     variants: {
       variant: {
-        default: 'border border-current/10 bg-transparent shadow-sm',
-        muted: 'border border-current/10 bg-muted',
-        outline: 'border border-current/20 bg-transparent',
+        default: 'mk:border mk:border-border mk:bg-surface mk:shadow-sm',
+        muted: 'mk:border mk:border-border mk:bg-muted',
+        outline: 'mk:border mk:border-border mk:bg-transparent',
       },
       size: {
-        sm: 'gap-3 rounded-xl p-4',
-        md: 'gap-4 rounded-2xl p-6',
-        lg: 'gap-6 rounded-2xl p-8',
+        sm: 'mk:gap-3 mk:rounded-xl mk:p-4',
+        md: 'mk:gap-4 mk:rounded-2xl mk:p-6',
+        lg: 'mk:gap-6 mk:rounded-2xl mk:p-8',
       },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'md',
     },
   },
 )
 
-const cardBodyStyles = cva(['mk-card__body min-w-0', shadowFoundation], {
+const cardBodyStyles = cva('mk-card__body mk:min-w-0', {
   variants: {
     body: {
       seamless: '',
-      inset: 'border border-solid border-current/10',
+      inset: 'mk:border mk:border-solid mk:border-border',
     },
     size: {
       sm: '',
@@ -52,25 +44,25 @@ const cardBodyStyles = cva(['mk-card__body min-w-0', shadowFoundation], {
     },
   },
   compoundVariants: [
-    { body: 'inset', size: 'sm', class: '-mx-3 rounded-lg p-4' },
-    { body: 'inset', size: 'md', class: '-mx-5 rounded-xl p-5' },
-    { body: 'inset', size: 'lg', class: '-mx-7 rounded-xl p-6' },
+    { body: 'inset', size: 'sm', class: 'mk:-mx-3 mk:rounded-lg mk:p-4' },
+    { body: 'inset', size: 'md', class: 'mk:-mx-5 mk:rounded-xl mk:p-5' },
+    { body: 'inset', size: 'lg', class: 'mk:-mx-7 mk:rounded-xl mk:p-6' },
     {
       body: 'inset',
       variant: 'muted',
-      class: 'bg-white shadow-sm dark:bg-neutral-950',
+      class: 'mk:bg-surface mk:text-surface-foreground mk:shadow-sm',
     },
     {
       body: 'inset',
       variant: ['default', 'outline'],
-      class: 'bg-muted shadow-inner',
+      class: 'mk:bg-muted mk:shadow-inner',
     },
   ],
 })
 
 const cardSlotClasses = {
-  header: 'mk-card__header flex min-w-0 flex-col gap-1',
-  footer: 'mk-card__footer flex min-w-0 items-center',
+  header: 'mk-card__header mk:flex mk:min-w-0 mk:flex-col mk:gap-1',
+  footer: 'mk-card__footer mk:flex mk:min-w-0 mk:items-center',
 } as const
 
 interface CardClassOptions {

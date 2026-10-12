@@ -14,14 +14,16 @@ describe('MkCard', () => {
     expect(wrapper.attributes('data-mk-variant')).toBe('default')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.attributes('data-mk-body')).toBe('seamless')
-    expect(wrapper.classes()).toContain('rounded-2xl')
-    expect(wrapper.classes()).toContain('border')
-    expect(wrapper.classes()).toContain('border-solid')
-    expect(wrapper.classes()).toContain('border-current/10')
-    expect(wrapper.classes()).toContain('shadow-sm')
-    expect(wrapper.classes()).toContain('p-6')
+    expect(wrapper.classes()).toContain('mk:rounded-2xl')
+    expect(wrapper.classes()).toContain('mk:border')
+    expect(wrapper.classes()).toContain('mk:border-solid')
+    expect(wrapper.classes()).toContain('mk:border-border')
+    expect(wrapper.classes()).toContain('mk:bg-surface')
+    expect(wrapper.classes()).toContain('mk:text-surface-foreground')
+    expect(wrapper.classes()).toContain('mk:shadow-sm')
+    expect(wrapper.classes()).toContain('mk:p-6')
     expect(wrapper.get('.mk-card__body').text()).toBe('Card content')
-    expect(wrapper.get('.mk-card__body').classes()).not.toContain('border')
+    expect(wrapper.get('.mk-card__body').classes()).not.toContain('mk:border')
   })
 
   it('renders through the Reka UI Primitive', () => {
@@ -32,9 +34,9 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['sm', ['-mx-3', 'rounded-lg', 'p-4']],
-    ['md', ['-mx-5', 'rounded-xl', 'p-5']],
-    ['lg', ['-mx-7', 'rounded-xl', 'p-6']],
+    ['sm', ['mk:-mx-3', 'mk:rounded-lg', 'mk:p-4']],
+    ['md', ['mk:-mx-5', 'mk:rounded-xl', 'mk:p-5']],
+    ['lg', ['mk:-mx-7', 'mk:rounded-xl', 'mk:p-6']],
   ] as const)('renders an inset body panel at the %s size', (size, classes) => {
     const wrapper = mount(MkCard, {
       props: { body: 'inset', size },
@@ -46,11 +48,11 @@ describe('MkCard', () => {
     expect(wrapper.attributes('data-mk-body')).toBe('inset')
     expect(body.classes()).toEqual(
       expect.arrayContaining([
-        'border',
-        'border-solid',
-        'border-current/10',
-        'bg-muted',
-        'shadow-inner',
+        'mk:border',
+        'mk:border-solid',
+        'mk:border-border',
+        'mk:bg-muted',
+        'mk:shadow-inner',
         ...classes,
       ]),
     )
@@ -64,15 +66,17 @@ describe('MkCard', () => {
 
     const body = wrapper.get('.mk-card__body')
 
-    expect(body.classes()).toEqual(expect.arrayContaining(['bg-white', 'shadow-sm']))
-    expect(body.classes()).not.toContain('bg-muted')
-    expect(body.classes()).not.toContain('shadow-inner')
+    expect(body.classes()).toEqual(
+      expect.arrayContaining(['mk:bg-surface', 'mk:text-surface-foreground', 'mk:shadow-sm']),
+    )
+    expect(body.classes()).not.toContain('mk:bg-muted')
+    expect(body.classes()).not.toContain('mk:shadow-inner')
   })
 
   it.each([
-    ['default', ['border', 'border-current/10', 'shadow-sm']],
-    ['muted', ['border', 'border-current/10', 'bg-muted']],
-    ['outline', ['border', 'border-current/20', 'bg-transparent']],
+    ['default', ['mk:border', 'mk:border-border', 'mk:bg-surface', 'mk:shadow-sm']],
+    ['muted', ['mk:border', 'mk:border-border', 'mk:bg-muted']],
+    ['outline', ['mk:border', 'mk:border-border', 'mk:bg-transparent']],
   ] as const)('resolves the %s variant', (variant, classes) => {
     const wrapper = mount(MkCard, { props: { variant } })
 
@@ -81,9 +85,9 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['sm', ['gap-3', 'p-4']],
-    ['md', ['gap-4', 'p-6']],
-    ['lg', ['gap-6', 'p-8']],
+    ['sm', ['mk:gap-3', 'mk:p-4']],
+    ['md', ['mk:gap-4', 'mk:p-6']],
+    ['lg', ['mk:gap-6', 'mk:p-8']],
   ] as const)('resolves the %s size', (size, classes) => {
     const wrapper = mount(MkCard, { props: { size } })
 
@@ -154,9 +158,9 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toContain('account-card')
     expect(wrapper.classes()).toContain('rounded-none')
     expect(wrapper.classes()).toContain('p-12')
-    expect(wrapper.classes()).not.toContain('rounded-2xl')
-    expect(wrapper.classes()).not.toContain('p-6')
     expect(wrapper.classes()).not.toContain('p-10')
+    expect(wrapper.classes()).toContain('mk:rounded-2xl')
+    expect(wrapper.classes()).toContain('mk:p-6')
     expect(wrapper.get('.mk-card__header').classes()).toContain('gap-4')
     expect(wrapper.get('.mk-card__body').classes()).toContain('text-sm')
     expect(wrapper.get('.mk-card__footer').classes()).toContain('justify-end')
@@ -208,12 +212,12 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toContain('rounded-3xl')
     expect(wrapper.classes()).toContain('border-2')
     expect(wrapper.classes()).toContain('p-10')
-    expect(wrapper.classes()).not.toContain('rounded-2xl')
-    expect(wrapper.classes()).not.toContain('border')
-    expect(wrapper.classes()).not.toContain('p-8')
+    expect(wrapper.classes()).toContain('mk:rounded-2xl')
+    expect(wrapper.classes()).toContain('mk:border')
+    expect(wrapper.classes()).toContain('mk:p-8')
     expect(wrapper.get('.mk-card__header').classes()).toContain('uppercase')
     expect(wrapper.get('.mk-card__body').classes()).toContain('border-2')
-    expect(wrapper.get('.mk-card__body').classes()).not.toContain('border')
+    expect(wrapper.get('.mk-card__body').classes()).toContain('mk:border')
     expect(wrapper.get('.mk-card__footer').classes()).toContain('justify-between')
   })
 

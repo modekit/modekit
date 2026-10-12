@@ -8,6 +8,7 @@ export default defineConfig({
     tailwindcss(),
     vue(),
     dts({
+      copyDtsFiles: true,
       entryRoot: 'src',
       include: ['src'],
       insertTypesEntry: true,

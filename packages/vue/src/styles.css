@@ -1,34 +1,95 @@
-@import 'tailwindcss/theme.css';
-@import 'tailwindcss/utilities.css';
+@layer modekit.theme, modekit.utilities;
+
+@import 'tailwindcss/theme.css' layer(modekit.theme) prefix(mk);
+@import 'tailwindcss/utilities.css' layer(modekit.utilities) prefix(mk);
 
 @source './components/**/*.ts';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme static inline {
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
+  --color-background: var(--mk-background);
+  --color-foreground: var(--mk-foreground);
+  --color-surface: var(--mk-surface);
+  --color-surface-foreground: var(--mk-surface-foreground);
+  --color-primary: var(--mk-primary);
+  --color-primary-foreground: var(--mk-primary-foreground);
+  --color-secondary: var(--mk-secondary);
+  --color-secondary-foreground: var(--mk-secondary-foreground);
+  --color-muted: var(--mk-muted);
+  --color-muted-foreground: var(--mk-muted-foreground);
+  --color-accent: var(--mk-accent);
+  --color-accent-foreground: var(--mk-accent-foreground);
+  --color-border: var(--mk-border);
+  --color-input: var(--mk-input);
+  --color-ring: var(--mk-ring);
+  --color-success: var(--mk-success);
+  --color-success-foreground: var(--mk-success-foreground);
+  --color-warning: var(--mk-warning);
+  --color-warning-foreground: var(--mk-warning-foreground);
+  --color-info: var(--mk-info);
+  --color-info-foreground: var(--mk-info-foreground);
+  --color-destructive: var(--mk-destructive);
+  --color-destructive-foreground: var(--mk-destructive-foreground);
 }
 
 :root,
 :host {
-  --primary: var(--color-neutral-900);
-  --primary-foreground: var(--color-white);
-  --muted: var(--color-neutral-100);
-  --muted-foreground: var(--color-neutral-600);
-  --destructive: var(--color-red-600);
-  --destructive-foreground: var(--color-white);
+  color-scheme: light;
+  --mk-background: var(--mk-color-white);
+  --mk-foreground: var(--mk-color-neutral-950);
+  --mk-surface: var(--mk-color-white);
+  --mk-surface-foreground: var(--mk-color-neutral-950);
+  --mk-primary: var(--mk-color-neutral-900);
+  --mk-primary-foreground: var(--mk-color-white);
+  --mk-secondary: var(--mk-color-neutral-100);
+  --mk-secondary-foreground: var(--mk-color-neutral-900);
+  --mk-muted: var(--mk-color-neutral-100);
+  --mk-muted-foreground: var(--mk-color-neutral-600);
+  --mk-accent: var(--mk-color-blue-50);
+  --mk-accent-foreground: var(--mk-color-blue-950);
+  --mk-border: var(--mk-color-neutral-200);
+  --mk-input: var(--mk-color-neutral-300);
+  --mk-ring: var(--mk-color-neutral-500);
+  --mk-success: var(--mk-color-green-700);
+  --mk-success-foreground: var(--mk-color-white);
+  --mk-warning: var(--mk-color-amber-400);
+  --mk-warning-foreground: var(--mk-color-amber-950);
+  --mk-info: var(--mk-color-sky-700);
+  --mk-info-foreground: var(--mk-color-white);
+  --mk-destructive: var(--mk-color-red-700);
+  --mk-destructive-foreground: var(--mk-color-white);
 }
 
 .dark {
-  --primary: var(--color-neutral-50);
-  --primary-foreground: var(--color-blue-950);
-  --muted: var(--color-neutral-800);
-  --muted-foreground: var(--color-neutral-300);
-  --destructive: var(--color-red-500);
-  --destructive-foreground: var(--color-red-950);
+  color-scheme: dark;
+  --mk-background: var(--mk-color-neutral-950);
+  --mk-foreground: var(--mk-color-neutral-50);
+  --mk-surface: var(--mk-color-neutral-900);
+  --mk-surface-foreground: var(--mk-color-neutral-50);
+  --mk-primary: var(--mk-color-neutral-50);
+  --mk-primary-foreground: var(--mk-color-neutral-950);
+  --mk-secondary: var(--mk-color-neutral-800);
+  --mk-secondary-foreground: var(--mk-color-neutral-50);
+  --mk-muted: var(--mk-color-neutral-800);
+  --mk-muted-foreground: var(--mk-color-neutral-400);
+  --mk-accent: var(--mk-color-blue-950);
+  --mk-accent-foreground: var(--mk-color-blue-100);
+  --mk-border: var(--mk-color-neutral-800);
+  --mk-input: var(--mk-color-neutral-700);
+  --mk-ring: var(--mk-color-neutral-400);
+  --mk-success: var(--mk-color-green-400);
+  --mk-success-foreground: var(--mk-color-green-950);
+  --mk-warning: var(--mk-color-amber-300);
+  --mk-warning-foreground: var(--mk-color-amber-950);
+  --mk-info: var(--mk-color-sky-400);
+  --mk-info-foreground: var(--mk-color-sky-950);
+  --mk-destructive: var(--mk-color-red-400);
+  --mk-destructive-foreground: var(--mk-color-red-950);
+}
+
+@keyframes mk-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -17,22 +17,22 @@ interface ColorClassExpectations {
 
 const colorClasses: Record<ButtonColor, ColorClassExpectations> = {
   primary: {
-    focus: 'focus-visible:outline-primary',
-    solid: 'bg-primary',
-    foreground: 'text-primary-foreground',
-    text: 'text-primary',
-    outline: 'border-primary',
-    soft: 'bg-primary/15',
-    ghost: 'hover:bg-primary/10',
+    focus: 'mk:focus-visible:outline-primary',
+    solid: 'mk:bg-primary',
+    foreground: 'mk:text-primary-foreground',
+    text: 'mk:text-primary',
+    outline: 'mk:border-primary',
+    soft: 'mk:bg-primary/15',
+    ghost: 'mk:hover:bg-primary/10',
   },
   destructive: {
-    focus: 'focus-visible:outline-destructive',
-    solid: 'bg-destructive',
-    foreground: 'text-destructive-foreground',
-    text: 'text-destructive',
-    outline: 'border-destructive',
-    soft: 'bg-destructive/15',
-    ghost: 'hover:bg-destructive/10',
+    focus: 'mk:focus-visible:outline-destructive',
+    solid: 'mk:bg-destructive',
+    foreground: 'mk:text-destructive-foreground',
+    text: 'mk:text-destructive',
+    outline: 'mk:border-destructive',
+    soft: 'mk:bg-destructive/15',
+    ghost: 'mk:hover:bg-destructive/10',
   },
 }
 
@@ -51,10 +51,10 @@ describe('MkButton', () => {
     expect(wrapper.attributes('data-mk-color')).toBe('primary')
     expect(wrapper.attributes('data-mk-variant')).toBe('default')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
-    expect(wrapper.classes()).toContain('focus-visible:outline-primary')
-    expect(wrapper.classes()).toContain('bg-primary')
-    expect(wrapper.classes()).toContain('text-primary-foreground')
-    expect(wrapper.classes()).toContain('h-10')
+    expect(wrapper.classes()).toContain('mk:focus-visible:outline-primary')
+    expect(wrapper.classes()).toContain('mk:bg-primary')
+    expect(wrapper.classes()).toContain('mk:text-primary-foreground')
+    expect(wrapper.classes()).toContain('mk:h-10')
     expect(wrapper.text()).toBe('Save')
   })
 
@@ -63,11 +63,11 @@ describe('MkButton', () => {
       props: { variant: 'outline' },
     })
 
-    expect(wrapper.classes()).toContain('border')
-    expect(wrapper.classes()).toContain('border-solid')
-    expect(wrapper.classes()).toContain('focus-visible:outline-2')
-    expect(wrapper.classes()).toContain('focus-visible:outline-solid')
-    expect(wrapper.classes()).toContain('focus-visible:outline-primary')
+    expect(wrapper.classes()).toContain('mk:border')
+    expect(wrapper.classes()).toContain('mk:border-solid')
+    expect(wrapper.classes()).toContain('mk:focus-visible:outline-2')
+    expect(wrapper.classes()).toContain('mk:focus-visible:outline-solid')
+    expect(wrapper.classes()).toContain('mk:focus-visible:outline-primary')
   })
 
   it.each(combinations)(
@@ -91,7 +91,7 @@ describe('MkButton', () => {
       }
 
       if (variant === 'outline') {
-        expect(wrapper.classes()).toContain('border')
+        expect(wrapper.classes()).toContain('mk:border')
         expect(wrapper.classes()).toContain(expected.outline)
       }
 
@@ -100,7 +100,7 @@ describe('MkButton', () => {
       }
 
       if (variant === 'subtle') {
-        expect(wrapper.classes()).toContain('border')
+        expect(wrapper.classes()).toContain('mk:border')
         expect(wrapper.classes()).toContain(expected.outline)
       }
 
@@ -109,16 +109,16 @@ describe('MkButton', () => {
       }
 
       if (variant === 'link') {
-        expect(wrapper.classes()).toContain('hover:underline')
+        expect(wrapper.classes()).toContain('mk:hover:underline')
       }
     },
   )
 
   it.each([
-    ['xs', 'h-6'],
-    ['sm', 'h-8'],
-    ['md', 'h-10'],
-    ['lg', 'h-12'],
+    ['xs', 'mk:h-6'],
+    ['sm', 'mk:h-8'],
+    ['md', 'mk:h-10'],
+    ['lg', 'mk:h-12'],
   ] as const)('exposes the %s size without changing native button behavior', (size, height) => {
     const wrapper = mount(MkButton, {
       props: { size },
@@ -224,7 +224,7 @@ describe('MkButton', () => {
     expect(wrapper.text()).toBe('BeforeLabelAfter')
   })
 
-  it('merges local ui and consumer classes after the CVA recipe', () => {
+  it('keeps application classes separate from the namespaced recipe', () => {
     const wrapper = mount(MkButton, {
       props: {
         color: 'primary',
@@ -238,9 +238,9 @@ describe('MkButton', () => {
     expect(wrapper.classes()).toContain('bg-fuchsia-600')
     expect(wrapper.classes()).toContain('rounded-full')
     expect(wrapper.classes()).toContain('h-14')
-    expect(wrapper.classes()).not.toContain('bg-primary')
     expect(wrapper.classes()).not.toContain('bg-emerald-600')
-    expect(wrapper.classes()).not.toContain('h-10')
+    expect(wrapper.classes()).toContain('mk:bg-primary')
+    expect(wrapper.classes()).toContain('mk:h-10')
   })
 
   it('applies global axes, compound overrides, and defaults from the Vue plugin', () => {
@@ -290,10 +290,10 @@ describe('MkButton', () => {
     expect(wrapper.classes()).toContain('text-fuchsia-700')
     expect(wrapper.classes()).toContain('rounded-full')
     expect(wrapper.classes()).toContain('h-14')
-    expect(wrapper.classes()).not.toContain('border-destructive')
-    expect(wrapper.classes()).not.toContain('text-destructive')
-    expect(wrapper.classes()).not.toContain('rounded-xl')
-    expect(wrapper.classes()).not.toContain('h-12')
+    expect(wrapper.classes()).toContain('mk:border-destructive')
+    expect(wrapper.classes()).toContain('mk:text-destructive')
+    expect(wrapper.classes()).toContain('mk:rounded-xl')
+    expect(wrapper.classes()).toContain('mk:h-12')
   })
 
   it('keeps native attributes in the exported component type', () => {

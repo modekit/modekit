@@ -7,11 +7,12 @@ ModeKit is a Vue 3 component library written in TypeScript. Its architecture has
    required.
 3. **Class-based styling** uses Tailwind CSS v4 utilities composed into typed variants with CVA.
 
-ModeKit does not maintain a JavaScript design-token resolver, platform mode, theme wrapper, or custom
-cascade-layer system. Semantic color pairs live as shadcn-style CSS variables in the Tailwind entry
-and components consume them through generated Tailwind utilities. Each component keeps rendering and
-behavior in its component module and its CVA recipe in a separate
-style module. The package ships the compiled Tailwind CSS required by built-in classes.
+ModeKit does not maintain a JavaScript design-token resolver, theme wrapper, or color generator.
+Semantic roles live as static CSS variables in the Tailwind entry and components consume them through
+generated Tailwind utilities. ModeKit prefixes its internal utility selectors and theme variables
+with `mk` so they do not claim generic Tailwind names in the consuming application. Each component
+keeps rendering and behavior in its component module and its CVA recipe in a separate style module.
+The package ships the compiled CSS required by built-in classes and does not include Preflight.
 
 An optional `createModeKit()` Vue plugin provides application-wide class overrides and default
 variants. Components work with their built-in recipe when the plugin is not installed.
@@ -34,7 +35,7 @@ together and be verified by the same repository build.
 - Reka UI for accessible primitives
 - Tailwind CSS v4 for styling
 - CVA for component variants
-- Tailwind Merge for consumer class overrides
+- Tailwind Merge for ModeKit's namespaced utility conflicts
 - Vite for package builds
 - VitePress for documentation
 - pnpm workspaces for dependency management

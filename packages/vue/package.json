@@ -16,7 +16,10 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": {
+      "types": "./dist/styles.css.d.ts",
+      "default": "./dist/styles.css"
+    }
   },
   "sideEffects": [
     "**/*.css"
@@ -26,9 +29,6 @@
   },
   "peerDependencies": {
     "vue": "^3.5.0"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "scripts": {
     "build": "vite build",

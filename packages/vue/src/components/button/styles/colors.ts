@@ -18,23 +18,24 @@ interface ButtonColorCompoundVariant {
 
 export const buttonColorClasses = {
   primary: {
-    focus: 'focus-visible:outline-primary',
-    solid: 'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80',
-    text: 'text-primary',
-    outline: 'border-primary hover:bg-primary/10 active:bg-primary/15',
-    soft: 'bg-primary/15 hover:bg-primary/20 active:bg-primary/25',
-    subtle: 'border-primary',
-    ghost: 'hover:bg-primary/10 active:bg-primary/15',
+    focus: 'mk:focus-visible:outline-primary',
+    solid:
+      'mk:bg-primary mk:text-primary-foreground mk:hover:bg-primary/90 mk:active:bg-primary/80',
+    text: 'mk:text-primary',
+    outline: 'mk:border-primary mk:hover:bg-primary/10 mk:active:bg-primary/15',
+    soft: 'mk:bg-primary/15 mk:hover:bg-primary/20 mk:active:bg-primary/25',
+    subtle: 'mk:border-primary',
+    ghost: 'mk:hover:bg-primary/10 mk:active:bg-primary/15',
   },
   destructive: {
-    focus: 'focus-visible:outline-destructive',
+    focus: 'mk:focus-visible:outline-destructive',
     solid:
-      'bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80',
-    text: 'text-destructive',
-    outline: 'border-destructive hover:bg-destructive/10 active:bg-destructive/15',
-    soft: 'bg-destructive/15 hover:bg-destructive/20 active:bg-destructive/25',
-    subtle: 'border-destructive',
-    ghost: 'hover:bg-destructive/10 active:bg-destructive/15',
+      'mk:bg-destructive mk:text-destructive-foreground mk:hover:bg-destructive/90 mk:active:bg-destructive/80',
+    text: 'mk:text-destructive',
+    outline: 'mk:border-destructive mk:hover:bg-destructive/10 mk:active:bg-destructive/15',
+    soft: 'mk:bg-destructive/15 mk:hover:bg-destructive/20 mk:active:bg-destructive/25',
+    subtle: 'mk:border-destructive',
+    ghost: 'mk:hover:bg-destructive/10 mk:active:bg-destructive/15',
   },
 } satisfies Record<ButtonColor, ButtonColorClasses>
 

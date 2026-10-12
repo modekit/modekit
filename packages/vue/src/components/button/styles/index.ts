@@ -14,12 +14,12 @@ import { buttonColorClasses, buttonColorCompoundVariants } from './colors.js'
 
 const buttonBaseClasses = [
   'mk-button',
-  'm-0 inline-flex appearance-none items-center justify-center whitespace-nowrap box-border select-none text-center align-middle font-medium no-underline',
-  'transition-colors duration-150 ease-out motion-reduce:transition-none',
+  'mk:m-0 mk:inline-flex mk:appearance-none mk:items-center mk:justify-center mk:whitespace-nowrap mk:box-border mk:select-none mk:text-center mk:align-middle mk:font-medium mk:no-underline',
+  'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
   // ModeKit excludes Preflight, so borders and focus outlines must define their styles explicitly.
-  'border-solid focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2',
-  'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
-  'data-[mk-loading]:cursor-progress',
+  'mk:border-solid mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2',
+  'mk:disabled:pointer-events-none mk:disabled:cursor-not-allowed mk:disabled:opacity-50',
+  'mk:data-[mk-loading]:cursor-progress',
 ]
 
 const buttonStyles = cva(buttonBaseClasses, {
@@ -29,26 +29,21 @@ const buttonStyles = cva(buttonBaseClasses, {
       destructive: buttonColorClasses.destructive.focus,
     },
     variant: {
-      default: 'border-0',
-      outline: 'border bg-transparent',
-      soft: 'border-0',
-      subtle: 'border',
-      ghost: 'border-0 bg-transparent',
-      link: 'border-0 bg-transparent underline-offset-4 hover:underline active:opacity-80',
+      default: 'mk:border-0',
+      outline: 'mk:border mk:bg-transparent',
+      soft: 'mk:border-0',
+      subtle: 'mk:border',
+      ghost: 'mk:border-0 mk:bg-transparent',
+      link: 'mk:border-0 mk:bg-transparent mk:underline-offset-4 mk:hover:underline mk:active:opacity-80',
     },
     size: {
-      xs: 'h-6 min-w-6 gap-1 rounded px-2 text-xs leading-3',
-      sm: 'h-8 min-w-8 gap-1.5 rounded-md px-3 text-sm leading-4',
-      md: 'h-10 min-w-10 gap-2 rounded-lg px-4 text-sm leading-5',
-      lg: 'h-12 min-w-12 gap-2.5 rounded-xl px-5 text-base leading-6',
+      xs: 'mk:h-6 mk:min-w-6 mk:gap-1 mk:rounded mk:px-2 mk:text-xs mk:leading-3',
+      sm: 'mk:h-8 mk:min-w-8 mk:gap-1.5 mk:rounded-md mk:px-3 mk:text-sm mk:leading-4',
+      md: 'mk:h-10 mk:min-w-10 mk:gap-2 mk:rounded-lg mk:px-4 mk:text-sm mk:leading-5',
+      lg: 'mk:h-12 mk:min-w-12 mk:gap-2.5 mk:rounded-xl mk:px-5 mk:text-base mk:leading-6',
     },
   },
   compoundVariants: buttonColorCompoundVariants,
-  defaultVariants: {
-    color: 'primary',
-    variant: 'default',
-    size: 'md',
-  },
 })
 
 interface ButtonClassOptions {

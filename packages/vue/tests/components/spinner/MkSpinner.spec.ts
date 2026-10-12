@@ -11,19 +11,19 @@ describe('MkSpinner', () => {
     expect(wrapper.attributes('role')).toBe('status')
     expect(wrapper.attributes('aria-label')).toBe('Loading')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
-    expect(wrapper.classes()).toContain('size-4')
-    expect(wrapper.classes()).toContain('animate-spin')
-    expect(wrapper.classes()).toContain('motion-reduce:animate-none')
-    expect(wrapper.classes()).toContain('border-solid')
-    expect(wrapper.classes()).toContain('border-current')
-    expect(wrapper.classes()).toContain('border-r-transparent')
+    expect(wrapper.classes()).toContain('mk:size-4')
+    expect(wrapper.classes()).toContain('mk:animate-[mk-spinner-spin_1s_linear_infinite]')
+    expect(wrapper.classes()).toContain('mk:motion-reduce:animate-none')
+    expect(wrapper.classes()).toContain('mk:border-solid')
+    expect(wrapper.classes()).toContain('mk:border-current')
+    expect(wrapper.classes()).toContain('mk:border-r-transparent')
   })
 
   it.each([
-    ['xs', 'size-3'],
-    ['sm', 'size-3.5'],
-    ['md', 'size-4'],
-    ['lg', 'size-5'],
+    ['xs', 'mk:size-3'],
+    ['sm', 'mk:size-3.5'],
+    ['md', 'mk:size-4'],
+    ['lg', 'mk:size-5'],
   ] as const)('exposes the %s size', (size, sizeClass) => {
     const wrapper = mount(MkSpinner, { props: { size } })
 
@@ -55,8 +55,8 @@ describe('MkSpinner', () => {
     expect(wrapper.classes()).toContain('sync-state')
     expect(wrapper.classes()).toContain('size-8')
     expect(wrapper.classes()).toContain('text-emerald-600')
-    expect(wrapper.classes()).not.toContain('size-3.5')
     expect(wrapper.classes()).not.toContain('size-6')
+    expect(wrapper.classes()).toContain('mk:size-3.5')
   })
 
   it('applies global size overrides and defaults from the Vue plugin', () => {
@@ -85,7 +85,7 @@ describe('MkSpinner', () => {
     expect(wrapper.attributes('data-mk-size')).toBe('lg')
     expect(wrapper.classes()).toContain('text-violet-600')
     expect(wrapper.classes()).toContain('size-7')
-    expect(wrapper.classes()).not.toContain('size-5')
+    expect(wrapper.classes()).toContain('mk:size-5')
   })
 
   it('keeps native attributes in the exported component type', () => {

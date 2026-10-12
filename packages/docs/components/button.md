@@ -74,19 +74,18 @@ All other native button attributes, listeners, and classes are forwarded to the 
 
 ### Theme colors
 
-ModeKit exposes a deliberately small semantic layer backed by colors from Tailwind's packaged
-palette. Button uses `primary` and `destructive`; `muted` is available for supporting component
-surfaces and text.
+ModeKit exposes semantic theme roles backed by its packaged Tailwind palette. Button uses `primary`
+and `destructive`; other components can use the supporting surface and status roles.
 
 | Role          | Default light palette | Default dark palette |
 | ------------- | --------------------- | -------------------- |
-| `primary`     | `blue-600`            | `blue-500`           |
+| `primary`     | `neutral-900`         | `neutral-50`         |
 | `muted`       | `neutral-100`         | `neutral-800`        |
-| `destructive` | `red-600`             | `red-500`            |
+| `destructive` | `red-700`             | `red-400`            |
 
-Override `--primary`, `--primary-foreground`, `--muted`, `--muted-foreground`, `--destructive`, or
-`--destructive-foreground` after importing ModeKit styles to theme these roles without rewriting
-component recipes.
+Override `--mk-primary`, `--mk-primary-foreground`, `--mk-muted`, `--mk-muted-foreground`,
+`--mk-destructive`, or `--mk-destructive-foreground` after importing ModeKit styles to theme these
+roles without rewriting component recipes.
 
 ### Local overrides
 
@@ -99,7 +98,9 @@ last and remains useful for layout or a one-off adjustment.
 </MkButton>
 ```
 
-Tailwind Merge removes conflicting defaults rather than duplicating them.
+ModeKit resolves conflicts independently among its namespaced utilities and among application
+utilities. It does not remove a ModeKit class because an application class belongs to the same CSS
+property. Load application CSS after ModeKit CSS when it should override a built-in declaration.
 
 ### Global component configuration
 
@@ -148,7 +149,7 @@ app.mount('#app')
 
 `compoundVariants` can target one value or an array of values for `color`, `variant`, and `size`.
 Resolution order is: built-in CVA recipe → global base/axis/compound config → local `ui.base` →
-native `class`. Later classes win conflicts.
+native `class`. Conflicts are merged independently within the ModeKit and application namespaces.
 
 ModeKit ships the utilities used by its built-in recipe. If an application supplies additional
 Tailwind utility names, its own Tailwind build must scan that application code. Applications without

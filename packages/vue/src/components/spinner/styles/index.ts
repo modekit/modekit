@@ -6,22 +6,19 @@ import type { SpinnerSize, SpinnerStyleConfig, SpinnerUI } from '../types.js'
 
 const spinnerStyles = cva(
   [
-    'mk-spinner inline-block shrink-0 rounded-full',
-    'animate-spin motion-reduce:animate-none',
+    'mk-spinner mk:inline-block mk:shrink-0 mk:rounded-full',
+    'mk:animate-[mk-spinner-spin_1s_linear_infinite] mk:motion-reduce:animate-none',
     // ModeKit excludes Preflight, so the border style must be explicit.
-    'border-2 border-solid border-current border-r-transparent',
+    'mk:border-2 mk:border-solid mk:border-current mk:border-r-transparent',
   ],
   {
     variants: {
       size: {
-        xs: 'size-3',
-        sm: 'size-3.5',
-        md: 'size-4',
-        lg: 'size-5',
+        xs: 'mk:size-3',
+        sm: 'mk:size-3.5',
+        md: 'mk:size-4',
+        lg: 'mk:size-5',
       },
-    },
-    defaultVariants: {
-      size: 'md',
     },
   },
 )

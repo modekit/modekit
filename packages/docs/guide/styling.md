@@ -1,85 +1,114 @@
 # Styling
 
-ModeKit styles components with Tailwind CSS v4 utilities composed through CVA. Component files focus
-on rendering and behavior; each component keeps its class recipe and override resolution in a
-separate style module.
+ModeKit styles its components with Tailwind CSS v4 and CVA. The Vue components own their markup and
+behavior, while a nearby style module defines the component recipe.
 
 ```ts
-const componentStyles = cva('inline-flex items-center', {
+const componentStyles = cva('mk:inline-flex mk:items-center', {
   variants: {
     size: {
-      sm: 'h-8 px-3 text-sm',
-      md: 'h-10 px-4 text-sm',
+      sm: 'mk:h-8 mk:px-3 mk:text-sm',
+      md: 'mk:h-10 mk:px-4 mk:text-sm',
     },
   },
 })
 ```
 
-ModeKit ships generated CSS with the Vue package. Applications can use built-in components without a
-Tailwind installation or content-scanning configuration.
+ModeKit ships the compiled stylesheet with `@modekit/vue`. An application does not need Tailwind to
+render the built-in components.
 
-## Semantic colors
+```ts
+import '@modekit/vue/styles.css'
+```
 
-ModeKit follows shadcn's background/foreground pair convention. The Tailwind entry maps each
-unprefixed pair into the color namespace:
+## CSS namespace
+
+ModeKit prefixes its generated Tailwind utilities and theme variables with `mk`:
+
+```text
+mk:bg-primary
+mk:rounded-lg
+--mk-color-neutral-900
+```
+
+This keeps ModeKit's generated utility selectors and theme variables separate from similarly named
+application styles. ModeKit does not include Tailwind Preflight, so importing the package does not
+reset the application's elements.
+
+## Semantic theme
+
+Components use semantic roles rather than a specific palette color. Each surface role has a matching
+foreground where needed:
+
+| Role                                     | Purpose                                |
+| ---------------------------------------- | -------------------------------------- |
+| `background` / `foreground`              | Application canvas and default text    |
+| `surface` / `surface-foreground`         | Raised component surfaces              |
+| `primary` / `primary-foreground`         | Primary actions and emphasized content |
+| `secondary` / `secondary-foreground`     | Lower-emphasis controls and surfaces   |
+| `muted` / `muted-foreground`             | Subdued surfaces and supporting text   |
+| `accent` / `accent-foreground`           | Selected or highlighted content        |
+| `border`                                 | General component boundaries           |
+| `input`                                  | Form-control boundaries                |
+| `ring`                                   | Focus rings                            |
+| `success` / `success-foreground`         | Successful outcomes                    |
+| `warning` / `warning-foreground`         | Cautionary states                      |
+| `info` / `info-foreground`               | Informational states                   |
+| `destructive` / `destructive-foreground` | Harmful or irreversible actions        |
+
+The defaults are ordinary CSS custom properties. There is no color generator or JavaScript theme
+resolver.
 
 ```css
-@theme static inline {
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  /* secondary, neutral, success, info, warning, error */
-}
-
 :root {
-  --primary: oklch(0.66 0.148 263);
-  --primary-foreground: oklch(0.145 0 0);
+  --mk-background: var(--mk-color-white);
+  --mk-foreground: var(--mk-color-neutral-950);
+  --mk-primary: var(--mk-color-neutral-900);
+  --mk-primary-foreground: var(--mk-color-white);
+  --mk-destructive: var(--mk-color-red-700);
+  --mk-destructive-foreground: var(--mk-color-white);
 }
 
 .dark {
-  --primary: oklch(0.7 0.128 263);
-  --primary-foreground: oklch(0.145 0 0);
+  --mk-background: var(--mk-color-neutral-950);
+  --mk-foreground: var(--mk-color-neutral-50);
+  --mk-primary: var(--mk-color-neutral-50);
+  --mk-primary-foreground: var(--mk-color-neutral-950);
 }
 ```
 
-The built-in palette is generated in OKLCH rather than tuned color by color. Comparable chromatic
-roles use perceptual lightness targets of `0.66` in light mode and `0.70` in dark mode with a
-contrast-safe dark foreground. Saturation is normalized as relative chroma:
+Override the public `--mk-*` semantic variables after importing ModeKit to adapt the theme without
+rewriting component recipes:
 
-```text
-relative chroma = C / Cmax(L, hue)
-C = 0.82 × Cmax(L, hue)
+```css
+:root {
+  --mk-primary: #4338ca;
+  --mk-primary-foreground: #ffffff;
+  --mk-ring: #6366f1;
+}
 ```
 
-`Cmax` is found with a binary search against the sRGB gamut. This preserves each semantic hue while
-avoiding the uneven saturation and browser gamut mapping produced by one raw chroma value for every
-hue. Neutral uses `0.12` relative chroma. Warning stays at `L = 0.80` with a dark foreground because
-yellow needs a higher lightness to remain recognizable and accessible. The generator rejects any
-surface/foreground pair below `4.5:1` contrast.
+Add `dark` to an ancestor to activate ModeKit's dark defaults. The application remains responsible
+for deciding when that class is present; ModeKit does not require a theme provider.
 
-Run `pnpm theme:generate` after changing the model in `scripts/generate-semantic-colors.mjs`.
-`pnpm theme:check` verifies that the CSS is current, every color is inside sRGB, and every foreground
-meets the contrast floor.
+## Component configuration
 
-Components use the generated utilities directly, such as `bg-primary`, `text-primary-foreground`,
-`text-primary`, and `border-primary`. Surface variants combine those utilities with opacity and border
-treatments while values remain centralized in CSS. Override the semantic variables after importing
-ModeKit styles to theme every matching component.
-
-## Override levels
-
-Component classes resolve in a predictable order:
+Component classes are collected in this order:
 
 1. the built-in CVA recipe;
 2. global component configuration from `createModeKit()`;
 3. the component's local `ui` prop;
 4. the native `class` attribute.
 
-Tailwind Merge removes conflicting utilities at each resolution, with the later source winning.
+ModeKit resolves conflicts independently in two namespaces. ModeKit's `mk:` utilities merge with
+other `mk:` utilities, while application utilities merge with other application utilities. A class
+from one namespace never removes a class from the other. Load application CSS after ModeKit CSS when
+an application class should override a built-in declaration.
 
-## Global configuration
+### Global configuration
 
-`createModeKit()` is an optional Vue plugin. It provides class overrides and default variants to all
-ModeKit components in the application without requiring a wrapper component.
+`createModeKit()` is an optional Vue plugin. It changes component defaults and adds application
+classes without requiring a wrapper component.
 
 ```ts
 import { createApp } from 'vue'
@@ -110,14 +139,13 @@ createApp(App)
   .mount('#app')
 ```
 
-The configuration shape follows the component's recipe: `base`, named `variants`,
-`compoundVariants`, and `defaultVariants`. It is intentionally smaller than Nuxt UI's build-generated
-theme runtime and works in any Vue 3 application.
+The configuration follows the component recipe: `base`, named `variants`, `compoundVariants`, and
+`defaultVariants`.
 
-## Local configuration
+### Local configuration
 
-Use a component's `ui` prop for a local styling override and `class` for layout or the final one-off
-adjustment.
+Use `ui` when a class belongs to a component's styling contract. Use the native `class` attribute
+for layout or a one-off application class.
 
 ```vue
 <MkButton :ui="{ base: 'rounded-full' }" class="w-full">
@@ -127,23 +155,19 @@ adjustment.
 
 ## Consumer Tailwind classes
 
-ModeKit's own compiled CSS contains only utilities used by its built-in recipes. Arbitrary Tailwind
-utilities supplied through global config, `ui`, or `class` require the consuming application to run
-Tailwind and scan the files containing those class strings.
+ModeKit's stylesheet contains the utilities used by its built-in recipes. Tailwind utilities added
+through global configuration, `ui`, or `class` must be generated by the consuming application's
+Tailwind build.
 
-Applications that do not use Tailwind can still pass ordinary class names and define them in their
-own CSS.
-
-## Color schemes
-
-Light defaults live on `:root` and shadow hosts. A `.dark` ancestor overrides the same semantic
-variables for dark mode. ModeKit does not require a theme wrapper.
+Applications that do not use Tailwind can pass ordinary class names and define them in application
+CSS.
 
 ## Styling rules
 
-- Keep component rendering and behavior separate from its CVA recipe.
-- Keep finite component choices in CVA variants.
-- Keep state styling in explicit Tailwind modifiers such as `disabled:` and `focus-visible:`.
+- Keep rendering and behavior separate from the CVA recipe.
+- Use semantic theme roles instead of palette colors in component recipes.
+- Keep finite visual choices in CVA variants.
+- Keep state styling in explicit modifiers such as `disabled:` and `focus-visible:`.
 - Keep global overrides aligned with the component's named variants.
 - Merge local `ui` and native `class` after global configuration.
-- Do not add a token resolver or custom cascade-layer abstraction over Tailwind.
+- Do not add a token generator or JavaScript theme resolver.

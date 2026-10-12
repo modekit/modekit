@@ -28,7 +28,8 @@ All other native span attributes and classes are forwarded to the underlying `<s
 
 Spinner uses `currentColor`, so set a text color on the component or an ancestor to control its
 appearance. Local `ui.base`, global Spinner configuration, and native `class` resolve in that order
-after the built-in recipe; later classes win conflicts.
+after the built-in recipe. Conflicts are merged independently within the ModeKit and application
+namespaces. Load application CSS after ModeKit when it should override built-in declarations.
 
 ```vue
 <MkSpinner size="lg" class="text-destructive" />
