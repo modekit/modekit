@@ -170,6 +170,37 @@ describe('MkButton', () => {
     expect(onClick).not.toHaveBeenCalled()
   })
 
+  it.each(['xs', 'sm', 'md', 'lg'] as const)(
+    'renders a decorative %s Spinner by default while loading',
+    (size) => {
+      const wrapper = mount(MkButton, {
+        props: { loading: true, size },
+        slots: { default: 'Save' },
+      })
+
+      const spinner = wrapper.get('.mk-spinner')
+
+      expect(spinner.attributes('data-mk-size')).toBe(size)
+      expect(spinner.attributes('aria-hidden')).toBe('true')
+      expect(spinner.attributes('role')).toBeUndefined()
+      expect(spinner.attributes('aria-label')).toBeUndefined()
+      expect(wrapper.text()).toBe('Save')
+    },
+  )
+
+  it('replaces the default Spinner when the loader slot is provided', () => {
+    const wrapper = mount(MkButton, {
+      props: { loading: true },
+      slots: {
+        loader: '<span class="custom-loader">Please wait</span>',
+        default: 'Save',
+      },
+    })
+
+    expect(wrapper.find('.mk-spinner').exists()).toBe(false)
+    expect(wrapper.get('.custom-loader').text()).toBe('Please wait')
+  })
+
   it('casts native boolean attributes written in templates', () => {
     const wrapper = mount(
       defineComponent({

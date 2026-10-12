@@ -6,6 +6,8 @@ export {
   buttonTypes,
   buttonVariants,
   MkButton,
+  MkSpinner,
+  spinnerSizes,
 } from './components/index.js'
 export type {
   ButtonColor,
@@ -18,5 +20,10 @@ export type {
   ButtonType,
   ButtonUI,
   ButtonVariant,
+  SpinnerOptions,
+  SpinnerProps,
+  SpinnerSize,
+  SpinnerStyleConfig,
+  SpinnerUI,
 } from './components/index.js'
 export type { ModeKitClassValue } from './types/classes.js'

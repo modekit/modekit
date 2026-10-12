@@ -52,6 +52,7 @@ export default defineConfig({
           items: [
             { text: 'Overview', link: '/components/' },
             { text: 'Button', link: '/components/button' },
+            { text: 'Spinner', link: '/components/spinner' },
           ],
         },
       ],

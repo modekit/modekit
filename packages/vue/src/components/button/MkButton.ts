@@ -8,6 +8,7 @@ import type {
 } from 'vue'
 
 import { useModeKitOptions } from '../../config/context.js'
+import { MkSpinner } from '../spinner/MkSpinner.js'
 import { getButtonClasses } from './styles/index.js'
 import { buttonColors, buttonSizes, buttonTypes, buttonVariants } from './types.js'
 import type {
@@ -91,7 +92,7 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
     {
       default: () => [
         slots.leading?.(),
-        loading ? slots.loader?.() : undefined,
+        loading ? (slots.loader?.() ?? h(MkSpinner, { size, 'aria-hidden': 'true' })) : undefined,
         slots.default?.(),
         slots.trailing?.(),
       ],

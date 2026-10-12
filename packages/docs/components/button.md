@@ -32,8 +32,9 @@ Use the `size` prop to change the control dimensions. It defaults to `md`.
 
 ### Loading
 
-Use the `loading` prop to mark the button busy and prevent additional activation. Provide a `loader`
-slot when the action needs a visible progress indicator.
+Use the `loading` prop to mark the button busy and prevent additional activation. Button renders a
+size-matched [Spinner](/components/spinner) by default. Provide a `loader` slot only when the action
+needs a custom progress indicator.
 
 <ComponentPreview name="button/ButtonLoading" />
 
@@ -62,12 +63,12 @@ All other native button attributes, listeners, and classes are forwarded to the 
 
 ### Slots
 
-| Slot       | Description                                           |
-| ---------- | ----------------------------------------------------- |
-| `leading`  | Content rendered before the loader and label.         |
-| `loader`   | Loading indicator rendered when `loading` is enabled. |
-| `default`  | Button label or content.                              |
-| `trailing` | Content rendered after the label.                     |
+| Slot       | Description                                             |
+| ---------- | ------------------------------------------------------- |
+| `leading`  | Content rendered before the loader and label.           |
+| `loader`   | Replaces the default Spinner when `loading` is enabled. |
+| `default`  | Button label or content.                                |
+| `trailing` | Content rendered after the label.                       |
 
 ## Styling
 
