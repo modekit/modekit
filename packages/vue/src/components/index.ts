@@ -21,6 +21,30 @@ export type {
   CardUI,
   CardVariant,
 } from './card/index.js'
+export { checkboxSizes, checkboxVariants, MkCheckbox } from './checkbox/index.js'
+export type {
+  CheckboxDescriptionSlotProps,
+  CheckboxEmits,
+  CheckboxLabelSlotProps,
+  CheckboxOptions,
+  CheckboxProps,
+  CheckboxSize,
+  CheckboxSlotProps,
+  CheckboxSlots,
+  CheckboxState,
+  CheckboxStyleConfig,
+  CheckboxUI,
+  CheckboxVariant,
+} from './checkbox/index.js'
+export { labelSizes, MkLabel } from './label/index.js'
+export type {
+  LabelOptions,
+  LabelProps,
+  LabelSize,
+  LabelSlots,
+  LabelStyleConfig,
+  LabelUI,
+} from './label/index.js'
 export { MkSpinner, spinnerSizes } from './spinner/index.js'
 export type {
   SpinnerOptions,
