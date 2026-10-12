@@ -9,4 +9,5 @@ customization, and working examples.
 ## Available components
 
 - [Button](/components/button)
+- [Card](/components/card)
 - [Spinner](/components/spinner)
