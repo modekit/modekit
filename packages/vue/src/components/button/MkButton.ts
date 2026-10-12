@@ -7,14 +7,26 @@ import type {
   PropType,
 } from 'vue'
 
-import { buttonTypes, buttonVariants } from './types.js'
-import type { ButtonOptions, ButtonProps, ButtonSlots, ButtonType, ButtonVariant } from './types.js'
+import { buttonSizes, buttonTypes, buttonVariants } from './types.js'
+import type {
+  ButtonOptions,
+  ButtonProps,
+  ButtonSize,
+  ButtonSlots,
+  ButtonType,
+  ButtonVariant,
+} from './types.js'
 
 const runtimeProps = {
   variant: {
     type: String as PropType<ButtonVariant>,
     default: 'primary',
     validator: (value: ButtonVariant) => buttonVariants.includes(value),
+  },
+  size: {
+    type: String as PropType<ButtonSize>,
+    default: 'md',
+    validator: (value: ButtonSize) => buttonSizes.includes(value),
   },
   type: {
     type: String as PropType<ButtonType>,
@@ -35,7 +47,13 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
   props,
   { attrs, slots },
 ) => {
-  const { variant = 'primary', type = 'button', disabled = false, loading = false } = props
+  const {
+    variant = 'primary',
+    size = 'md',
+    type = 'button',
+    disabled = false,
+    loading = false,
+  } = props
   const attributes: ButtonHTMLAttributes = attrs
 
   return h(
@@ -48,6 +66,7 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
       disabled: disabled || loading,
       'aria-busy': loading ? 'true' : attributes['aria-busy'],
       'data-mk-variant': variant,
+      'data-mk-size': size,
       'data-mk-loading': loading ? '' : undefined,
     },
     {

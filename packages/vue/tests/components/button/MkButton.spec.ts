@@ -13,7 +13,18 @@ describe('MkButton', () => {
     expect((wrapper.element as HTMLElement).tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.attributes('data-mk-variant')).toBe('primary')
+    expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.text()).toBe('Save')
+  })
+
+  it('exposes the selected size without changing native button behavior', () => {
+    const wrapper = mount(MkButton, {
+      props: { size: 'lg' },
+      slots: { default: 'Continue' },
+    })
+
+    expect(wrapper.attributes('data-mk-size')).toBe('lg')
+    expect(wrapper.attributes('type')).toBe('button')
   })
 
   it('forwards native button attributes and events', async () => {

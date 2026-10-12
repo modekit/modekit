@@ -2,6 +2,12 @@
   [data-mk-platform] {
     --mk-button-height-comfortable: var(--mk-control-height-comfortable);
     --mk-button-height-compact: var(--mk-control-height-compact);
+    --mk-button-height-sm-comfortable: var(--mk-button-height-comfortable);
+    --mk-button-height-sm-compact: var(--mk-button-height-compact);
+    --mk-button-height-md-comfortable: var(--mk-button-height-comfortable);
+    --mk-button-height-md-compact: var(--mk-button-height-compact);
+    --mk-button-height-lg-comfortable: var(--mk-button-height-comfortable);
+    --mk-button-height-lg-compact: var(--mk-button-height-compact);
     --mk-button-radius-comfortable: var(--mk-control-radius-comfortable);
     --mk-button-radius-compact: var(--mk-control-radius-compact);
     --mk-button-padding-comfortable: 1rem;
@@ -40,6 +46,12 @@
 
 @layer modekit.tokens.platform {
   [data-mk-platform='web'] {
+    --mk-button-height-sm-comfortable: 1.875rem;
+    --mk-button-height-sm-compact: 1.75rem;
+    --mk-button-height-md-comfortable: 2.25rem;
+    --mk-button-height-md-compact: 2rem;
+    --mk-button-height-lg-comfortable: 2.75rem;
+    --mk-button-height-lg-compact: 2.25rem;
     --mk-button-font-size-comfortable: 0.875rem;
     --mk-button-font-size-compact: 0.8125rem;
   }
@@ -63,6 +75,9 @@
 @layer modekit.tokens.density {
   [data-mk-density='comfortable'] {
     --mk-button-height: var(--mk-button-height-comfortable);
+    --mk-button-height-sm: var(--mk-button-height-sm-comfortable);
+    --mk-button-height-md: var(--mk-button-height-md-comfortable);
+    --mk-button-height-lg: var(--mk-button-height-lg-comfortable);
     --mk-button-radius: var(--mk-button-radius-comfortable);
     --mk-button-padding: var(--mk-button-padding-comfortable);
     --mk-button-gap: var(--mk-button-gap-comfortable);
@@ -71,10 +86,25 @@
 
   [data-mk-density='compact'] {
     --mk-button-height: var(--mk-button-height-compact);
+    --mk-button-height-sm: var(--mk-button-height-sm-compact);
+    --mk-button-height-md: var(--mk-button-height-md-compact);
+    --mk-button-height-lg: var(--mk-button-height-lg-compact);
     --mk-button-radius: var(--mk-button-radius-compact);
     --mk-button-padding: var(--mk-button-padding-compact);
     --mk-button-gap: var(--mk-button-gap-compact);
     --mk-button-font-size: var(--mk-button-font-size-compact);
+  }
+
+  .mk-button[data-mk-size='sm'] {
+    --mk-button-height: var(--mk-button-height-sm);
+  }
+
+  .mk-button[data-mk-size='md'] {
+    --mk-button-height: var(--mk-button-height-md);
+  }
+
+  .mk-button[data-mk-size='lg'] {
+    --mk-button-height: var(--mk-button-height-lg);
   }
 }
 

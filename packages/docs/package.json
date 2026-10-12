@@ -7,10 +7,16 @@
     "build": "vitepress build .",
     "dev": "vitepress dev .",
     "preview": "vitepress preview .",
-    "typecheck": "tsc --noEmit --project tsconfig.json"
+    "typecheck": "vue-tsc --noEmit --project tsconfig.json"
+  },
+  "dependencies": {
+    "@modekit/vue": "workspace:*",
+    "vue": "3.5.43"
   },
   "devDependencies": {
+    "@types/node": "24.10.1",
     "typescript": "6.0.3",
-    "vitepress": "1.6.4"
+    "vitepress": "1.6.4",
+    "vue-tsc": "3.2.4"
   }
 }

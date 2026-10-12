@@ -1,3 +1,5 @@
+import { fileURLToPath, URL } from 'node:url'
+
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
@@ -6,6 +8,16 @@ export default defineConfig({
   description: 'Adaptive Vue components for Web, iOS, and Android interfaces.',
   cleanUrls: true,
   lastUpdated: true,
+  vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^@modekit\/vue$/,
+          replacement: fileURLToPath(new URL('../../vue/src/api.ts', import.meta.url)),
+        },
+      ],
+    },
+  },
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/guide/about', activeMatch: '/guide/' },
@@ -35,7 +47,10 @@ export default defineConfig({
       '/components/': [
         {
           text: 'Components',
-          items: [{ text: 'Overview', link: '/components/' }],
+          items: [
+            { text: 'Overview', link: '/components/' },
+            { text: 'Button', link: '/components/button' },
+          ],
         },
       ],
     },

@@ -1,7 +1,8 @@
-export { buttonTypes, buttonVariants, MkButton } from './button/index.js'
+export { buttonSizes, buttonTypes, buttonVariants, MkButton } from './button/index.js'
 export type {
   ButtonOptions,
   ButtonProps,
+  ButtonSize,
   ButtonSlots,
   ButtonType,
   ButtonVariant,

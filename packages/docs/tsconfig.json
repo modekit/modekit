@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "paths": {
+      "@modekit/vue": ["../vue/src/api.ts"]
+    },
     "types": ["vitepress/client"]
   },
-  "include": [".vitepress/**/*.ts"]
+  "include": [".vitepress/**/*.ts", ".vitepress/**/*.vue"]
 }
