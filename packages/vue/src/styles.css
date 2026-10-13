@@ -36,7 +36,6 @@
   --radius-lg: var(--mk-radius);
   --radius-xl: calc(var(--mk-radius) + 0.25rem);
   --radius-2xl: calc(var(--mk-radius) + 0.5rem);
-  --shadow-raised: var(--mk-elevation-raised);
 }
 
 :root,

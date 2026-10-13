@@ -8,27 +8,6 @@ between each tab and panel.
 
 <ComponentPreview name="tabs/TabsBasic" />
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { MkTabs } from '@modekit/vue'
-import type { TabsItem } from '@modekit/vue'
-
-const activeTab = ref('overview')
-const items: readonly TabsItem[] = [
-  { value: 'overview', label: 'Overview' },
-  { value: 'activity', label: 'Activity' },
-  { value: 'settings', label: 'Settings' },
-]
-</script>
-
-<template>
-  <MkTabs v-model="activeTab" :items="items">
-    <template #content="{ item }"> {{ item.label }} content </template>
-  </MkTabs>
-</template>
-```
-
 ## Features
 
 - Controlled and uncontrolled selection

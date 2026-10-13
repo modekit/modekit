@@ -50,20 +50,25 @@ const tabsTriggerStyles = cva(
     variants: {
       variant: {
         line: [
-          'mk:-mb-px mk:border-0 mk:border-b-2 mk:border-transparent',
+          'mk:-mb-px mk:rounded-none mk:border-0 mk:border-b-2 mk:border-transparent',
           'mk:hover:bg-muted/50 mk:data-[state=active]:border-primary mk:data-[state=active]:text-foreground',
         ],
         pill: [
           'mk:border-0',
-          'mk:hover:bg-background/60 mk:data-[state=active]:bg-surface mk:data-[state=active]:text-surface-foreground mk:data-[state=active]:shadow-raised',
+          'mk:hover:bg-background/60 mk:data-[state=active]:bg-surface mk:data-[state=active]:text-surface-foreground mk:data-[state=active]:[box-shadow:var(--mk-elevation-raised)]',
         ],
       },
       size: {
-        sm: 'mk:h-8 mk:gap-1.5 mk:rounded-md mk:px-3 mk:text-xs mk:leading-4',
-        md: 'mk:h-10 mk:gap-2 mk:rounded-lg mk:px-4 mk:text-sm mk:leading-5',
-        lg: 'mk:h-12 mk:gap-2.5 mk:rounded-xl mk:px-5 mk:text-base mk:leading-6',
+        sm: 'mk:h-8 mk:gap-1.5 mk:px-3 mk:text-xs mk:leading-4',
+        md: 'mk:h-10 mk:gap-2 mk:px-4 mk:text-sm mk:leading-5',
+        lg: 'mk:h-12 mk:gap-2.5 mk:px-5 mk:text-base mk:leading-6',
       },
     },
+    compoundVariants: [
+      { variant: 'pill', size: 'sm', class: 'mk:rounded-md' },
+      { variant: 'pill', size: 'md', class: 'mk:rounded-lg' },
+      { variant: 'pill', size: 'lg', class: 'mk:rounded-xl' },
+    ],
   },
 )
 

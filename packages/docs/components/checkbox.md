@@ -8,23 +8,6 @@ and a complete field presentation.
 
 <ComponentPreview name="checkbox/CheckboxBasic" />
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { MkCheckbox } from '@modekit/vue'
-
-const accepted = ref(false)
-</script>
-
-<template>
-  <MkCheckbox
-    v-model="accepted"
-    label="Accept terms and conditions"
-    description="You can review the terms before continuing."
-  />
-</template>
-```
-
 ## Features
 
 - Controlled and uncontrolled values

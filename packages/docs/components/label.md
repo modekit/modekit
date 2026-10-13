@@ -7,11 +7,6 @@ primitive and provides the typography and states shared by ModeKit form componen
 
 <ComponentPreview name="label/LabelBasic" />
 
-```vue
-<MkLabel for="email">Email address</MkLabel>
-<input id="email" type="email" />
-```
-
 ## Features
 
 - Reka UI label behavior

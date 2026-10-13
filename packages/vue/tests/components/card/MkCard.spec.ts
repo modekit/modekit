@@ -19,7 +19,7 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toContain('mk:border-border')
     expect(wrapper.classes()).toContain('mk:bg-surface')
     expect(wrapper.classes()).toContain('mk:text-surface-foreground')
-    expect(wrapper.classes()).toContain('mk:shadow-raised')
+    expect(wrapper.classes()).toContain('mk:[box-shadow:var(--mk-elevation-raised)]')
     expect(wrapper.classes()).toContain('mk:p-6')
     expect(wrapper.get('.mk-card__body').text()).toBe('Card content')
     expect(wrapper.get('.mk-card__body').classes()).not.toContain('mk:border')
@@ -33,7 +33,15 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['default', ['mk:border', 'mk:border-border', 'mk:bg-surface', 'mk:shadow-raised']],
+    [
+      'default',
+      [
+        'mk:border',
+        'mk:border-border',
+        'mk:bg-surface',
+        'mk:[box-shadow:var(--mk-elevation-raised)]',
+      ],
+    ],
     ['muted', ['mk:border', 'mk:border-border', 'mk:bg-muted']],
     ['outline', ['mk:border', 'mk:border-border', 'mk:bg-transparent']],
   ] as const)('resolves the %s variant', (variant, classes) => {

@@ -135,12 +135,19 @@ describe('MkTabs', () => {
     ['sm', 'mk:h-8', 'mk:rounded-md'],
     ['md', 'mk:h-10', 'mk:rounded-lg'],
     ['lg', 'mk:h-12', 'mk:rounded-xl'],
-  ] as const)('resolves the %s size coherently', (size, height, radius) => {
-    const wrapper = mount(MkTabs, { props: { items, size } })
+  ] as const)('resolves the %s pill size coherently', (size, height, radius) => {
+    const wrapper = mount(MkTabs, { props: { items, size, variant: 'pill' } })
     const tab = wrapper.get('[role="tab"]')
 
     expect(wrapper.attributes('data-mk-size')).toBe(size)
     expect(tab.classes()).toEqual(expect.arrayContaining([height, radius]))
+  })
+
+  it('keeps line triggers square for a straight active indicator', () => {
+    const tab = mount(MkTabs, { props: { items, variant: 'line' } }).get('[role="tab"]')
+
+    expect(tab.classes()).toContain('mk:rounded-none')
+    expect(tab.classes()).not.toContain('mk:rounded-lg')
   })
 
   it('renders the pill presentation with semantic surface roles', () => {
@@ -154,6 +161,7 @@ describe('MkTabs', () => {
       expect.arrayContaining([
         'mk:data-[state=active]:bg-surface',
         'mk:data-[state=active]:text-surface-foreground',
+        'mk:data-[state=active]:[box-shadow:var(--mk-elevation-raised)]',
       ]),
     )
   })
