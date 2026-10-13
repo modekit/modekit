@@ -11,6 +11,7 @@ customization, and working examples.
 - [Button](/components/button)
 - [Card](/components/card)
 - [Checkbox](/components/checkbox)
+- [Input](/components/input)
 - [Label](/components/label)
 - [Spinner](/components/spinner)
 - [Tabs](/components/tabs)

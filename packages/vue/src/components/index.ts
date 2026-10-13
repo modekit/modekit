@@ -36,6 +36,21 @@ export type {
   CheckboxUI,
   CheckboxVariant,
 } from './checkbox/index.js'
+export { inputFloatingPositions, inputSizes, inputVariants, MkInput } from './input/index.js'
+export type {
+  InputEmits,
+  InputFloating,
+  InputLabelSlotProps,
+  InputOptions,
+  InputProps,
+  InputSize,
+  InputSlotProps,
+  InputSlots,
+  InputStyleConfig,
+  InputUI,
+  InputValue,
+  InputVariant,
+} from './input/index.js'
 export { labelSizes, MkLabel } from './label/index.js'
 export type {
   LabelOptions,

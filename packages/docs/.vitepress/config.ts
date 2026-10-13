@@ -35,6 +35,7 @@ export default defineConfig({
           text: 'Foundations',
           items: [
             { text: 'Styling', link: '/guide/styling' },
+            { text: 'Icons', link: '/guide/icons' },
             { text: 'Accessibility', link: '/guide/accessibility' },
           ],
         },
@@ -63,6 +64,7 @@ export default defineConfig({
           text: 'Form',
           items: [
             { text: 'Label', link: '/components/label' },
+            { text: 'Input', link: '/components/input' },
             { text: 'Checkbox', link: '/components/checkbox' },
           ],
         },
