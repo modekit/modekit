@@ -57,6 +57,7 @@ export default defineConfig({
           items: [
             { text: 'Button', link: '/components/button' },
             { text: 'Avatar', link: '/components/avatar' },
+            { text: 'Avatar Group', link: '/components/avatar-group' },
             { text: 'Badge', link: '/components/badge' },
             { text: 'Spinner', link: '/components/spinner' },
             { text: 'Card', link: '/components/card' },

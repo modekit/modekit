@@ -1,8 +1,9 @@
 import { AvatarFallback, AvatarImage, AvatarRoot } from 'reka-ui'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, inject } from 'vue'
 import type { HTMLAttributes, PropType, SlotsType } from 'vue'
 
 import { useModeKitOptions } from '../../config/context.js'
+import { avatarGroupContextKey } from './context.js'
 import { getAvatarClasses, getAvatarSlotClasses } from './styles/index.js'
 import { avatarBadgePositions, avatarColors, avatarSizes } from './types.js'
 import type {
@@ -96,11 +97,13 @@ export const MkAvatar = defineComponent({
   slots: Object as SlotsType<AvatarSlots>,
   setup(props, { attrs, emit, slots }) {
     const options = useModeKitOptions()
+    const avatarGroup = inject(avatarGroupContextKey, undefined)
 
     return () => {
       const avatarConfig = options.ui?.avatar
       const color = props.color ?? avatarConfig?.defaultVariants?.color ?? 'secondary'
-      const size = props.size ?? avatarConfig?.defaultVariants?.size ?? 'md'
+      const size =
+        props.size ?? avatarGroup?.size.value ?? avatarConfig?.defaultVariants?.size ?? 'md'
       const square = props.square ?? avatarConfig?.defaultVariants?.square ?? false
       const badgeColor = props.badgeColor ?? avatarConfig?.defaultVariants?.badgeColor ?? 'success'
       const badgePosition =

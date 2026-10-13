@@ -1,9 +1,25 @@
-export { avatarBadgePositions, avatarColors, avatarSizes, MkAvatar } from './avatar/index.js'
+export {
+  avatarBadgePositions,
+  avatarColors,
+  avatarGroupSpacings,
+  avatarSizes,
+  MkAvatar,
+  MkAvatarGroup,
+} from './avatar/index.js'
 export type {
   AvatarAs,
   AvatarBadgePosition,
   AvatarColor,
   AvatarEmits,
+  AvatarGroupAs,
+  AvatarGroupOptions,
+  AvatarGroupOverflowSlotProps,
+  AvatarGroupProps,
+  AvatarGroupSlot,
+  AvatarGroupSlots,
+  AvatarGroupSpacing,
+  AvatarGroupStyleConfig,
+  AvatarGroupUI,
   AvatarLoadingStatus,
   AvatarOptions,
   AvatarProps,

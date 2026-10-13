@@ -18,11 +18,14 @@ export const avatarBadgePositions = [
   'bottom-left',
   'bottom-right',
 ] as const
+export const avatarGroupSpacings = ['tight', 'normal', 'loose'] as const
 
 export type AvatarColor = (typeof avatarColors)[number]
 export type AvatarSize = (typeof avatarSizes)[number]
 export type AvatarBadgePosition = (typeof avatarBadgePositions)[number]
+export type AvatarGroupSpacing = (typeof avatarGroupSpacings)[number]
 export type AvatarAs = NonNullable<AvatarRootProps['as']>
+export type AvatarGroupAs = AvatarAs
 export type AvatarLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
 export interface AvatarUI {
@@ -78,4 +81,48 @@ export interface AvatarEmits {
 
 export interface AvatarSlots {
   default?(): VNodeChild
+}
+
+export type AvatarGroupSlot = 'item' | 'overflow'
+
+export interface AvatarGroupUI {
+  base?: ModeKitClassValue
+  item?: ModeKitClassValue
+  overflow?: ModeKitClassValue
+}
+
+export interface AvatarGroupStyleConfig {
+  base?: ModeKitClassValue
+  slots?: Omit<AvatarGroupUI, 'base'>
+  variants?: {
+    size?: Partial<Record<AvatarSize, ModeKitClassValue>>
+    spacing?: Partial<Record<AvatarGroupSpacing, ModeKitClassValue>>
+    overflowColor?: Partial<Record<AvatarColor, ModeKitClassValue>>
+  }
+  defaultVariants?: {
+    size?: AvatarSize
+    spacing?: AvatarGroupSpacing
+    overflowColor?: AvatarColor
+  }
+}
+
+export interface AvatarGroupOptions {
+  as?: AvatarGroupAs
+  size?: AvatarSize
+  spacing?: AvatarGroupSpacing
+  max?: number
+  overflowColor?: AvatarColor
+  overflowLabel?: string
+  ui?: AvatarGroupUI
+}
+
+export type AvatarGroupProps = Omit<HTMLAttributes, keyof AvatarGroupOptions> & AvatarGroupOptions
+
+export interface AvatarGroupOverflowSlotProps {
+  count: number
+}
+
+export interface AvatarGroupSlots {
+  default?(): VNodeChild
+  overflow?(props: AvatarGroupOverflowSlotProps): VNodeChild
 }

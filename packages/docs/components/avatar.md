@@ -44,6 +44,11 @@ Avatar fallback and defaults to `success`. `badgePosition` accepts `top-left`, `
 
 <ComponentPreview name="avatar/AvatarBadge" />
 
+### Groups
+
+Use [Avatar Group](/components/avatar-group) to arrange multiple Avatars with shared sizing,
+overlap, and an optional `+N` overflow indicator.
+
 ### Root element
 
 Avatar renders a `<span>` by default. Use `as` to render another HTML element or Vue component. Root
