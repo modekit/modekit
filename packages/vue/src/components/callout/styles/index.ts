@@ -11,21 +11,11 @@ import type {
   CalloutUI,
   CalloutVariant,
 } from '../types.js'
-import { calloutColorCompoundVariants } from './colors.js'
 
 const calloutStyles = cva(
   ['mk-callout', 'mk:relative mk:box-border mk:flex mk:min-w-0 mk:items-start mk:border-solid'],
   {
     variants: {
-      color: {
-        primary: '',
-        secondary: '',
-        muted: '',
-        success: '',
-        warning: '',
-        info: '',
-        destructive: '',
-      },
       variant: {
         solid: 'mk:border-0',
         soft: 'mk:border-0',
@@ -37,9 +27,18 @@ const calloutStyles = cva(
         lg: 'mk:gap-3.5 mk:rounded-xl mk:p-5',
       },
     },
-    compoundVariants: calloutColorCompoundVariants,
   },
 )
+
+const calloutColorStyles = cva('', {
+  variants: {
+    variant: {
+      solid: 'mk:bg-component mk:text-component-foreground',
+      soft: 'mk:bg-component-soft mk:text-component',
+      outline: 'mk:border-component mk:text-component',
+    },
+  },
+})
 
 const calloutSlotStyles = {
   icon: cva('mk-callout__icon mk:mt-0.5 mk:flex mk:shrink-0 mk:items-center mk:justify-center', {
@@ -148,7 +147,8 @@ export function getCalloutClasses({
   className,
 }: CalloutClassOptions): string {
   return cn(
-    calloutStyles({ color, variant, size }),
+    calloutStyles({ variant, size }),
+    calloutColorStyles({ variant }),
     config?.base,
     config?.variants?.color?.[color],
     config?.variants?.variant?.[variant],

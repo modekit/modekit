@@ -9,7 +9,6 @@ import type {
   AvatarStyleConfig,
   AvatarUI,
 } from '../types.js'
-import { avatarColorClasses } from './colors.js'
 
 const avatarStyles = cva(
   'mk-avatar mk:relative mk:inline-flex mk:shrink-0 mk:overflow-visible mk:align-middle',
@@ -94,7 +93,6 @@ type AvatarSlot = Exclude<keyof AvatarUI, 'base'>
 
 interface AvatarSlotClassOptions {
   slot: AvatarSlot
-  color: AvatarColor
   badgeColor: AvatarColor
   size: AvatarSize
   badgePosition: AvatarBadgePosition
@@ -123,7 +121,6 @@ export function getAvatarClasses({
 
 export function getAvatarSlotClasses({
   slot,
-  color,
   badgeColor,
   size,
   badgePosition,
@@ -132,8 +129,8 @@ export function getAvatarSlotClasses({
 }: AvatarSlotClassOptions): string {
   return cn(
     avatarSlotStyles[slot]({ size, badgePosition }),
-    slot === 'fallback' ? avatarColorClasses[color].fallback : undefined,
-    slot === 'badge' ? avatarColorClasses[badgeColor].badge : undefined,
+    slot === 'fallback' ? 'mk:bg-component mk:text-component-foreground' : undefined,
+    slot === 'badge' ? 'mk:bg-component' : undefined,
     slot === 'badge' ? config?.variants?.badgeColor?.[badgeColor] : undefined,
     slot === 'badge' ? config?.variants?.badgePosition?.[badgePosition] : undefined,
     config?.slots?.[slot],

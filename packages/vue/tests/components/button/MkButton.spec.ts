@@ -3,82 +3,15 @@ import { defineComponent } from 'vue'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 
 import { buttonColors, buttonVariants, createModeKit, MkButton } from '../../../src/index.js'
-import type { ButtonColor } from '../../../src/index.js'
 
-interface ColorClassExpectations {
-  focus: string
-  solid: string
-  foreground: string
-  text: string
-  outline: string
-  soft: string
-  ghost: string
-}
-
-const colorClasses: Record<ButtonColor, ColorClassExpectations> = {
-  primary: {
-    focus: 'mk:focus-visible:outline-primary',
-    solid: 'mk:bg-primary',
-    foreground: 'mk:text-primary-foreground',
-    text: 'mk:text-primary',
-    outline: 'mk:border-primary',
-    soft: 'mk:bg-primary/15',
-    ghost: 'mk:hover:bg-primary/10',
-  },
-  secondary: {
-    focus: 'mk:focus-visible:outline-secondary-foreground',
-    solid: 'mk:bg-secondary',
-    foreground: 'mk:text-secondary-foreground',
-    text: 'mk:text-secondary-foreground',
-    outline: 'mk:border-border',
-    soft: 'mk:bg-secondary/70',
-    ghost: 'mk:hover:bg-secondary/70',
-  },
-  muted: {
-    focus: 'mk:focus-visible:outline-muted-foreground',
-    solid: 'mk:bg-muted',
-    foreground: 'mk:text-muted-foreground',
-    text: 'mk:text-muted-foreground',
-    outline: 'mk:border-border',
-    soft: 'mk:bg-muted/50',
-    ghost: 'mk:hover:bg-muted/60',
-  },
-  success: {
-    focus: 'mk:focus-visible:outline-success',
-    solid: 'mk:bg-success',
-    foreground: 'mk:text-success-foreground',
-    text: 'mk:text-success',
-    outline: 'mk:border-success',
-    soft: 'mk:bg-success/15',
-    ghost: 'mk:hover:bg-success/10',
-  },
-  warning: {
-    focus: 'mk:focus-visible:outline-warning',
-    solid: 'mk:bg-warning',
-    foreground: 'mk:text-warning-foreground',
-    text: 'mk:text-foreground',
-    outline: 'mk:border-warning',
-    soft: 'mk:bg-warning/25',
-    ghost: 'mk:hover:bg-warning/20',
-  },
-  info: {
-    focus: 'mk:focus-visible:outline-info',
-    solid: 'mk:bg-info',
-    foreground: 'mk:text-info-foreground',
-    text: 'mk:text-info',
-    outline: 'mk:border-info',
-    soft: 'mk:bg-info/15',
-    ghost: 'mk:hover:bg-info/10',
-  },
-  destructive: {
-    focus: 'mk:focus-visible:outline-destructive',
-    solid: 'mk:bg-destructive',
-    foreground: 'mk:text-destructive-foreground',
-    text: 'mk:text-destructive',
-    outline: 'mk:border-destructive',
-    soft: 'mk:bg-destructive/15',
-    ghost: 'mk:hover:bg-destructive/10',
-  },
+const colorClasses = {
+  focus: 'mk:focus-visible:outline-component',
+  solid: 'mk:bg-component',
+  foreground: 'mk:text-component-foreground',
+  text: 'mk:text-component',
+  outline: 'mk:border-component',
+  soft: 'mk:bg-component-soft',
+  ghost: 'mk:hover:bg-component-soft',
 }
 
 const combinations = buttonColors.flatMap((color) =>
@@ -96,9 +29,9 @@ describe('MkButton', () => {
     expect(wrapper.attributes('data-mk-color')).toBe('primary')
     expect(wrapper.attributes('data-mk-variant')).toBe('default')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
-    expect(wrapper.classes()).toContain('mk:focus-visible:outline-primary')
-    expect(wrapper.classes()).toContain('mk:bg-primary')
-    expect(wrapper.classes()).toContain('mk:text-primary-foreground')
+    expect(wrapper.classes()).toContain('mk:focus-visible:outline-component')
+    expect(wrapper.classes()).toContain('mk:bg-component')
+    expect(wrapper.classes()).toContain('mk:text-component-foreground')
     expect(wrapper.classes()).toContain('mk:h-10')
     expect(wrapper.text()).toBe('Save')
   })
@@ -112,7 +45,7 @@ describe('MkButton', () => {
     expect(wrapper.classes()).toContain('mk:border-solid')
     expect(wrapper.classes()).toContain('mk:focus-visible:outline-2')
     expect(wrapper.classes()).toContain('mk:focus-visible:outline-solid')
-    expect(wrapper.classes()).toContain('mk:focus-visible:outline-primary')
+    expect(wrapper.classes()).toContain('mk:focus-visible:outline-component')
   })
 
   it.each(combinations)(
@@ -122,7 +55,7 @@ describe('MkButton', () => {
         props: { color, variant },
       })
 
-      const expected = colorClasses[color]
+      const expected = colorClasses
 
       expect(wrapper.attributes('data-mk-color')).toBe(color)
       expect(wrapper.attributes('data-mk-variant')).toBe(variant)
@@ -335,7 +268,7 @@ describe('MkButton', () => {
     expect(wrapper.classes()).toContain('rounded-full')
     expect(wrapper.classes()).toContain('h-14')
     expect(wrapper.classes()).not.toContain('bg-emerald-600')
-    expect(wrapper.classes()).toContain('mk:bg-primary')
+    expect(wrapper.classes()).toContain('mk:bg-component')
     expect(wrapper.classes()).toContain('mk:h-10')
   })
 
@@ -386,8 +319,8 @@ describe('MkButton', () => {
     expect(wrapper.classes()).toContain('text-fuchsia-700')
     expect(wrapper.classes()).toContain('rounded-full')
     expect(wrapper.classes()).toContain('h-14')
-    expect(wrapper.classes()).toContain('mk:border-destructive')
-    expect(wrapper.classes()).toContain('mk:text-destructive')
+    expect(wrapper.classes()).toContain('mk:border-component')
+    expect(wrapper.classes()).toContain('mk:text-component')
     expect(wrapper.classes()).toContain('mk:rounded-xl')
     expect(wrapper.classes()).toContain('mk:h-12')
   })

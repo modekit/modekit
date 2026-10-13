@@ -4,6 +4,7 @@ import {
   avatarBadgePositions,
   avatarColors,
   avatarSizes,
+  modeKitColors,
   type AvatarAs,
   type AvatarBadgePosition,
   type AvatarColor,
@@ -15,23 +16,15 @@ import {
   type AvatarStyleConfig,
   type AvatarUI,
   type ModeKitOptions,
+  type ModeKitColor,
 } from '../../../src/index.js'
 
 describe('Avatar contract', () => {
   it('defines the supported colors, sizes, positions, and loading states', () => {
-    expect(avatarColors).toEqual([
-      'primary',
-      'secondary',
-      'success',
-      'warning',
-      'info',
-      'destructive',
-    ])
+    expect(avatarColors).toEqual(modeKitColors)
     expect(avatarSizes).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     expect(avatarBadgePositions).toEqual(['top-left', 'top-right', 'bottom-left', 'bottom-right'])
-    expectTypeOf<AvatarColor>().toEqualTypeOf<
-      'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'destructive'
-    >()
+    expectTypeOf<AvatarColor>().toEqualTypeOf<ModeKitColor>()
     expectTypeOf<AvatarSize>().toEqualTypeOf<'xs' | 'sm' | 'md' | 'lg' | 'xl'>()
     expectTypeOf<AvatarBadgePosition>().toEqualTypeOf<
       'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'

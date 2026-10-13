@@ -1,21 +1,15 @@
 import type { PrimitiveProps } from 'reka-ui'
 import type { HTMLAttributes, VNodeChild } from 'vue'
 
+import { modeKitColors } from '../../colors.js'
+import type { ModeKitColor } from '../../colors.js'
 import type { ModeKitClassValue } from '../../types/classes.js'
 
-export const calloutColors = [
-  'primary',
-  'secondary',
-  'muted',
-  'success',
-  'warning',
-  'info',
-  'destructive',
-] as const
+export const calloutColors = modeKitColors
 export const calloutVariants = ['solid', 'soft', 'outline'] as const
 export const calloutSizes = ['sm', 'md', 'lg'] as const
 
-export type CalloutColor = (typeof calloutColors)[number]
+export type CalloutColor = ModeKitColor
 export type CalloutVariant = (typeof calloutVariants)[number]
 export type CalloutSize = (typeof calloutSizes)[number]
 export type CalloutAs = NonNullable<PrimitiveProps['as']>

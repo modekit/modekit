@@ -10,7 +10,6 @@ import type {
   BadgeUI,
   BadgeVariant,
 } from '../types.js'
-import { badgeColorCompoundVariants } from './colors.js'
 
 const badgeStyles = cva(
   [
@@ -20,14 +19,6 @@ const badgeStyles = cva(
   ],
   {
     variants: {
-      color: {
-        primary: '',
-        secondary: '',
-        success: '',
-        warning: '',
-        info: '',
-        destructive: '',
-      },
       variant: {
         default: 'mk:border-0',
         soft: 'mk:border-0',
@@ -44,9 +35,19 @@ const badgeStyles = cva(
         false: '',
       },
     },
-    compoundVariants: badgeColorCompoundVariants,
   },
 )
+
+const badgeColorStyles = cva('', {
+  variants: {
+    variant: {
+      default: 'mk:bg-component mk:text-component-foreground',
+      soft: 'mk:bg-component-soft mk:text-component',
+      outline: 'mk:border-component mk:text-component',
+      subtle: 'mk:border-component mk:bg-component-soft mk:text-component',
+    },
+  },
+})
 
 interface BadgeClassOptions {
   color: BadgeColor
@@ -98,7 +99,8 @@ export function getBadgeClasses({
   className,
 }: BadgeClassOptions): string {
   return cn(
-    badgeStyles({ color, variant, size, rounded }),
+    badgeStyles({ variant, size, rounded }),
+    badgeColorStyles({ variant }),
     config?.base,
     config?.variants?.color?.[color],
     config?.variants?.variant?.[variant],

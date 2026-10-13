@@ -144,7 +144,6 @@ export const MkAvatar = defineComponent({
                   ...(props.decoding === undefined ? {} : { decoding: props.decoding }),
                   class: getAvatarSlotClasses({
                     slot: 'image',
-                    color,
                     badgeColor,
                     size,
                     badgePosition,
@@ -163,7 +162,6 @@ export const MkAvatar = defineComponent({
                 ...(props.delayMs === undefined ? {} : { delayMs: props.delayMs }),
                 class: getAvatarSlotClasses({
                   slot: 'fallback',
-                  color,
                   badgeColor,
                   size,
                   badgePosition,
@@ -178,9 +176,9 @@ export const MkAvatar = defineComponent({
             props.badge
               ? h('span', {
                   'aria-hidden': 'true',
+                  'data-mk-color': badgeColor,
                   class: getAvatarSlotClasses({
                     slot: 'badge',
-                    color,
                     badgeColor,
                     size,
                     badgePosition,

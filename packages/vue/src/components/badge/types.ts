@@ -1,20 +1,15 @@
 import type { PrimitiveProps } from 'reka-ui'
 import type { HTMLAttributes, VNodeChild } from 'vue'
 
+import { modeKitColors } from '../../colors.js'
+import type { ModeKitColor } from '../../colors.js'
 import type { ModeKitClassValue } from '../../types/classes.js'
 
-export const badgeColors = [
-  'primary',
-  'secondary',
-  'success',
-  'warning',
-  'info',
-  'destructive',
-] as const
+export const badgeColors = modeKitColors
 export const badgeVariants = ['default', 'soft', 'outline', 'subtle'] as const
 export const badgeSizes = ['sm', 'md', 'lg'] as const
 
-export type BadgeColor = (typeof badgeColors)[number]
+export type BadgeColor = ModeKitColor
 export type BadgeVariant = (typeof badgeVariants)[number]
 export type BadgeSize = (typeof badgeSizes)[number]
 export type BadgeAs = NonNullable<PrimitiveProps['as']>

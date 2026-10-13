@@ -26,9 +26,9 @@ The example uses Lucide's `UserRound` icon.
 
 ### Color
 
-Use `color` to set the semantic fallback surface and foreground. It defaults to `secondary` and is
-independent from the optional status badge. Available colors are `primary`, `secondary`, `success`,
-`warning`, `info`, and `destructive`.
+Use `color` to set the fallback surface and foreground. It defaults to `secondary` and is independent
+from the optional status badge. It accepts any shared `ModeKitColor`, including palette names such as
+`red`, `emerald`, and `violet`.
 
 ### Square
 
@@ -62,24 +62,24 @@ attributes such as `aria-label`, `role`, `title`, and `data-*` are forwarded to 
 
 ### Props
 
-| Prop             | Type                                                                            | Default          | Description                                                   |
-| ---------------- | ------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------- |
-| `as`             | `AsTag \| Component`                                                            | `'span'`         | Changes the rendered root element or component.               |
-| `src`            | `string`                                                                        | —                | Image source; omit it to render only fallback content.        |
-| `alt`            | `string`                                                                        | `''`             | Native alternative text forwarded to the image.               |
-| `fallback`       | `string`                                                                        | —                | Short fallback content, usually initials.                     |
-| `delayMs`        | `number`                                                                        | —                | Delays fallback rendering through Reka's fallback primitive.  |
-| `color`          | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'secondary'`    | Sets fallback semantic color.                                 |
-| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                          | `'md'`           | Sets root, fallback text, icon, and badge dimensions.         |
-| `square`         | `boolean`                                                                       | `false`          | Replaces the circular shape with rounded square corners.      |
-| `badge`          | `boolean`                                                                       | `false`          | Renders a decorative status badge.                            |
-| `badgeColor`     | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'success'`      | Sets the badge color independently from `color`.              |
-| `badgePosition`  | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'`                  | `'bottom-right'` | Positions the status badge.                                   |
-| `referrerPolicy` | `ImgHTMLAttributes['referrerpolicy']`                                           | —                | Controls referrer information for the image request.          |
-| `crossOrigin`    | `ImgHTMLAttributes['crossorigin']`                                              | —                | Configures the image's CORS request mode.                     |
-| `loading`        | `ImgHTMLAttributes['loading']`                                                  | —                | Forwards native eager or lazy loading behavior.               |
-| `decoding`       | `ImgHTMLAttributes['decoding']`                                                 | —                | Forwards the native image decoding hint.                      |
-| `ui`             | `{ base?, image?, fallback?, badge? }`                                          | —                | Adds or overrides classes for this Avatar instance and slots. |
+| Prop             | Type                                                           | Default          | Description                                                   |
+| ---------------- | -------------------------------------------------------------- | ---------------- | ------------------------------------------------------------- |
+| `as`             | `AsTag \| Component`                                           | `'span'`         | Changes the rendered root element or component.               |
+| `src`            | `string`                                                       | —                | Image source; omit it to render only fallback content.        |
+| `alt`            | `string`                                                       | `''`             | Native alternative text forwarded to the image.               |
+| `fallback`       | `string`                                                       | —                | Short fallback content, usually initials.                     |
+| `delayMs`        | `number`                                                       | —                | Delays fallback rendering through Reka's fallback primitive.  |
+| `color`          | `ModeKitColor`                                                 | `'secondary'`    | Sets the fallback color.                                      |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                         | `'md'`           | Sets root, fallback text, icon, and badge dimensions.         |
+| `square`         | `boolean`                                                      | `false`          | Replaces the circular shape with rounded square corners.      |
+| `badge`          | `boolean`                                                      | `false`          | Renders a decorative status badge.                            |
+| `badgeColor`     | `ModeKitColor`                                                 | `'success'`      | Sets the badge color independently from `color`.              |
+| `badgePosition`  | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` | `'bottom-right'` | Positions the status badge.                                   |
+| `referrerPolicy` | `ImgHTMLAttributes['referrerpolicy']`                          | —                | Controls referrer information for the image request.          |
+| `crossOrigin`    | `ImgHTMLAttributes['crossorigin']`                             | —                | Configures the image's CORS request mode.                     |
+| `loading`        | `ImgHTMLAttributes['loading']`                                 | —                | Forwards native eager or lazy loading behavior.               |
+| `decoding`       | `ImgHTMLAttributes['decoding']`                                | —                | Forwards the native image decoding hint.                      |
+| `ui`             | `{ base?, image?, fallback?, badge? }`                         | —                | Adds or overrides classes for this Avatar instance and slots. |
 
 ### Events
 
@@ -96,7 +96,7 @@ attributes such as `aria-label`, `role`, `title`, and `data-*` are forwarded to 
 ## Styling
 
 Avatar is circular by default and clips its image with `overflow-hidden`. The image fills the root
-with `object-cover`; fallback and status badge colors use ModeKit's semantic theme roles.
+with `object-cover`; fallback and status badge colors use ModeKit's shared color system.
 
 ### Local overrides
 

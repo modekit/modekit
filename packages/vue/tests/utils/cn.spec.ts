@@ -4,7 +4,7 @@ import { cn } from '../../src/utils/cn.js'
 
 describe('cn', () => {
   it('merges conflicting ModeKit utilities', () => {
-    expect(cn('mk:bg-primary mk:bg-destructive', 'mk:p-4 mk:p-8')).toBe('mk:bg-destructive mk:p-8')
+    expect(cn('mk:bg-blue-500 mk:bg-red-500', 'mk:p-4 mk:p-8')).toBe('mk:bg-red-500 mk:p-8')
   })
 
   it('merges conflicting application utilities', () => {

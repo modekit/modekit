@@ -9,24 +9,21 @@ import type {
   ButtonType,
   ButtonUI,
   ButtonVariant,
+  ModeKitColor,
   ModeKitOptions,
 } from '../../../src/index.js'
-import { buttonColors, buttonSizes, buttonTypes, buttonVariants } from '../../../src/index.js'
+import {
+  buttonColors,
+  buttonSizes,
+  buttonTypes,
+  buttonVariants,
+  modeKitColors,
+} from '../../../src/index.js'
 
 describe('Button contract', () => {
   it('defines the supported colors, variants, sizes, and native button types', () => {
-    expect(buttonColors).toEqual([
-      'primary',
-      'secondary',
-      'muted',
-      'success',
-      'warning',
-      'info',
-      'destructive',
-    ])
-    expectTypeOf<ButtonColor>().toEqualTypeOf<
-      'primary' | 'secondary' | 'muted' | 'success' | 'warning' | 'info' | 'destructive'
-    >()
+    expect(buttonColors).toEqual(modeKitColors)
+    expectTypeOf<ButtonColor>().toEqualTypeOf<ModeKitColor>()
     expect(buttonVariants).toEqual(['default', 'outline', 'soft', 'subtle', 'ghost', 'link'])
     expect(buttonSizes).toEqual(['xs', 'sm', 'md', 'lg'])
     expect(buttonTypes).toEqual(['button', 'submit', 'reset'])

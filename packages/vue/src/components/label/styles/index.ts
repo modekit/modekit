@@ -17,7 +17,7 @@ const labelStyles = cva(
   },
 )
 
-const requiredIndicatorStyles = 'mk-label__required mk:ml-0.5 mk:text-destructive'
+const requiredIndicatorStyles = 'mk-label__required mk:ml-0.5 mk:text-red-700 mk:dark:text-red-400'
 
 interface LabelClassOptions {
   size: LabelSize

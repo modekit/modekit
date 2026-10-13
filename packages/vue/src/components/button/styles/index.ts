@@ -10,7 +10,6 @@ import type {
   ButtonUI,
   ButtonVariant,
 } from '../types.js'
-import { buttonColorClasses, buttonColorCompoundVariants } from './colors.js'
 
 const buttonBaseClasses = [
   'mk-button',
@@ -24,15 +23,6 @@ const buttonBaseClasses = [
 
 const buttonStyles = cva(buttonBaseClasses, {
   variants: {
-    color: {
-      primary: buttonColorClasses.primary.focus,
-      secondary: buttonColorClasses.secondary.focus,
-      muted: buttonColorClasses.muted.focus,
-      success: buttonColorClasses.success.focus,
-      warning: buttonColorClasses.warning.focus,
-      info: buttonColorClasses.info.focus,
-      destructive: buttonColorClasses.destructive.focus,
-    },
     variant: {
       default: 'mk:border-0',
       outline: 'mk:border mk:bg-transparent',
@@ -52,7 +42,22 @@ const buttonStyles = cva(buttonBaseClasses, {
       false: '',
     },
   },
-  compoundVariants: buttonColorCompoundVariants,
+})
+
+const buttonColorStyles = cva('mk:focus-visible:outline-component', {
+  variants: {
+    variant: {
+      default:
+        'mk:bg-component mk:text-component-foreground mk:hover:bg-component-hover mk:active:bg-component-active',
+      outline:
+        'mk:border-component mk:text-component mk:hover:bg-component-soft mk:active:bg-component-soft-hover',
+      soft: 'mk:bg-component-soft mk:text-component mk:hover:bg-component-soft-hover mk:active:bg-component-soft-active',
+      subtle:
+        'mk:border-component mk:bg-component-soft mk:text-component mk:hover:bg-component-soft-hover mk:active:bg-component-soft-active',
+      ghost: 'mk:text-component mk:hover:bg-component-soft mk:active:bg-component-soft-hover',
+      link: 'mk:text-component',
+    },
+  },
 })
 
 interface ButtonClassOptions {
@@ -100,7 +105,8 @@ export function getButtonClasses({
   className,
 }: ButtonClassOptions): string {
   return cn(
-    buttonStyles({ color, variant, size, square }),
+    buttonStyles({ variant, size, square }),
+    buttonColorStyles({ variant }),
     config?.base,
     config?.variants?.color?.[color],
     config?.variants?.variant?.[variant],

@@ -220,7 +220,8 @@ describe('MkInput', () => {
           'mk:after:duration-150',
           'mk:has-focus-visible:after:border-ring',
           'mk:has-focus-visible:after:opacity-100',
-          'mk:data-[mk-invalid]:has-focus-visible:after:border-destructive',
+          'mk:data-[mk-invalid]:has-focus-visible:after:border-red-700',
+          'mk:dark:data-[mk-invalid]:has-focus-visible:after:border-red-400',
           'mk:motion-reduce:after:transition-none',
         ]),
       )

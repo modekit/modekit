@@ -4,6 +4,7 @@ import {
   calloutColors,
   calloutSizes,
   calloutVariants,
+  modeKitColors,
   type CalloutAs,
   type CalloutCloseSlotProps,
   type CalloutColor,
@@ -16,24 +17,15 @@ import {
   type CalloutUI,
   type CalloutVariant,
   type ModeKitOptions,
+  type ModeKitColor,
 } from '../../../src/index.js'
 
 describe('Callout contract', () => {
-  it('defines supported semantic colors, treatments, and sizes', () => {
-    expect(calloutColors).toEqual([
-      'primary',
-      'secondary',
-      'muted',
-      'success',
-      'warning',
-      'info',
-      'destructive',
-    ])
+  it('defines supported colors, treatments, and sizes', () => {
+    expect(calloutColors).toEqual(modeKitColors)
     expect(calloutVariants).toEqual(['solid', 'soft', 'outline'])
     expect(calloutSizes).toEqual(['sm', 'md', 'lg'])
-    expectTypeOf<CalloutColor>().toEqualTypeOf<
-      'primary' | 'secondary' | 'muted' | 'success' | 'warning' | 'info' | 'destructive'
-    >()
+    expectTypeOf<CalloutColor>().toEqualTypeOf<ModeKitColor>()
     expectTypeOf<CalloutVariant>().toEqualTypeOf<'solid' | 'soft' | 'outline'>()
     expectTypeOf<CalloutSize>().toEqualTypeOf<'sm' | 'md' | 'lg'>()
   })

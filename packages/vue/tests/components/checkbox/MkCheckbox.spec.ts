@@ -83,7 +83,8 @@ describe('MkCheckbox', () => {
     expect(control.attributes('aria-describedby')).toBe('terms-error')
     expect(control.attributes('aria-invalid')).toBe('true')
     expect(control.attributes('aria-required')).toBe('true')
-    expect(control.classes()).toContain('mk:aria-invalid:border-destructive')
+    expect(control.classes()).toContain('mk:aria-invalid:border-red-700')
+    expect(control.classes()).toContain('mk:dark:aria-invalid:border-red-400')
   })
 
   it('uses MkLabel for required field presentation', () => {

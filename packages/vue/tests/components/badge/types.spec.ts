@@ -4,6 +4,7 @@ import {
   badgeColors,
   badgeSizes,
   badgeVariants,
+  modeKitColors,
   type BadgeAs,
   type BadgeColor,
   type BadgeCompoundVariant,
@@ -13,21 +14,13 @@ import {
   type BadgeUI,
   type BadgeVariant,
   type ModeKitOptions,
+  type ModeKitColor,
 } from '../../../src/index.js'
 
 describe('Badge contract', () => {
   it('defines the supported colors, variants, and sizes', () => {
-    expect(badgeColors).toEqual([
-      'primary',
-      'secondary',
-      'success',
-      'warning',
-      'info',
-      'destructive',
-    ])
-    expectTypeOf<BadgeColor>().toEqualTypeOf<
-      'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'destructive'
-    >()
+    expect(badgeColors).toEqual(modeKitColors)
+    expectTypeOf<BadgeColor>().toEqualTypeOf<ModeKitColor>()
     expect(badgeVariants).toEqual(['default', 'soft', 'outline', 'subtle'])
     expectTypeOf<BadgeVariant>().toEqualTypeOf<'default' | 'soft' | 'outline' | 'subtle'>()
     expect(badgeSizes).toEqual(['sm', 'md', 'lg'])

@@ -13,8 +13,8 @@ and `muted` for lower-priority, subdued notices. Always reinforce color with cle
 
 <ComponentPreview name="callout/CalloutColor" />
 
-Available colors are `primary`, `secondary`, `muted`, `success`, `warning`, `info`, and
-`destructive`.
+Callout accepts any shared `ModeKitColor`, including palette names such as `red`, `emerald`, and
+`violet`.
 
 ### Variant
 
@@ -83,16 +83,16 @@ attributes, including `role`, are forwarded to that root.
 
 ### Props
 
-| Prop           | Type                                                                                       | Default             | Description                                                     |
-| -------------- | ------------------------------------------------------------------------------------------ | ------------------- | --------------------------------------------------------------- |
-| `as`           | `AsTag \| Component`                                                                       | `'div'`             | Changes the rendered root element or component.                 |
-| `color`        | `'primary' \| 'secondary' \| 'muted' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'info'`            | Sets the Callout's semantic intent.                             |
-| `variant`      | `'solid' \| 'soft' \| 'outline'`                                                           | `'soft'`            | Sets the surface treatment independently of color.              |
-| `size`         | `'sm' \| 'md' \| 'lg'`                                                                     | `'md'`              | Sets spacing, typography, icon, action, and close geometry.     |
-| `title`        | `string`                                                                                   | —                   | Renders a concise title before the supporting message.          |
-| `dismissible`  | `boolean`                                                                                  | `false`             | Renders the close button without owning visibility state.       |
-| `dismissLabel` | `string`                                                                                   | `'Dismiss callout'` | Sets the close button's accessible name.                        |
-| `ui`           | `{ base?, icon?, content?, title?, description?, actions?, close? }`                       | —                   | Adds or overrides classes for the root and named Callout slots. |
+| Prop           | Type                                                                 | Default             | Description                                                     |
+| -------------- | -------------------------------------------------------------------- | ------------------- | --------------------------------------------------------------- |
+| `as`           | `AsTag \| Component`                                                 | `'div'`             | Changes the rendered root element or component.                 |
+| `color`        | `ModeKitColor`                                                       | `'info'`            | Sets the Callout color.                                         |
+| `variant`      | `'solid' \| 'soft' \| 'outline'`                                     | `'soft'`            | Sets the surface treatment independently of color.              |
+| `size`         | `'sm' \| 'md' \| 'lg'`                                               | `'md'`              | Sets spacing, typography, icon, action, and close geometry.     |
+| `title`        | `string`                                                             | —                   | Renders a concise title before the supporting message.          |
+| `dismissible`  | `boolean`                                                            | `false`             | Renders the close button without owning visibility state.       |
+| `dismissLabel` | `string`                                                             | `'Dismiss callout'` | Sets the close button's accessible name.                        |
+| `ui`           | `{ base?, icon?, content?, title?, description?, actions?, close? }` | —                   | Adds or overrides classes for the root and named Callout slots. |
 
 All other attributes and classes are forwarded to the rendered root. Because `title` is a supported
 content prop, it does not become the root element's native `title` attribute.
@@ -115,12 +115,10 @@ content prop, it does not become the root element's native `title` attribute.
 
 ## Styling
 
-### Semantic colors
+### Colors
 
-Callout consumes ModeKit's shared primary, secondary, muted, success, warning, info, and destructive
-theme variables. Muted treatments use `muted-foreground` for intentionally subdued content. The
-warning soft and outlined treatments retain the normal foreground color because the warning token is
-optimized as a surface color in both light and dark themes.
+Callout consumes ModeKit's shared color variables. Each supported color works with every surface
+variant and adapts automatically in dark mode.
 
 ### Local overrides
 

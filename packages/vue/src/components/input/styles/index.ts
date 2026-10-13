@@ -8,7 +8,7 @@ const animatedFocusRingStyles = [
   "mk:after:pointer-events-none mk:after:absolute mk:after:-inset-1 mk:after:border-2 mk:after:border-solid mk:after:border-transparent mk:after:opacity-0 mk:after:content-['']",
   'mk:after:transition-[opacity,border-color] mk:after:duration-150 mk:after:ease-out',
   'mk:has-focus-visible:after:border-ring mk:has-focus-visible:after:opacity-100',
-  'mk:data-[mk-invalid]:has-focus-visible:after:border-destructive',
+  'mk:data-[mk-invalid]:has-focus-visible:after:border-red-700 mk:dark:data-[mk-invalid]:has-focus-visible:after:border-red-400',
   'mk:motion-reduce:after:transition-none',
 ]
 
@@ -25,29 +25,30 @@ const inputStyles = cva(
         outline: [
           'mk:border mk:border-input mk:bg-background',
           'mk:has-focus-visible:border-ring',
-          'mk:data-[mk-invalid]:border-destructive',
+          'mk:data-[mk-invalid]:border-red-700 mk:dark:data-[mk-invalid]:border-red-400',
           'mk:data-[mk-readonly]:bg-muted/50',
           ...animatedFocusRingStyles,
         ],
         soft: [
           'mk:border-0 mk:bg-muted',
-          'mk:data-[mk-invalid]:outline-1 mk:data-[mk-invalid]:outline-solid mk:data-[mk-invalid]:outline-destructive',
+          'mk:data-[mk-invalid]:outline-1 mk:data-[mk-invalid]:outline-solid mk:data-[mk-invalid]:outline-red-700 mk:dark:data-[mk-invalid]:outline-red-400',
           ...animatedFocusRingStyles,
         ],
         subtle: [
           'mk:border mk:border-border mk:bg-muted/50',
           'mk:has-focus-visible:border-ring',
-          'mk:data-[mk-invalid]:border-destructive',
+          'mk:data-[mk-invalid]:border-red-700 mk:dark:data-[mk-invalid]:border-red-400',
           ...animatedFocusRingStyles,
         ],
         ghost: [
           'mk:border-0 mk:bg-transparent mk:hover:bg-muted/50',
           'mk:has-focus-visible:bg-muted/50',
-          'mk:data-[mk-invalid]:outline-1 mk:data-[mk-invalid]:outline-solid mk:data-[mk-invalid]:outline-destructive',
+          'mk:data-[mk-invalid]:outline-1 mk:data-[mk-invalid]:outline-solid mk:data-[mk-invalid]:outline-red-700 mk:dark:data-[mk-invalid]:outline-red-400',
           'mk:data-[mk-readonly]:bg-muted/50',
           ...animatedFocusRingStyles,
         ],
-        plain: 'mk:border-0 mk:bg-transparent mk:data-[mk-invalid]:text-destructive',
+        plain:
+          'mk:border-0 mk:bg-transparent mk:data-[mk-invalid]:text-red-700 mk:dark:data-[mk-invalid]:text-red-400',
       },
       size: {
         sm: 'mk:h-8 mk:rounded-md mk:after:rounded-lg',
@@ -160,7 +161,7 @@ const inputLabelStyles = cva(
       },
       invalid: {
         false: '',
-        true: 'mk:text-destructive',
+        true: 'mk:text-red-700 mk:dark:text-red-400',
       },
     },
     compoundVariants: [

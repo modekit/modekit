@@ -29,7 +29,7 @@ describe('MkAvatar', () => {
     expect(wrapper.classes()).toContain('mk:overflow-visible')
     expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:overflow-hidden')
     expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:rounded-[inherit]')
-    expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:bg-secondary')
+    expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:bg-component')
     expect(wrapper.text()).toBe('JD')
   })
 
@@ -81,23 +81,15 @@ describe('MkAvatar', () => {
     },
   )
 
-  it.each([
-    ['primary', 'mk:bg-primary', 'mk:text-primary-foreground'],
-    ['secondary', 'mk:bg-secondary', 'mk:text-secondary-foreground'],
-    ['success', 'mk:bg-success', 'mk:text-success-foreground'],
-    ['warning', 'mk:bg-warning', 'mk:text-foreground'],
-    ['info', 'mk:bg-info', 'mk:text-info-foreground'],
-    ['destructive', 'mk:bg-destructive', 'mk:text-destructive-foreground'],
-  ] as const)('resolves the %s fallback color', (color, backgroundClass, foregroundClass) => {
+  it.each(avatarColors)('resolves the %s fallback color', (color) => {
     const wrapper = mount(MkAvatar, {
       props: { color, fallback: 'JD' },
     })
     const fallback = wrapper.findComponent(AvatarFallback)
 
-    expect(avatarColors).toContain(color)
     expect(wrapper.attributes('data-mk-color')).toBe(color)
-    expect(fallback.classes()).toContain(backgroundClass)
-    expect(fallback.classes()).toContain(foregroundClass)
+    expect(fallback.classes()).toContain('mk:bg-component')
+    expect(fallback.classes()).toContain('mk:text-component-foreground')
   })
 
   it('uses the default slot as custom fallback content without image props', () => {
@@ -191,12 +183,12 @@ describe('MkAvatar', () => {
     expect(wrapper.attributes('data-mk-color')).toBe('destructive')
     expect(wrapper.attributes('data-mk-badge-color')).toBe('success')
     expect(wrapper.attributes('data-mk-badge-position')).toBe(badgePosition)
-    expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:bg-destructive')
+    expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:bg-component')
     expect(badge.exists()).toBe(true)
     expect(badge.attributes('aria-hidden')).toBe('true')
     expect(badge.classes()).toContain(blockClass)
     expect(badge.classes()).toContain(inlineClass)
-    expect(badge.classes()).toContain('mk:bg-success')
+    expect(badge.classes()).toContain('mk:bg-component')
   })
 
   it('does not render a badge unless enabled', () => {
@@ -227,7 +219,7 @@ describe('MkAvatar', () => {
     expect(wrapper.classes()).toContain('team-avatar')
     expect(wrapper.findComponent(AvatarFallback).classes()).toContain('font-bold')
     expect(wrapper.attributes('data-mk-badge-color')).toBe('success')
-    expect(wrapper.find('.mk-avatar__badge').classes()).toContain('mk:bg-success')
+    expect(wrapper.find('.mk-avatar__badge').classes()).toContain('mk:bg-component')
     expect(wrapper.find('.mk-avatar__badge').classes()).toContain('outline')
   })
 
@@ -292,7 +284,7 @@ describe('MkAvatar', () => {
     expect(wrapper.classes()).toContain('outline')
     expect(wrapper.findComponent(AvatarImage).classes()).toContain('grayscale')
     expect(wrapper.findComponent(AvatarFallback).classes()).toContain('tracking-wide')
-    expect(wrapper.find('.mk-avatar__badge').classes()).toContain('mk:bg-warning')
+    expect(wrapper.find('.mk-avatar__badge').classes()).toContain('mk:bg-component')
     expect(wrapper.find('.mk-avatar__badge').classes()).toContain('border')
     expect(wrapper.find('.mk-avatar__badge').classes()).toContain('shadow-sm')
     expect(wrapper.find('.mk-avatar__badge').classes()).toContain('m-0.5')

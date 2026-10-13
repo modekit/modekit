@@ -1,16 +1,11 @@
 import type { AvatarRootProps } from 'reka-ui'
 import type { HTMLAttributes, ImgHTMLAttributes, VNodeChild } from 'vue'
 
+import { modeKitColors } from '../../colors.js'
+import type { ModeKitColor } from '../../colors.js'
 import type { ModeKitClassValue } from '../../types/classes.js'
 
-export const avatarColors = [
-  'primary',
-  'secondary',
-  'success',
-  'warning',
-  'info',
-  'destructive',
-] as const
+export const avatarColors = modeKitColors
 export const avatarSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
 export const avatarBadgePositions = [
   'top-left',
@@ -20,7 +15,7 @@ export const avatarBadgePositions = [
 ] as const
 export const avatarGroupSpacings = ['tight', 'normal', 'loose'] as const
 
-export type AvatarColor = (typeof avatarColors)[number]
+export type AvatarColor = ModeKitColor
 export type AvatarSize = (typeof avatarSizes)[number]
 export type AvatarBadgePosition = (typeof avatarBadgePositions)[number]
 export type AvatarGroupSpacing = (typeof avatarGroupSpacings)[number]

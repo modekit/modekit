@@ -7,12 +7,12 @@ independent color and surface variants, Tailwind state classes, and native attri
 
 ### Color
 
-Use the `color` prop to communicate semantic intent. It defaults to `primary`.
+Use the `color` prop to select a semantic alias or palette family. It defaults to `primary`.
 
 <ComponentPreview name="button/ButtonColor" />
 
-Available colors are `primary`, `secondary`, `muted`, `success`, `warning`, `info`, and
-`destructive`. Every color works independently with every variant.
+It accepts any shared `ModeKitColor`, including palette names such as `red`, `emerald`, and `violet`.
+Every color works independently with every variant.
 
 ### Variant
 
@@ -60,16 +60,16 @@ Use the native `disabled` prop to prevent interaction.
 
 ### Props
 
-| Prop       | Type                                                                                       | Default     | Description                                                   |
-| ---------- | ------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------- |
-| `color`    | `'primary' \| 'secondary' \| 'muted' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'primary'` | Sets the action's semantic color intent.                      |
-| `variant`  | `'default' \| 'outline' \| 'soft' \| 'subtle' \| 'ghost' \| 'link'`                        | `'default'` | Sets the surface treatment independently of color.            |
-| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`                                                             | `'md'`      | Sets control and icon geometry.                               |
-| `loading`  | `boolean`                                                                                  | `false`     | Marks the button busy and prevents additional activation.     |
-| `disabled` | `boolean`                                                                                  | `false`     | Disables the native button.                                   |
-| `square`   | `boolean`                                                                                  | `false`     | Uses equal width and height for icon-only or custom controls. |
-| `type`     | `'button' \| 'submit' \| 'reset'`                                                          | `'button'`  | Sets the native button type.                                  |
-| `ui`       | `{ base?: ModeKitClassValue }`                                                             | —           | Adds or overrides classes for this Button instance.           |
+| Prop       | Type                                                                | Default     | Description                                                   |
+| ---------- | ------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- |
+| `color`    | `ModeKitColor`                                                      | `'primary'` | Sets the action color.                                        |
+| `variant`  | `'default' \| 'outline' \| 'soft' \| 'subtle' \| 'ghost' \| 'link'` | `'default'` | Sets the surface treatment independently of color.            |
+| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`                                      | `'md'`      | Sets control and icon geometry.                               |
+| `loading`  | `boolean`                                                           | `false`     | Marks the button busy and prevents additional activation.     |
+| `disabled` | `boolean`                                                           | `false`     | Disables the native button.                                   |
+| `square`   | `boolean`                                                           | `false`     | Uses equal width and height for icon-only or custom controls. |
+| `type`     | `'button' \| 'submit' \| 'reset'`                                   | `'button'`  | Sets the native button type.                                  |
+| `ui`       | `{ base?: ModeKitClassValue }`                                      | —           | Adds or overrides classes for this Button instance.           |
 
 All other native button attributes, listeners, and classes are forwarded to the underlying
 `<button>`.
@@ -87,21 +87,20 @@ All other native button attributes, listeners, and classes are forwarded to the 
 
 ### Theme colors
 
-ModeKit exposes semantic theme roles backed by its packaged Tailwind palette. Button supports every
-shared action and status role while keeping color independent from surface treatment.
+ModeKit exposes a primary theme pair, a configurable neutral scale, palette colors, and semantic
+aliases. Button keeps color independent from surface treatment.
 
 | Role          | Default light palette | Default dark palette |
 | ------------- | --------------------- | -------------------- |
 | `primary`     | `neutral-900`         | `neutral-50`         |
-| `secondary`   | `neutral-100`         | `neutral-800`        |
-| `muted`       | `neutral-100`         | `neutral-800`        |
+| `neutral`     | `zinc-700`            | `zinc-300`           |
 | `success`     | `green-700`           | `green-400`          |
 | `warning`     | `amber-400`           | `amber-300`          |
 | `info`        | `sky-700`             | `sky-400`            |
 | `destructive` | `red-700`             | `red-400`            |
 
-Override the matching `--mk-<role>` and `--mk-<role>-foreground` variables after importing ModeKit
-styles to theme these roles without rewriting component recipes.
+Override `--mk-primary`, `--mk-primary-foreground`, or the `--mk-neutral-*` aliases after importing
+ModeKit styles. Direct palette colors use ModeKit's packaged Tailwind palette.
 
 ### Corner scale
 

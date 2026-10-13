@@ -35,26 +35,28 @@ This keeps ModeKit's generated utility selectors and theme variables separate fr
 application styles. ModeKit does not include Tailwind Preflight, so importing the package does not
 reset the application's elements.
 
-## Semantic theme
+## Theme colors
 
-Components use semantic roles rather than a specific palette color. Each surface role has a matching
-foreground where needed:
+ModeKit keeps the application theme focused on a primary pair and a neutral scale. Surface roles are
+derived from those values:
 
-| Role                                     | Purpose                                |
-| ---------------------------------------- | -------------------------------------- |
-| `background` / `foreground`              | Application canvas and default text    |
-| `surface` / `surface-foreground`         | Raised component surfaces              |
-| `primary` / `primary-foreground`         | Primary actions and emphasized content |
-| `secondary` / `secondary-foreground`     | Lower-emphasis controls and surfaces   |
-| `muted` / `muted-foreground`             | Subdued surfaces and supporting text   |
-| `accent` / `accent-foreground`           | Selected or highlighted content        |
-| `border`                                 | General component boundaries           |
-| `input`                                  | Form-control boundaries                |
-| `ring`                                   | Focus rings                            |
-| `success` / `success-foreground`         | Successful outcomes                    |
-| `warning` / `warning-foreground`         | Cautionary states                      |
-| `info` / `info-foreground`               | Informational states                   |
-| `destructive` / `destructive-foreground` | Harmful or irreversible actions        |
+| Role                                 | Purpose                                |
+| ------------------------------------ | -------------------------------------- |
+| `background` / `foreground`          | Application canvas and default text    |
+| `surface` / `surface-foreground`     | Raised component surfaces              |
+| `primary` / `primary-foreground`     | Primary actions and emphasized content |
+| `secondary` / `secondary-foreground` | Lower-emphasis controls and surfaces   |
+| `muted` / `muted-foreground`         | Subdued surfaces and supporting text   |
+| `accent` / `accent-foreground`       | Selected or highlighted content        |
+| `border`                             | General component boundaries           |
+| `input`                              | Form-control boundaries                |
+| `ring`                               | Focus rings                            |
+
+Color-capable components accept `primary`, neutral aliases, semantic aliases, and Tailwind palette
+families. Palette values include `slate`, `gray`, `zinc`, `stone`, `red`, `orange`, `amber`,
+`yellow`, `lime`, `green`, `emerald`, `teal`, `cyan`, `sky`, `blue`, `indigo`, `violet`, `purple`,
+`fuchsia`, `pink`, and `rose`. Semantic aliases remain available: `success` uses green, `warning`
+uses amber, `info` uses sky, and `destructive` uses red.
 
 The defaults are ordinary CSS custom properties. There is no color generator or JavaScript theme
 resolver.
@@ -62,18 +64,17 @@ resolver.
 ```css
 :root {
   --mk-background: var(--mk-color-white);
-  --mk-foreground: var(--mk-color-neutral-950);
-  --mk-primary: var(--mk-color-neutral-900);
+  --mk-neutral-950: var(--mk-color-zinc-950);
+  --mk-foreground: var(--mk-neutral-950);
+  --mk-primary: var(--mk-neutral-900);
   --mk-primary-foreground: var(--mk-color-white);
-  --mk-destructive: var(--mk-color-red-700);
-  --mk-destructive-foreground: var(--mk-color-white);
 }
 
 .dark {
-  --mk-background: var(--mk-color-neutral-950);
-  --mk-foreground: var(--mk-color-neutral-50);
-  --mk-primary: var(--mk-color-neutral-50);
-  --mk-primary-foreground: var(--mk-color-neutral-950);
+  --mk-background: var(--mk-neutral-950);
+  --mk-foreground: var(--mk-neutral-50);
+  --mk-primary: var(--mk-neutral-50);
+  --mk-primary-foreground: var(--mk-neutral-950);
 }
 ```
 
@@ -87,6 +88,9 @@ rewriting component recipes:
   --mk-ring: #6366f1;
 }
 ```
+
+To select a different neutral family, override the `--mk-neutral-50` through `--mk-neutral-950`
+aliases. They use the zinc scale by default.
 
 Add `dark` to an ancestor to activate ModeKit's dark defaults. The application remains responsible
 for deciding when that class is present and for setting the document's `color-scheme`; ModeKit does

@@ -3,72 +3,14 @@ import { Primitive } from 'reka-ui'
 import { h } from 'vue'
 import { describe, expect, it } from 'vitest'
 
-import {
-  calloutColors,
-  calloutVariants,
-  createModeKit,
-  MkCallout,
-  type CalloutColor,
-} from '../../../src/index.js'
+import { calloutColors, calloutVariants, createModeKit, MkCallout } from '../../../src/index.js'
 
-interface ColorClassExpectations {
-  solid: string
-  foreground: string
-  text: string
-  outline: string
-  soft: string
-}
-
-const colorClasses: Record<CalloutColor, ColorClassExpectations> = {
-  primary: {
-    solid: 'mk:bg-primary',
-    foreground: 'mk:text-primary-foreground',
-    text: 'mk:text-primary',
-    outline: 'mk:border-primary',
-    soft: 'mk:bg-primary/15',
-  },
-  secondary: {
-    solid: 'mk:bg-secondary',
-    foreground: 'mk:text-secondary-foreground',
-    text: 'mk:text-secondary-foreground',
-    outline: 'mk:border-border',
-    soft: 'mk:bg-secondary/70',
-  },
-  muted: {
-    solid: 'mk:bg-muted',
-    foreground: 'mk:text-muted-foreground',
-    text: 'mk:text-muted-foreground',
-    outline: 'mk:border-border',
-    soft: 'mk:bg-muted/50',
-  },
-  success: {
-    solid: 'mk:bg-success',
-    foreground: 'mk:text-success-foreground',
-    text: 'mk:text-success',
-    outline: 'mk:border-success',
-    soft: 'mk:bg-success/15',
-  },
-  warning: {
-    solid: 'mk:bg-warning',
-    foreground: 'mk:text-warning-foreground',
-    text: 'mk:text-foreground',
-    outline: 'mk:border-warning',
-    soft: 'mk:bg-warning/25',
-  },
-  info: {
-    solid: 'mk:bg-info',
-    foreground: 'mk:text-info-foreground',
-    text: 'mk:text-info',
-    outline: 'mk:border-info',
-    soft: 'mk:bg-info/15',
-  },
-  destructive: {
-    solid: 'mk:bg-destructive',
-    foreground: 'mk:text-destructive-foreground',
-    text: 'mk:text-destructive',
-    outline: 'mk:border-destructive',
-    soft: 'mk:bg-destructive/15',
-  },
+const colorClasses = {
+  solid: 'mk:bg-component',
+  foreground: 'mk:text-component-foreground',
+  text: 'mk:text-component',
+  outline: 'mk:border-component',
+  soft: 'mk:bg-component-soft',
 }
 
 const combinations = calloutColors.flatMap((color) =>
@@ -89,8 +31,8 @@ describe('MkCallout', () => {
     expect(wrapper.attributes('data-mk-variant')).toBe('soft')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.attributes('data-mk-dismissible')).toBeUndefined()
-    expect(wrapper.classes()).toContain('mk:bg-info/15')
-    expect(wrapper.classes()).toContain('mk:text-info')
+    expect(wrapper.classes()).toContain('mk:bg-component-soft')
+    expect(wrapper.classes()).toContain('mk:text-component')
     expect(wrapper.classes()).toContain('mk:p-4')
     expect(wrapper.find('.mk-callout__title').text()).toBe('Update available')
     expect(wrapper.find('.mk-callout__description').text()).toBe(
@@ -121,7 +63,7 @@ describe('MkCallout', () => {
     'resolves the $color/$variant classes from the Callout style recipe',
     ({ color, variant }) => {
       const wrapper = mount(MkCallout, { props: { color, variant } })
-      const expected = colorClasses[color]
+      const expected = colorClasses
 
       expect(wrapper.attributes('data-mk-color')).toBe(color)
       expect(wrapper.attributes('data-mk-variant')).toBe(variant)
@@ -350,8 +292,8 @@ describe('MkCallout', () => {
     expect(wrapper.classes()).toContain('min-h-20')
     expect(wrapper.classes()).toContain('uppercase')
     expect(wrapper.classes()).toContain('ring-1')
-    expect(wrapper.classes()).toContain('mk:border-destructive')
-    expect(wrapper.classes()).toContain('mk:text-destructive')
+    expect(wrapper.classes()).toContain('mk:border-component')
+    expect(wrapper.classes()).toContain('mk:text-component')
     expect(wrapper.classes()).toContain('mk:p-5')
     expect(wrapper.find('.mk-callout__icon').classes()).toContain('icon-global')
     expect(wrapper.find('.mk-callout__content').classes()).toContain('content-global')

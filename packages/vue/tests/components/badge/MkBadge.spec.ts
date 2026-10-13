@@ -2,65 +2,14 @@ import { mount } from '@vue/test-utils'
 import { Primitive } from 'reka-ui'
 import { describe, expect, it } from 'vitest'
 
-import {
-  badgeColors,
-  badgeVariants,
-  createModeKit,
-  MkBadge,
-  type BadgeColor,
-} from '../../../src/index.js'
+import { badgeColors, badgeVariants, createModeKit, MkBadge } from '../../../src/index.js'
 
-interface ColorClassExpectations {
-  solid: string
-  foreground: string
-  text: string
-  outline: string
-  soft: string
-}
-
-const colorClasses: Record<BadgeColor, ColorClassExpectations> = {
-  primary: {
-    solid: 'mk:bg-primary',
-    foreground: 'mk:text-primary-foreground',
-    text: 'mk:text-primary',
-    outline: 'mk:border-primary',
-    soft: 'mk:bg-primary/15',
-  },
-  secondary: {
-    solid: 'mk:bg-secondary',
-    foreground: 'mk:text-secondary-foreground',
-    text: 'mk:text-secondary-foreground',
-    outline: 'mk:border-border',
-    soft: 'mk:bg-secondary/70',
-  },
-  success: {
-    solid: 'mk:bg-success',
-    foreground: 'mk:text-success-foreground',
-    text: 'mk:text-success',
-    outline: 'mk:border-success',
-    soft: 'mk:bg-success/15',
-  },
-  warning: {
-    solid: 'mk:bg-warning',
-    foreground: 'mk:text-warning-foreground',
-    text: 'mk:text-foreground',
-    outline: 'mk:border-warning',
-    soft: 'mk:bg-warning/25',
-  },
-  info: {
-    solid: 'mk:bg-info',
-    foreground: 'mk:text-info-foreground',
-    text: 'mk:text-info',
-    outline: 'mk:border-info',
-    soft: 'mk:bg-info/15',
-  },
-  destructive: {
-    solid: 'mk:bg-destructive',
-    foreground: 'mk:text-destructive-foreground',
-    text: 'mk:text-destructive',
-    outline: 'mk:border-destructive',
-    soft: 'mk:bg-destructive/15',
-  },
+const colorClasses = {
+  solid: 'mk:bg-component',
+  foreground: 'mk:text-component-foreground',
+  text: 'mk:text-component',
+  outline: 'mk:border-component',
+  soft: 'mk:bg-component-soft',
 }
 
 const combinations = badgeColors.flatMap((color) =>
@@ -79,8 +28,8 @@ describe('MkBadge', () => {
     expect(wrapper.attributes('data-mk-variant')).toBe('default')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.attributes('data-mk-rounded')).toBeUndefined()
-    expect(wrapper.classes()).toContain('mk:bg-primary')
-    expect(wrapper.classes()).toContain('mk:text-primary-foreground')
+    expect(wrapper.classes()).toContain('mk:bg-component')
+    expect(wrapper.classes()).toContain('mk:text-component-foreground')
     expect(wrapper.classes()).toContain('mk:py-1')
     expect(wrapper.classes()).toContain('mk:text-sm')
     expect(wrapper.classes()).toContain('mk:rounded-md')
@@ -105,7 +54,7 @@ describe('MkBadge', () => {
       const wrapper = mount(MkBadge, {
         props: { color, variant },
       })
-      const expected = colorClasses[color]
+      const expected = colorClasses
 
       expect(wrapper.attributes('data-mk-color')).toBe(color)
       expect(wrapper.attributes('data-mk-variant')).toBe(variant)
@@ -265,8 +214,8 @@ describe('MkBadge', () => {
     expect(wrapper.classes()).toContain('shadow-sm')
     expect(wrapper.classes()).toContain('uppercase')
     expect(wrapper.classes()).toContain('ring-1')
-    expect(wrapper.classes()).toContain('mk:border-success')
-    expect(wrapper.classes()).toContain('mk:text-success')
+    expect(wrapper.classes()).toContain('mk:border-component')
+    expect(wrapper.classes()).toContain('mk:text-component')
     expect(wrapper.classes()).toContain('mk:py-1')
     expect(wrapper.classes()).toContain('mk:rounded-full')
   })

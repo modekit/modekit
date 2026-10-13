@@ -15,7 +15,7 @@ const checkboxStyles = cva(
           'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
           'mk:hover:bg-muted/50 mk:has-data-[state=checked]:border-primary/50 mk:has-data-[state=checked]:bg-primary/10',
           'mk:has-focus-visible:border-ring mk:has-focus-visible:outline-2 mk:has-focus-visible:outline-solid mk:has-focus-visible:outline-offset-2 mk:has-focus-visible:outline-ring',
-          'mk:has-aria-invalid:border-destructive mk:data-[mk-disabled]:cursor-not-allowed mk:data-[mk-disabled]:pointer-events-none',
+          'mk:has-aria-invalid:border-red-700 mk:dark:has-aria-invalid:border-red-400 mk:data-[mk-disabled]:cursor-not-allowed mk:data-[mk-disabled]:pointer-events-none',
         ],
       },
       size: {
@@ -39,13 +39,13 @@ const checkboxControlStyles = cva(
     'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
     'mk:data-[state=checked]:border-primary mk:data-[state=checked]:bg-primary',
     'mk:data-[state=indeterminate]:border-primary mk:data-[state=indeterminate]:bg-primary',
-    'mk:aria-invalid:border-destructive mk:disabled:cursor-not-allowed',
+    'mk:aria-invalid:border-red-700 mk:dark:aria-invalid:border-red-400 mk:disabled:cursor-not-allowed',
   ],
   {
     variants: {
       variant: {
         default:
-          'mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring mk:aria-invalid:focus-visible:outline-destructive',
+          'mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring mk:aria-invalid:focus-visible:outline-red-700 mk:dark:aria-invalid:focus-visible:outline-red-400',
         card: 'mk:focus-visible:outline-none',
       },
       size: {

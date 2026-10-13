@@ -1,6 +1,6 @@
 # Badge
 
-Badges label compact metadata, categories, and statuses. `MkBadge` combines independent semantic
+Badges label compact metadata, categories, and statuses. `MkBadge` combines independent
 colors and surface variants with consistent sizing, optional affixes, and a configurable root
 element.
 
@@ -8,12 +8,12 @@ element.
 
 ### Color
 
-Use `color` to communicate semantic meaning. It defaults to `primary`.
+Use `color` to select a semantic alias or palette family. It defaults to `primary`.
 
 <ComponentPreview name="badge/BadgeColor" />
 
-Available colors are `primary`, `secondary`, `success`, `warning`, `info`, and `destructive`.
-`secondary` is the neutral treatment. Status colors use ModeKit's existing semantic theme roles.
+It accepts any shared `ModeKitColor`, including palette names such as `red`, `emerald`, and `violet`.
+`secondary` remains available as a neutral treatment.
 
 ### Variant
 
@@ -61,14 +61,14 @@ that matches the selected badge size.
 
 ### Props
 
-| Prop      | Type                                                                            | Default     | Description                                          |
-| --------- | ------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------- |
-| `as`      | `AsTag \| Component`                                                            | `'span'`    | Changes the rendered root element or component.      |
-| `color`   | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'primary'` | Sets the badge's semantic color intent.              |
-| `variant` | `'default' \| 'soft' \| 'outline' \| 'subtle'`                                  | `'default'` | Sets the surface treatment independently of color.   |
-| `size`    | `'sm' \| 'md' \| 'lg'`                                                          | `'md'`      | Sets badge spacing, text, radius, and icon size.     |
-| `rounded` | `boolean`                                                                       | `false`     | Replaces the size radius with fully rounded corners. |
-| `ui`      | `{ base?: ModeKitClassValue }`                                                  | —           | Adds or overrides classes for this Badge instance.   |
+| Prop      | Type                                           | Default     | Description                                          |
+| --------- | ---------------------------------------------- | ----------- | ---------------------------------------------------- |
+| `as`      | `AsTag \| Component`                           | `'span'`    | Changes the rendered root element or component.      |
+| `color`   | `ModeKitColor`                                 | `'primary'` | Sets the badge color.                                |
+| `variant` | `'default' \| 'soft' \| 'outline' \| 'subtle'` | `'default'` | Sets the surface treatment independently of color.   |
+| `size`    | `'sm' \| 'md' \| 'lg'`                         | `'md'`      | Sets badge spacing, text, radius, and icon size.     |
+| `rounded` | `boolean`                                      | `false`     | Replaces the size radius with fully rounded corners. |
+| `ui`      | `{ base?: ModeKitClassValue }`                 | —           | Adds or overrides classes for this Badge instance.   |
 
 All other attributes and classes are forwarded to the rendered root.
 
@@ -82,14 +82,10 @@ All other attributes and classes are forwarded to the rendered root.
 
 ## Styling
 
-### Semantic colors
+### Colors
 
-Badge consumes ModeKit's existing semantic theme variables: primary, secondary, success, warning,
-info, and destructive. Override those variables after importing ModeKit styles to theme Badge and
-other components consistently.
-
-The warning soft and outlined treatments intentionally retain the normal foreground color because
-the warning token is optimized as a surface color in both light and dark themes.
+Badge consumes ModeKit's shared color variables. Each supported color works with every surface
+variant and adapts automatically in dark mode.
 
 ### Local overrides
 

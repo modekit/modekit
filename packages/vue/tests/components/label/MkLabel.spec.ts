@@ -32,7 +32,8 @@ describe('MkLabel', () => {
 
     expect(wrapper.attributes('data-required')).toBe('')
     expect(marker.attributes('aria-hidden')).toBe('true')
-    expect(marker.classes()).toContain('mk:text-destructive')
+    expect(marker.classes()).toContain('mk:text-red-700')
+    expect(marker.classes()).toContain('mk:dark:text-red-400')
     expect(marker.text()).toBe('*')
   })
 
