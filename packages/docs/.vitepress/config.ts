@@ -49,15 +49,26 @@ export default defineConfig({
       '/components/': [
         {
           text: 'Components',
+          items: [{ text: 'Overview', link: '/components/' }],
+        },
+        {
+          text: 'Element',
           items: [
-            { text: 'Overview', link: '/components/' },
             { text: 'Button', link: '/components/button' },
-            { text: 'Card', link: '/components/card' },
-            { text: 'Checkbox', link: '/components/checkbox' },
-            { text: 'Label', link: '/components/label' },
             { text: 'Spinner', link: '/components/spinner' },
-            { text: 'Tabs', link: '/components/tabs' },
+            { text: 'Card', link: '/components/card' },
           ],
+        },
+        {
+          text: 'Form',
+          items: [
+            { text: 'Label', link: '/components/label' },
+            { text: 'Checkbox', link: '/components/checkbox' },
+          ],
+        },
+        {
+          text: 'Navigation',
+          items: [{ text: 'Tabs', link: '/components/tabs' }],
         },
       ],
     },
