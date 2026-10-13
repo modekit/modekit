@@ -1,9 +1,17 @@
-import type { ButtonHTMLAttributes } from 'vue'
+import type { ButtonHTMLAttributes, VNodeChild } from 'vue'
 
 import type { ModeKitClassValue } from '../../types/classes.js'
 
 export const buttonVariants = ['default', 'outline', 'soft', 'subtle', 'ghost', 'link'] as const
-export const buttonColors = ['primary', 'destructive'] as const
+export const buttonColors = [
+  'primary',
+  'secondary',
+  'muted',
+  'success',
+  'warning',
+  'info',
+  'destructive',
+] as const
 export const buttonSizes = ['xs', 'sm', 'md', 'lg'] as const
 export const buttonTypes = ['button', 'submit', 'reset'] as const
 
@@ -45,14 +53,15 @@ export interface ButtonOptions {
   type?: ButtonType
   disabled?: boolean
   loading?: boolean
+  square?: boolean
   ui?: ButtonUI
 }
 
 export type ButtonProps = Omit<ButtonHTMLAttributes, keyof ButtonOptions> & ButtonOptions
 
 export interface ButtonSlots {
-  default?(): unknown
-  leading?(): unknown
-  trailing?(): unknown
-  loader?(): unknown
+  default?(): VNodeChild
+  leading?(): VNodeChild
+  trailing?(): VNodeChild
+  loader?(): VNodeChild
 }

@@ -11,7 +11,8 @@ Use the `color` prop to communicate semantic intent. It defaults to `primary`.
 
 <ComponentPreview name="button/ButtonColor" />
 
-Available colors are `primary` and `destructive`.
+Available colors are `primary`, `secondary`, `muted`, `success`, `warning`, `info`, and
+`destructive`. Every color works independently with every variant.
 
 ### Variant
 
@@ -29,6 +30,17 @@ outline border. Every variant can be combined with every color.
 Use the `size` prop to change the control dimensions. It defaults to `md`.
 
 <ComponentPreview name="button/ButtonSize" />
+
+### Icons
+
+Use the `leading` and `trailing` slots for content placed around the label. The slots render directly
+without wrappers or accessibility assumptions. Direct SVG children scale with the selected button
+size.
+
+For an icon-only button, render the icon in the default slot, set `square`, and provide an
+`aria-label` that describes the action.
+
+<ComponentPreview name="button/ButtonIcon" />
 
 ### Loading
 
@@ -48,15 +60,16 @@ Use the native `disabled` prop to prevent interaction.
 
 ### Props
 
-| Prop       | Type                                                                | Default     | Description                                               |
-| ---------- | ------------------------------------------------------------------- | ----------- | --------------------------------------------------------- |
-| `color`    | `'primary' \| 'destructive'`                                        | `'primary'` | Sets the action's semantic color intent.                  |
-| `variant`  | `'default' \| 'outline' \| 'soft' \| 'subtle' \| 'ghost' \| 'link'` | `'default'` | Sets the surface treatment independently of color.        |
-| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`                                      | `'md'`      | Sets the control size.                                    |
-| `loading`  | `boolean`                                                           | `false`     | Marks the button busy and prevents additional activation. |
-| `disabled` | `boolean`                                                           | `false`     | Disables the native button.                               |
-| `type`     | `'button' \| 'submit' \| 'reset'`                                   | `'button'`  | Sets the native button type.                              |
-| `ui`       | `{ base?: ModeKitClassValue }`                                      | —           | Adds or overrides classes for this Button instance.       |
+| Prop       | Type                                                                                       | Default     | Description                                                   |
+| ---------- | ------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------- |
+| `color`    | `'primary' \| 'secondary' \| 'muted' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'primary'` | Sets the action's semantic color intent.                      |
+| `variant`  | `'default' \| 'outline' \| 'soft' \| 'subtle' \| 'ghost' \| 'link'`                        | `'default'` | Sets the surface treatment independently of color.            |
+| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg'`                                                             | `'md'`      | Sets control and icon geometry.                               |
+| `loading`  | `boolean`                                                                                  | `false`     | Marks the button busy and prevents additional activation.     |
+| `disabled` | `boolean`                                                                                  | `false`     | Disables the native button.                                   |
+| `square`   | `boolean`                                                                                  | `false`     | Uses equal width and height for icon-only or custom controls. |
+| `type`     | `'button' \| 'submit' \| 'reset'`                                                          | `'button'`  | Sets the native button type.                                  |
+| `ui`       | `{ base?: ModeKitClassValue }`                                                             | —           | Adds or overrides classes for this Button instance.           |
 
 All other native button attributes, listeners, and classes are forwarded to the underlying
 `<button>`.
@@ -67,25 +80,28 @@ All other native button attributes, listeners, and classes are forwarded to the 
 | ---------- | ------------------------------------------------------- |
 | `leading`  | Content rendered before the loader and label.           |
 | `loader`   | Replaces the default Spinner when `loading` is enabled. |
-| `default`  | Button label or content.                                |
+| `default`  | Button label, icon, or custom content.                  |
 | `trailing` | Content rendered after the label.                       |
 
 ## Styling
 
 ### Theme colors
 
-ModeKit exposes semantic theme roles backed by its packaged Tailwind palette. Button uses `primary`
-and `destructive`; other components can use the supporting surface and status roles.
+ModeKit exposes semantic theme roles backed by its packaged Tailwind palette. Button supports every
+shared action and status role while keeping color independent from surface treatment.
 
 | Role          | Default light palette | Default dark palette |
 | ------------- | --------------------- | -------------------- |
 | `primary`     | `neutral-900`         | `neutral-50`         |
+| `secondary`   | `neutral-100`         | `neutral-800`        |
 | `muted`       | `neutral-100`         | `neutral-800`        |
+| `success`     | `green-700`           | `green-400`          |
+| `warning`     | `amber-400`           | `amber-300`          |
+| `info`        | `sky-700`             | `sky-400`            |
 | `destructive` | `red-700`             | `red-400`            |
 
-Override `--mk-primary`, `--mk-primary-foreground`, `--mk-muted`, `--mk-muted-foreground`,
-`--mk-destructive`, or `--mk-destructive-foreground` after importing ModeKit styles to theme these
-roles without rewriting component recipes.
+Override the matching `--mk-<role>` and `--mk-<role>-foreground` variables after importing ModeKit
+styles to theme these roles without rewriting component recipes.
 
 ### Corner scale
 
@@ -164,5 +180,7 @@ Tailwind can use ordinary class names backed by their own CSS.
 ## Accessibility
 
 `MkButton` renders a native `<button>`, preserves keyboard behavior, and exposes `aria-busy="true"`
-while loading. Loading also disables activation. Keep the visible label descriptive, and mark purely
-decorative loader content with `aria-hidden="true"`.
+while loading. Loading also disables activation. `leading`, `default`, and `trailing` content keeps
+its own accessibility semantics. Mark decorative icons with `aria-hidden="true"`, and add an
+`aria-label` to icon-only buttons. Mark custom loader content as decorative when the button's
+accessible name already describes the action.

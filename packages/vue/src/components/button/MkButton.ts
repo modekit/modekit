@@ -48,6 +48,10 @@ const runtimeProps = {
     type: Boolean,
     default: false,
   },
+  square: {
+    type: Boolean,
+    default: undefined,
+  },
   ui: {
     type: Object as PropType<ButtonUI>,
     default: undefined,
@@ -66,6 +70,7 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
   const type = props.type ?? 'button'
   const disabled = props.disabled ?? false
   const loading = props.loading ?? false
+  const square = props.square ?? false
   const attributes: ButtonHTMLAttributes = attrs
 
   return h(
@@ -77,6 +82,7 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
         color,
         variant,
         size,
+        square,
         config: buttonConfig,
         ui: props.ui,
         className: attributes.class,
@@ -88,6 +94,7 @@ export const MkButton: FunctionalComponent<ButtonProps, Record<string, never>, B
       'data-mk-variant': variant,
       'data-mk-size': size,
       'data-mk-loading': loading ? '' : undefined,
+      'data-mk-square': square ? '' : undefined,
     },
     {
       default: () => [

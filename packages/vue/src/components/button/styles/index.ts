@@ -26,6 +26,11 @@ const buttonStyles = cva(buttonBaseClasses, {
   variants: {
     color: {
       primary: buttonColorClasses.primary.focus,
+      secondary: buttonColorClasses.secondary.focus,
+      muted: buttonColorClasses.muted.focus,
+      success: buttonColorClasses.success.focus,
+      warning: buttonColorClasses.warning.focus,
+      info: buttonColorClasses.info.focus,
       destructive: buttonColorClasses.destructive.focus,
     },
     variant: {
@@ -37,10 +42,14 @@ const buttonStyles = cva(buttonBaseClasses, {
       link: 'mk:border-0 mk:bg-transparent mk:underline-offset-4 mk:hover:underline mk:active:opacity-80',
     },
     size: {
-      xs: 'mk:h-6 mk:min-w-6 mk:gap-1 mk:rounded-sm mk:px-2 mk:text-xs mk:leading-3',
-      sm: 'mk:h-8 mk:min-w-8 mk:gap-1.5 mk:rounded-md mk:px-3 mk:text-sm mk:leading-4',
-      md: 'mk:h-10 mk:min-w-10 mk:gap-2 mk:rounded-lg mk:px-4 mk:text-sm mk:leading-5',
-      lg: 'mk:h-12 mk:min-w-12 mk:gap-2.5 mk:rounded-xl mk:px-5 mk:text-base mk:leading-6',
+      xs: 'mk:h-6 mk:min-w-6 mk:gap-1 mk:rounded-sm mk:px-2 mk:text-xs mk:leading-3 mk:[&>svg]:size-3.5 mk:[&>svg]:shrink-0',
+      sm: 'mk:h-8 mk:min-w-8 mk:gap-1.5 mk:rounded-md mk:px-3 mk:text-sm mk:leading-4 mk:[&>svg]:size-4 mk:[&>svg]:shrink-0',
+      md: 'mk:h-10 mk:min-w-10 mk:gap-2 mk:rounded-lg mk:px-4 mk:text-sm mk:leading-5 mk:[&>svg]:size-4.5 mk:[&>svg]:shrink-0',
+      lg: 'mk:h-12 mk:min-w-12 mk:gap-2.5 mk:rounded-xl mk:px-5 mk:text-base mk:leading-6 mk:[&>svg]:size-5 mk:[&>svg]:shrink-0',
+    },
+    square: {
+      true: 'mk:aspect-square mk:px-0',
+      false: '',
     },
   },
   compoundVariants: buttonColorCompoundVariants,
@@ -50,6 +59,7 @@ interface ButtonClassOptions {
   color: ButtonColor
   variant: ButtonVariant
   size: ButtonSize
+  square: boolean
   config?: ButtonStyleConfig | undefined
   ui?: ButtonUI | undefined
   className?: ModeKitClassValue
@@ -84,12 +94,13 @@ export function getButtonClasses({
   color,
   variant,
   size,
+  square,
   config,
   ui,
   className,
 }: ButtonClassOptions): string {
   return cn(
-    buttonStyles({ color, variant, size }),
+    buttonStyles({ color, variant, size, square }),
     config?.base,
     config?.variants?.color?.[color],
     config?.variants?.variant?.[variant],

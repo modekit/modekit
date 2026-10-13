@@ -25,6 +25,51 @@ const colorClasses: Record<ButtonColor, ColorClassExpectations> = {
     soft: 'mk:bg-primary/15',
     ghost: 'mk:hover:bg-primary/10',
   },
+  secondary: {
+    focus: 'mk:focus-visible:outline-secondary-foreground',
+    solid: 'mk:bg-secondary',
+    foreground: 'mk:text-secondary-foreground',
+    text: 'mk:text-secondary-foreground',
+    outline: 'mk:border-border',
+    soft: 'mk:bg-secondary/70',
+    ghost: 'mk:hover:bg-secondary/70',
+  },
+  muted: {
+    focus: 'mk:focus-visible:outline-muted-foreground',
+    solid: 'mk:bg-muted',
+    foreground: 'mk:text-muted-foreground',
+    text: 'mk:text-muted-foreground',
+    outline: 'mk:border-border',
+    soft: 'mk:bg-muted/50',
+    ghost: 'mk:hover:bg-muted/60',
+  },
+  success: {
+    focus: 'mk:focus-visible:outline-success',
+    solid: 'mk:bg-success',
+    foreground: 'mk:text-success-foreground',
+    text: 'mk:text-success',
+    outline: 'mk:border-success',
+    soft: 'mk:bg-success/15',
+    ghost: 'mk:hover:bg-success/10',
+  },
+  warning: {
+    focus: 'mk:focus-visible:outline-warning',
+    solid: 'mk:bg-warning',
+    foreground: 'mk:text-warning-foreground',
+    text: 'mk:text-foreground',
+    outline: 'mk:border-warning',
+    soft: 'mk:bg-warning/25',
+    ghost: 'mk:hover:bg-warning/20',
+  },
+  info: {
+    focus: 'mk:focus-visible:outline-info',
+    solid: 'mk:bg-info',
+    foreground: 'mk:text-info-foreground',
+    text: 'mk:text-info',
+    outline: 'mk:border-info',
+    soft: 'mk:bg-info/15',
+    ghost: 'mk:hover:bg-info/10',
+  },
   destructive: {
     focus: 'mk:focus-visible:outline-destructive',
     solid: 'mk:bg-destructive',
@@ -216,16 +261,63 @@ describe('MkButton', () => {
     expect(wrapper.get('button').attributes('disabled')).toBeDefined()
   })
 
-  it('renders content slots in their documented order', () => {
+  it('renders leading and trailing slots directly in their documented order', () => {
     const wrapper = mount(MkButton, {
       slots: {
-        leading: '<span>Before</span>',
-        default: '<span>Label</span>',
-        trailing: '<span>After</span>',
+        leading: '<span class="before">Before</span>',
+        default: '<span class="label">Label</span>',
+        trailing: '<span class="after">After</span>',
       },
     })
 
+    const button = wrapper.get('button').element
+
     expect(wrapper.text()).toBe('BeforeLabelAfter')
+    expect(Array.from(button.children).map((element) => element.className)).toEqual([
+      'before',
+      'label',
+      'after',
+    ])
+    expect(wrapper.find('.mk-button__leading').exists()).toBe(false)
+    expect(wrapper.find('.mk-button__trailing').exists()).toBe(false)
+  })
+
+  it.each([
+    ['xs', 'mk:[&>svg]:size-3.5'],
+    ['sm', 'mk:[&>svg]:size-4'],
+    ['md', 'mk:[&>svg]:size-4.5'],
+    ['lg', 'mk:[&>svg]:size-5'],
+  ] as const)('sizes direct SVG content for the %s button', (size, iconSize) => {
+    const wrapper = mount(MkButton, {
+      props: { size },
+      slots: { default: '<svg data-icon="only" />' },
+    })
+
+    expect(wrapper.classes()).toContain(iconSize)
+    expect(wrapper.classes()).toContain('mk:[&>svg]:shrink-0')
+    expect(wrapper.get('[data-icon="only"]').element.parentElement).toBe(wrapper.element)
+  })
+
+  it('supports an explicitly square icon button through the default slot', () => {
+    const wrapper = mount(MkButton, {
+      props: { square: true, 'aria-label': 'More actions' },
+      slots: { default: '<svg data-icon="more" />' },
+    })
+
+    expect(wrapper.attributes('aria-label')).toBe('More actions')
+    expect(wrapper.attributes('data-mk-square')).toBe('')
+    expect(wrapper.classes()).toContain('mk:aspect-square')
+    expect(wrapper.classes()).toContain('mk:px-0')
+    expect(wrapper.get('[data-icon="more"]').element.parentElement).toBe(wrapper.element)
+  })
+
+  it('does not infer square layout from arbitrary default-slot content', () => {
+    const wrapper = mount(MkButton, {
+      slots: { default: '<svg data-icon="unsquared" />' },
+    })
+
+    expect(wrapper.attributes('data-mk-square')).toBeUndefined()
+    expect(wrapper.classes()).not.toContain('mk:aspect-square')
   })
 
   it('keeps application classes separate from the namespaced recipe', () => {
