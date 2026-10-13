@@ -13,6 +13,7 @@ customization, and working examples.
 - [Avatar Group](/components/avatar-group)
 - [Badge](/components/badge)
 - [Button](/components/button)
+- [Button Group](/components/button-group)
 - [Card](/components/card)
 - [Checkbox](/components/checkbox)
 - [Input](/components/input)

@@ -1,6 +1,7 @@
 import type { CalloutStyleConfig } from '../components/callout/types.js'
 import type { AvatarGroupStyleConfig, AvatarStyleConfig } from '../components/avatar/types.js'
 import type { BadgeStyleConfig } from '../components/badge/types.js'
+import type { ButtonGroupStyleConfig } from '../components/button-group/types.js'
 import type { ButtonStyleConfig } from '../components/button/types.js'
 import type { CardStyleConfig } from '../components/card/types.js'
 import type { CheckboxStyleConfig } from '../components/checkbox/types.js'
@@ -15,6 +16,7 @@ export interface ModeKitUIConfig {
   avatarGroup?: AvatarGroupStyleConfig
   badge?: BadgeStyleConfig
   button?: ButtonStyleConfig
+  buttonGroup?: ButtonGroupStyleConfig
   card?: CardStyleConfig
   checkbox?: CheckboxStyleConfig
   input?: InputStyleConfig

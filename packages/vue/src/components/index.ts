@@ -58,6 +58,16 @@ export type {
   BadgeUI,
   BadgeVariant,
 } from './badge/index.js'
+export { buttonGroupOrientations, MkButtonGroup } from './button-group/index.js'
+export type {
+  ButtonGroupAs,
+  ButtonGroupOptions,
+  ButtonGroupOrientation,
+  ButtonGroupProps,
+  ButtonGroupSlots,
+  ButtonGroupStyleConfig,
+  ButtonGroupUI,
+} from './button-group/index.js'
 export { buttonColors, buttonSizes, buttonTypes, buttonVariants, MkButton } from './button/index.js'
 export type {
   ButtonColor,
