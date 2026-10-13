@@ -1,2 +1,2 @@
 export { createModeKit } from './createModeKit.js'
-export type { ModeKitOptions, ModeKitUIConfig } from './types.js'
+export type { ModeKitOptions, ModeKitThemeConfig, ModeKitUIConfig } from './types.js'

@@ -1,7 +1,13 @@
 export { createModeKit } from './config/index.js'
-export type { ModeKitOptions, ModeKitUIConfig } from './config/index.js'
-export { modeKitColors } from './colors.js'
-export type { ModeKitColor } from './colors.js'
+export type { ModeKitOptions, ModeKitThemeConfig, ModeKitUIConfig } from './config/index.js'
+export {
+  modeKitColors,
+  modeKitNeutralColors,
+  modeKitPrimaryColors,
+  type ModeKitColor,
+  type ModeKitNeutralColor,
+  type ModeKitPrimaryColor,
+} from './colors.js'
 export {
   calloutColors,
   calloutSizes,

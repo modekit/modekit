@@ -24,7 +24,7 @@ ${scriptEnd}
 <template>
   <MkCallout
     size="${String(values.size)}"
-    color="amber"
+    color="primary"
     title="Storage almost full"
   >
     <template #icon>
@@ -55,7 +55,7 @@ const props = withDefaults(
 <template>
   <MkCallout
     :size="props.size"
-    color="amber"
+    color="primary"
     title="Storage almost full"
     style="width: min(100%, 36rem)"
   >

@@ -63,11 +63,11 @@ try {
   )
   writeFileSync(
     join(consumerDirectory, 'consumer.ts'),
-    `import { createSSRApp, h } from 'vue'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ ui: { button: { defaultVariants: { size: 'sm' } } } }))\n`,
+    `import { createSSRApp, h } from 'vue'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ theme: { primary: 'green', neutral: 'slate' }, ui: { button: { defaultVariants: { size: 'sm' } } } }))\n`,
   )
   writeFileSync(
     join(consumerDirectory, 'verify.mjs'),
-    `import assert from 'node:assert/strict'\nimport { readFile } from 'node:fs/promises'\nimport { createSSRApp, h } from 'vue'\nimport { renderToString } from 'vue/server-renderer'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ ui: { button: { defaultVariants: { size: 'sm' } } } }))\nconst html = await renderToString(app)\nassert.match(html, /<button/)\nassert.match(html, /type="submit"/)\nassert.match(html, /data-mk-size="sm"/)\nassert.match(html, /Save/)\nassert.match(html, /<\\/button>$/)\n\nconst cssUrl = import.meta.resolve('@modekit/vue/styles.css')\nconst css = await readFile(new URL(cssUrl), 'utf8')\nassert.match(css, /\\.mk-button/)\n`,
+    `import assert from 'node:assert/strict'\nimport { readFile } from 'node:fs/promises'\nimport { createSSRApp, h } from 'vue'\nimport { renderToString } from 'vue/server-renderer'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ theme: { primary: 'green', neutral: 'slate' }, ui: { button: { defaultVariants: { size: 'sm' } } } }))\nconst html = await renderToString(app)\nassert.match(html, /<button/)\nassert.match(html, /type="submit"/)\nassert.match(html, /data-mk-size="sm"/)\nassert.match(html, /Save/)\nassert.match(html, /<\\/button>$/)\n\nconst cssUrl = import.meta.resolve('@modekit/vue/styles.css')\nconst css = await readFile(new URL(cssUrl), 'utf8')\nassert.match(css, /\\.mk-button/)\nassert.match(css, /data-mk-primary/)\nassert.match(css, /data-mk-neutral/)\n`,
   )
 
   run('pnpm', ['install', '--ignore-scripts', '--offline'], consumerDirectory)

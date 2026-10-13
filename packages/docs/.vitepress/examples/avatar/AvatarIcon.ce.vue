@@ -1,5 +1,5 @@
 <script lang="ts">
-import { avatarColors, avatarSizes } from '@modekit/vue'
+import { avatarSizes } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -7,12 +7,6 @@ export const preview = definePreview({
   componentName: 'MkAvatar',
   content: '<UserRound aria-hidden="true" />',
   controls: [
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'neutral',
-      options: selectOptions(avatarColors),
-    },
     {
       prop: 'size',
       label: 'Size',
@@ -27,7 +21,7 @@ export const preview = definePreview({
       '<' + '/script>',
       '',
       '<template>',
-      `  <MkAvatar color="${String(values.color)}" size="${String(values.size)}" aria-label="Unassigned user">`,
+      `  <MkAvatar size="${String(values.size)}" aria-label="Unassigned user">`,
       '    <UserRound aria-hidden="true" />',
       '  </MkAvatar>',
       '</template>',

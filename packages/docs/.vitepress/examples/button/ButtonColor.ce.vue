@@ -1,19 +1,10 @@
 <script lang="ts">
-import { buttonColors } from '@modekit/vue'
-
-import { definePreview, selectOptions } from '../../components/preview.js'
+import { definePreview } from '../../components/preview.js'
 
 export const preview = definePreview({
   componentName: 'MkButton',
   content: 'Button',
-  controls: [
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'primary',
-      options: selectOptions(buttonColors),
-    },
-  ],
+  controls: [],
 })
 </script>
 

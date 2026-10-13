@@ -1,5 +1,5 @@
 <script lang="ts">
-import { badgeColors, badgeSizes } from '@modekit/vue'
+import { badgeSizes } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -9,12 +9,6 @@ export const preview = definePreview({
   componentName: 'MkBadge',
   content: '',
   controls: [
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'green',
-      options: selectOptions(badgeColors),
-    },
     {
       prop: 'size',
       label: 'Size',
@@ -27,12 +21,12 @@ import { Check, Sparkles } from '@lucide/vue'
 ${scriptEnd}
 
 <template>
-  <MkBadge color="${String(values.color)}" size="${String(values.size)}">
+  <MkBadge color="primary" size="${String(values.size)}">
     <template #leading><Check /></template>
     Verified
   </MkBadge>
 
-  <MkBadge color="${String(values.color)}" variant="soft" size="${String(values.size)}">
+  <MkBadge color="primary" variant="soft" size="${String(values.size)}">
     Featured
     <template #trailing><Sparkles /></template>
   </MkBadge>
@@ -51,7 +45,7 @@ const props = withDefaults(
     size?: BadgeSize
   }>(),
   {
-    color: 'green',
+    color: 'primary',
     size: 'md',
   },
 )

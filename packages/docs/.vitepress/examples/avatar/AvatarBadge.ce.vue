@@ -1,5 +1,5 @@
 <script lang="ts">
-import { avatarBadgePositions, avatarColors, avatarSizes } from '@modekit/vue'
+import { avatarBadgePositions, avatarSizes } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -14,12 +14,6 @@ export const preview = definePreview({
       options: selectOptions(avatarBadgePositions),
     },
     {
-      prop: 'badgeColor',
-      label: 'Badge color',
-      defaultValue: 'green',
-      options: selectOptions(avatarColors),
-    },
-    {
       prop: 'size',
       label: 'Size',
       defaultValue: 'lg',
@@ -32,7 +26,6 @@ export const preview = definePreview({
   fallback="JD"
   badge
   badge-position="${String(values.badgePosition)}"
-  badge-color="${String(values.badgeColor)}"
   size="${String(values.size)}"
   aria-label="John Doe, online"
 />`,
@@ -51,7 +44,7 @@ const props = withDefaults(
   }>(),
   {
     badgePosition: 'bottom-right',
-    badgeColor: 'green',
+    badgeColor: 'primary',
     size: 'lg',
   },
 )

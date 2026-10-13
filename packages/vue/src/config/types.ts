@@ -9,6 +9,7 @@ import type { InputStyleConfig } from '../components/input/types.js'
 import type { LabelStyleConfig } from '../components/label/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
+import type { ModeKitNeutralColor, ModeKitPrimaryColor } from '../colors.js'
 
 export interface ModeKitUIConfig {
   callout?: CalloutStyleConfig
@@ -25,6 +26,12 @@ export interface ModeKitUIConfig {
   tabs?: TabsStyleConfig
 }
 
+export interface ModeKitThemeConfig {
+  primary?: ModeKitPrimaryColor
+  neutral?: ModeKitNeutralColor
+}
+
 export interface ModeKitOptions {
+  theme?: ModeKitThemeConfig
   ui?: ModeKitUIConfig
 }

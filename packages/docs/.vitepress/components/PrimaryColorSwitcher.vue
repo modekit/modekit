@@ -1,31 +1,25 @@
 <script setup lang="ts">
-import { Check, Palette } from '@lucide/vue'
+import { Check, ChevronRight, Palette } from '@lucide/vue'
+import {
+  modeKitNeutralColors,
+  modeKitPrimaryColors,
+  type ModeKitNeutralColor,
+  type ModeKitPrimaryColor,
+} from '@modekit/vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue'
 
-type PrimaryColor =
-  | 'black'
-  | 'red'
-  | 'orange'
-  | 'amber'
-  | 'yellow'
-  | 'lime'
-  | 'green'
-  | 'emerald'
-  | 'teal'
-  | 'cyan'
-  | 'sky'
-  | 'blue'
-  | 'indigo'
-  | 'violet'
-  | 'purple'
-  | 'fuchsia'
-  | 'pink'
-  | 'rose'
+type ThemeMenu = 'primary' | 'neutral'
+type ThemeColor = ModeKitPrimaryColor | ModeKitNeutralColor
 
-interface PrimaryColorOption {
-  value: PrimaryColor
+interface ColorOption<T extends ThemeColor> {
+  value: T
   label: string
   swatch?: string
+}
+
+interface ThemeChangeDetail {
+  primary?: ModeKitPrimaryColor
+  neutral?: ModeKitNeutralColor
 }
 
 const props = withDefaults(
@@ -39,80 +33,133 @@ const props = withDefaults(
   },
 )
 
-const options: readonly PrimaryColorOption[] = [
-  { value: 'black', label: 'Black' },
-  { value: 'red', label: 'Red', swatch: 'var(--mk-color-red-500)' },
-  { value: 'orange', label: 'Orange', swatch: 'var(--mk-color-orange-500)' },
-  { value: 'amber', label: 'Amber', swatch: 'var(--mk-color-amber-500)' },
-  { value: 'yellow', label: 'Yellow', swatch: 'var(--mk-color-yellow-500)' },
-  { value: 'lime', label: 'Lime', swatch: 'var(--mk-color-lime-500)' },
-  { value: 'green', label: 'Green', swatch: 'var(--mk-color-green-500)' },
-  { value: 'emerald', label: 'Emerald', swatch: 'var(--mk-color-emerald-500)' },
-  { value: 'teal', label: 'Teal', swatch: 'var(--mk-color-teal-500)' },
-  { value: 'cyan', label: 'Cyan', swatch: 'var(--mk-color-cyan-500)' },
-  { value: 'sky', label: 'Sky', swatch: 'var(--mk-color-sky-500)' },
-  { value: 'blue', label: 'Blue', swatch: 'var(--mk-color-blue-500)' },
-  { value: 'indigo', label: 'Indigo', swatch: 'var(--mk-color-indigo-500)' },
-  { value: 'violet', label: 'Violet', swatch: 'var(--mk-color-violet-500)' },
-  { value: 'purple', label: 'Purple', swatch: 'var(--mk-color-purple-500)' },
-  { value: 'fuchsia', label: 'Fuchsia', swatch: 'var(--mk-color-fuchsia-500)' },
-  { value: 'pink', label: 'Pink', swatch: 'var(--mk-color-pink-500)' },
-  { value: 'rose', label: 'Rose', swatch: 'var(--mk-color-rose-500)' },
-]
+function labelFor(value: string): string {
+  return `${value.charAt(0).toUpperCase()}${value.slice(1)}`
+}
 
-const storageKey = 'modekit-primary-color'
-const colorChangeEvent = 'modekit:primary-color-change'
+function createOptions<T extends ThemeColor>(values: readonly T[]): readonly ColorOption<T>[] {
+  return values.map((value) => ({
+    value,
+    label: labelFor(value),
+    ...(value === 'black' ? {} : { swatch: `var(--mk-swatch-${value})` }),
+  }))
+}
+
+const primaryOptions = createOptions(modeKitPrimaryColors)
+const neutralOptions = createOptions(modeKitNeutralColors)
+const primaryStorageKey = 'modekit-primary-color'
+const neutralStorageKey = 'modekit-neutral-color'
+const themeChangeEvent = 'modekit:theme-color-change'
 const root = ref<HTMLElement>()
 const trigger = ref<HTMLButtonElement>()
 const menuElement = ref<HTMLElement>()
 const open = ref(false)
-const selectedColor = ref<PrimaryColor>('black')
-const menuId = `modekit-primary-color-${useId()}`
+const activeMenu = ref<ThemeMenu>()
+const selectedPrimary = ref<ModeKitPrimaryColor>('black')
+const selectedNeutral = ref<ModeKitNeutralColor>('zinc')
+const id = useId()
+const menuId = `modekit-theme-colors-${id}`
+const primaryMenuId = `${menuId}-primary`
+const neutralMenuId = `${menuId}-neutral`
 const compact = computed(() => props.menu || props.screenMenu)
-const selectedOption = computed(
-  () => options.find((option) => option.value === selectedColor.value) ?? options[0],
+const selectedPrimaryOption = computed(
+  () =>
+    primaryOptions.find((option) => option.value === selectedPrimary.value) ?? primaryOptions[0],
+)
+const selectedNeutralOption = computed(
+  () =>
+    neutralOptions.find((option) => option.value === selectedNeutral.value) ?? neutralOptions[0],
 )
 
-function isPrimaryColor(value: string | undefined | null): value is PrimaryColor {
-  return options.some((option) => option.value === value)
+function isPrimaryColor(value: string | undefined | null): value is ModeKitPrimaryColor {
+  return primaryOptions.some((option) => option.value === value)
 }
 
-function syncColor(color: PrimaryColor): void {
-  selectedColor.value = color
+function isNeutralColor(value: string | undefined | null): value is ModeKitNeutralColor {
+  return neutralOptions.some((option) => option.value === value)
+}
+
+function syncPrimary(color: ModeKitPrimaryColor): void {
+  selectedPrimary.value = color
   document.documentElement.dataset.mkPrimary = color
 }
 
-function selectColor(color: PrimaryColor): void {
-  syncColor(color)
-  localStorage.setItem(storageKey, color)
-  window.dispatchEvent(new CustomEvent<PrimaryColor>(colorChangeEvent, { detail: color }))
+function syncNeutral(color: ModeKitNeutralColor): void {
+  selectedNeutral.value = color
+  document.documentElement.dataset.mkNeutral = color
+}
+
+function finishSelection(): void {
+  activeMenu.value = undefined
   open.value = false
   trigger.value?.focus()
 }
 
+function selectPrimary(color: ModeKitPrimaryColor): void {
+  syncPrimary(color)
+  localStorage.setItem(primaryStorageKey, color)
+  window.dispatchEvent(
+    new CustomEvent<ThemeChangeDetail>(themeChangeEvent, { detail: { primary: color } }),
+  )
+  finishSelection()
+}
+
+function selectNeutral(color: ModeKitNeutralColor): void {
+  syncNeutral(color)
+  localStorage.setItem(neutralStorageKey, color)
+  window.dispatchEvent(
+    new CustomEvent<ThemeChangeDetail>(themeChangeEvent, { detail: { neutral: color } }),
+  )
+  finishSelection()
+}
+
+async function openMenu(menu: ThemeMenu, focusOption = false): Promise<void> {
+  activeMenu.value = menu
+  if (!focusOption) return
+
+  await nextTick()
+  const submenu = menuElement.value?.querySelector<HTMLElement>(`#${menuId}-${menu}`)
+  const selected = submenu?.querySelector<HTMLButtonElement>('[aria-checked="true"]')
+  const first = submenu?.querySelector<HTMLButtonElement>('[role="menuitemradio"]')
+  ;(selected ?? first)?.focus()
+}
+
 async function openAndFocus(): Promise<void> {
   open.value = true
+  activeMenu.value = undefined
   await nextTick()
-  menuElement.value?.querySelector<HTMLButtonElement>('[role="menuitemradio"]')?.focus()
+  menuElement.value?.querySelector<HTMLButtonElement>('[data-theme-menu]')?.focus()
+}
+
+function closeMenu(): void {
+  activeMenu.value = undefined
+  open.value = false
 }
 
 function handleDocumentPointerDown(event: PointerEvent): void {
-  if (!root.value?.contains(event.target as Node)) open.value = false
+  if (!root.value?.contains(event.target as Node)) closeMenu()
 }
 
 function handleDocumentKeydown(event: KeyboardEvent): void {
   if (event.key !== 'Escape' || !open.value) return
 
-  open.value = false
+  if (activeMenu.value) {
+    const menu = activeMenu.value
+    activeMenu.value = undefined
+    menuElement.value?.querySelector<HTMLButtonElement>(`[data-theme-menu="${menu}"]`)?.focus()
+    return
+  }
+
+  closeMenu()
   trigger.value?.focus()
 }
 
-function handleMenuKeydown(event: KeyboardEvent): void {
+function moveFocus(event: KeyboardEvent, selector: string): void {
   if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
 
-  const items = Array.from(
-    menuElement.value?.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]') ?? [],
-  )
+  const items = Array.from(menuElement.value?.querySelectorAll<HTMLButtonElement>(selector) ?? [])
+  if (!items.length) return
+
   const currentIndex = items.indexOf(document.activeElement as HTMLButtonElement)
   const offset = event.key === 'ArrowDown' ? 1 : -1
   const nextIndex = (currentIndex + offset + items.length) % items.length
@@ -121,28 +168,57 @@ function handleMenuKeydown(event: KeyboardEvent): void {
   items[nextIndex]?.focus()
 }
 
-function handleColorChange(event: Event): void {
-  const color = (event as CustomEvent<string>).detail
-  if (isPrimaryColor(color)) syncColor(color)
+function handleCategoryKeydown(event: KeyboardEvent, menu: ThemeMenu): void {
+  if (event.key === 'ArrowRight') {
+    event.preventDefault()
+    void openMenu(menu, true)
+    return
+  }
+
+  moveFocus(event, '[data-theme-menu]')
+}
+
+function handleSubmenuKeydown(event: KeyboardEvent, menu: ThemeMenu): void {
+  if (event.key === 'ArrowLeft') {
+    event.preventDefault()
+    activeMenu.value = undefined
+    menuElement.value?.querySelector<HTMLButtonElement>(`[data-theme-menu="${menu}"]`)?.focus()
+    return
+  }
+
+  moveFocus(event, `#${menuId}-${menu} [role="menuitemradio"]`)
+}
+
+function handleThemeChange(event: Event): void {
+  const detail = (event as CustomEvent<ThemeChangeDetail>).detail
+  if (isPrimaryColor(detail.primary)) syncPrimary(detail.primary)
+  if (isNeutralColor(detail.neutral)) syncNeutral(detail.neutral)
 }
 
 function handleStorage(event: StorageEvent): void {
-  if (event.key === storageKey && isPrimaryColor(event.newValue)) syncColor(event.newValue)
+  if (event.key === primaryStorageKey && isPrimaryColor(event.newValue)) {
+    syncPrimary(event.newValue)
+  }
+  if (event.key === neutralStorageKey && isNeutralColor(event.newValue)) {
+    syncNeutral(event.newValue)
+  }
 }
 
 onMounted(() => {
-  const color = document.documentElement.dataset.mkPrimary
-  syncColor(isPrimaryColor(color) ? color : 'black')
+  const primary = document.documentElement.dataset.mkPrimary
+  const neutral = document.documentElement.dataset.mkNeutral
+  syncPrimary(isPrimaryColor(primary) ? primary : 'black')
+  syncNeutral(isNeutralColor(neutral) ? neutral : 'zinc')
   document.addEventListener('pointerdown', handleDocumentPointerDown)
   document.addEventListener('keydown', handleDocumentKeydown)
-  window.addEventListener(colorChangeEvent, handleColorChange)
+  window.addEventListener(themeChangeEvent, handleThemeChange)
   window.addEventListener('storage', handleStorage)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('pointerdown', handleDocumentPointerDown)
   document.removeEventListener('keydown', handleDocumentKeydown)
-  window.removeEventListener(colorChangeEvent, handleColorChange)
+  window.removeEventListener(themeChangeEvent, handleThemeChange)
   window.removeEventListener('storage', handleStorage)
 })
 </script>
@@ -156,23 +232,13 @@ onBeforeUnmount(() => {
       aria-haspopup="menu"
       :aria-controls="menuId"
       :aria-expanded="open"
-      aria-label="Choose primary color"
-      title="Choose primary color"
-      @click="open = !open"
+      aria-label="Choose theme colors"
+      title="Choose theme colors"
+      @click="open ? closeMenu() : (open = true)"
       @keydown.down.prevent="openAndFocus"
     >
       <Palette :size="19" :stroke-width="1.9" aria-hidden="true" />
-      <span class="primary-color-switcher__trigger-label">
-        <span>Primary color</span>
-        <span class="primary-color-switcher__current">
-          <span
-            class="primary-color-switcher__swatch"
-            :class="{ 'is-black': selectedColor === 'black' }"
-            :style="{ backgroundColor: selectedOption?.swatch }"
-          />
-          {{ selectedOption?.label }}
-        </span>
-      </span>
+      <span class="primary-color-switcher__trigger-label">Theme colors</span>
     </button>
 
     <div
@@ -181,219 +247,148 @@ onBeforeUnmount(() => {
       ref="menuElement"
       class="primary-color-switcher__menu"
       role="menu"
-      aria-label="Primary colors"
-      @keydown="handleMenuKeydown"
+      aria-label="Theme colors"
     >
       <button
-        v-for="option in options"
-        :key="option.value"
-        class="primary-color-switcher__option"
-        :class="{ 'is-selected': option.value === selectedColor }"
+        class="primary-color-switcher__category"
         type="button"
-        role="menuitemradio"
-        :aria-checked="option.value === selectedColor"
-        @click="selectColor(option.value)"
+        role="menuitem"
+        data-theme-menu="primary"
+        aria-haspopup="menu"
+        :aria-controls="primaryMenuId"
+        :aria-expanded="activeMenu === 'primary'"
+        @click="activeMenu === 'primary' ? (activeMenu = undefined) : openMenu('primary')"
+        @keydown="handleCategoryKeydown($event, 'primary')"
+        @pointerenter="!compact && openMenu('primary')"
       >
-        <span
-          class="primary-color-switcher__swatch"
-          :class="{ 'is-black': option.value === 'black' }"
-          :style="{ backgroundColor: option.swatch }"
-        />
-        <span>{{ option.label }}</span>
-        <Check
-          v-if="option.value === selectedColor"
-          class="primary-color-switcher__check"
-          :size="17"
-          :stroke-width="2.25"
-          aria-hidden="true"
-        />
+        <span>Primary</span>
+        <span class="primary-color-switcher__current">
+          <span
+            class="primary-color-switcher__swatch"
+            :class="{ 'is-black': selectedPrimary === 'black' }"
+            :style="{ backgroundColor: selectedPrimaryOption?.swatch }"
+          />
+          {{ selectedPrimaryOption?.label }}
+        </span>
+        <ChevronRight :size="17" aria-hidden="true" />
       </button>
+
+      <button
+        class="primary-color-switcher__category"
+        type="button"
+        role="menuitem"
+        data-theme-menu="neutral"
+        aria-haspopup="menu"
+        :aria-controls="neutralMenuId"
+        :aria-expanded="activeMenu === 'neutral'"
+        @click="activeMenu === 'neutral' ? (activeMenu = undefined) : openMenu('neutral')"
+        @keydown="handleCategoryKeydown($event, 'neutral')"
+        @pointerenter="!compact && openMenu('neutral')"
+      >
+        <span>Neutral</span>
+        <span class="primary-color-switcher__current">
+          <span
+            class="primary-color-switcher__swatch"
+            :style="{ backgroundColor: selectedNeutralOption?.swatch }"
+          />
+          {{ selectedNeutralOption?.label }}
+        </span>
+        <ChevronRight :size="17" aria-hidden="true" />
+      </button>
+
+      <div
+        v-if="activeMenu === 'primary'"
+        :id="primaryMenuId"
+        class="primary-color-switcher__submenu"
+        role="menu"
+        aria-label="Primary colors"
+        @keydown="handleSubmenuKeydown($event, 'primary')"
+      >
+        <button
+          v-for="option in primaryOptions"
+          :key="option.value"
+          class="primary-color-switcher__option"
+          :class="{ 'is-selected': option.value === selectedPrimary }"
+          type="button"
+          role="menuitemradio"
+          :aria-checked="option.value === selectedPrimary"
+          @click="selectPrimary(option.value)"
+        >
+          <span
+            class="primary-color-switcher__swatch"
+            :class="{ 'is-black': option.value === 'black' }"
+            :style="{ backgroundColor: option.swatch }"
+          />
+          <span>{{ option.label }}</span>
+          <Check
+            v-if="option.value === selectedPrimary"
+            class="primary-color-switcher__check"
+            :size="17"
+            :stroke-width="2.25"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+
+      <div
+        v-if="activeMenu === 'neutral'"
+        :id="neutralMenuId"
+        class="primary-color-switcher__submenu"
+        role="menu"
+        aria-label="Neutral colors"
+        @keydown="handleSubmenuKeydown($event, 'neutral')"
+      >
+        <button
+          v-for="option in neutralOptions"
+          :key="option.value"
+          class="primary-color-switcher__option"
+          :class="{ 'is-selected': option.value === selectedNeutral }"
+          type="button"
+          role="menuitemradio"
+          :aria-checked="option.value === selectedNeutral"
+          @click="selectNeutral(option.value)"
+        >
+          <span
+            class="primary-color-switcher__swatch"
+            :style="{ backgroundColor: option.swatch }"
+          />
+          <span>{{ option.label }}</span>
+          <Check
+            v-if="option.value === selectedNeutral"
+            class="primary-color-switcher__check"
+            :size="17"
+            :stroke-width="2.25"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
-:root[data-mk-primary='black'] {
-  --mk-primary: var(--mk-neutral-900);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='black'] {
-  --mk-primary: var(--mk-neutral-50);
-  --mk-primary-foreground: var(--mk-neutral-950);
-}
-
-:root[data-mk-primary='red'] {
-  --mk-primary: var(--mk-color-red-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='red'] {
-  --mk-primary: var(--mk-color-red-400);
-  --mk-primary-foreground: var(--mk-color-red-950);
-}
-
-:root[data-mk-primary='orange'] {
-  --mk-primary: var(--mk-color-orange-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='orange'] {
-  --mk-primary: var(--mk-color-orange-400);
-  --mk-primary-foreground: var(--mk-color-orange-950);
-}
-
-:root[data-mk-primary='amber'] {
-  --mk-primary: var(--mk-color-amber-400);
-  --mk-primary-foreground: var(--mk-color-amber-950);
-}
-
-:root.dark[data-mk-primary='amber'] {
-  --mk-primary: var(--mk-color-amber-300);
-  --mk-primary-foreground: var(--mk-color-amber-950);
-}
-
-:root[data-mk-primary='yellow'] {
-  --mk-primary: var(--mk-color-yellow-400);
-  --mk-primary-foreground: var(--mk-color-yellow-950);
-}
-
-:root.dark[data-mk-primary='yellow'] {
-  --mk-primary: var(--mk-color-yellow-300);
-  --mk-primary-foreground: var(--mk-color-yellow-950);
-}
-
-:root[data-mk-primary='lime'] {
-  --mk-primary: var(--mk-color-lime-400);
-  --mk-primary-foreground: var(--mk-color-lime-950);
-}
-
-:root.dark[data-mk-primary='lime'] {
-  --mk-primary: var(--mk-color-lime-300);
-  --mk-primary-foreground: var(--mk-color-lime-950);
-}
-
-:root[data-mk-primary='green'] {
-  --mk-primary: var(--mk-color-green-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='green'] {
-  --mk-primary: var(--mk-color-green-400);
-  --mk-primary-foreground: var(--mk-color-green-950);
-}
-
-:root[data-mk-primary='emerald'] {
-  --mk-primary: var(--mk-color-emerald-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='emerald'] {
-  --mk-primary: var(--mk-color-emerald-400);
-  --mk-primary-foreground: var(--mk-color-emerald-950);
-}
-
-:root[data-mk-primary='teal'] {
-  --mk-primary: var(--mk-color-teal-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='teal'] {
-  --mk-primary: var(--mk-color-teal-400);
-  --mk-primary-foreground: var(--mk-color-teal-950);
-}
-
-:root[data-mk-primary='cyan'] {
-  --mk-primary: var(--mk-color-cyan-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='cyan'] {
-  --mk-primary: var(--mk-color-cyan-400);
-  --mk-primary-foreground: var(--mk-color-cyan-950);
-}
-
-:root[data-mk-primary='sky'] {
-  --mk-primary: var(--mk-color-sky-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='sky'] {
-  --mk-primary: var(--mk-color-sky-400);
-  --mk-primary-foreground: var(--mk-color-sky-950);
-}
-
-:root[data-mk-primary='blue'] {
-  --mk-primary: var(--mk-color-blue-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='blue'] {
-  --mk-primary: var(--mk-color-blue-400);
-  --mk-primary-foreground: var(--mk-color-blue-950);
-}
-
-:root[data-mk-primary='indigo'] {
-  --mk-primary: var(--mk-color-indigo-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='indigo'] {
-  --mk-primary: var(--mk-color-indigo-400);
-  --mk-primary-foreground: var(--mk-color-indigo-950);
-}
-
-:root[data-mk-primary='violet'] {
-  --mk-primary: var(--mk-color-violet-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='violet'] {
-  --mk-primary: var(--mk-color-violet-400);
-  --mk-primary-foreground: var(--mk-color-violet-950);
-}
-
-:root[data-mk-primary='purple'] {
-  --mk-primary: var(--mk-color-purple-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='purple'] {
-  --mk-primary: var(--mk-color-purple-400);
-  --mk-primary-foreground: var(--mk-color-purple-950);
-}
-
-:root[data-mk-primary='fuchsia'] {
-  --mk-primary: var(--mk-color-fuchsia-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='fuchsia'] {
-  --mk-primary: var(--mk-color-fuchsia-400);
-  --mk-primary-foreground: var(--mk-color-fuchsia-950);
-}
-
-:root[data-mk-primary='pink'] {
-  --mk-primary: var(--mk-color-pink-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='pink'] {
-  --mk-primary: var(--mk-color-pink-400);
-  --mk-primary-foreground: var(--mk-color-pink-950);
-}
-
-:root[data-mk-primary='rose'] {
-  --mk-primary: var(--mk-color-rose-700);
-  --mk-primary-foreground: var(--mk-color-white);
-}
-
-:root.dark[data-mk-primary='rose'] {
-  --mk-primary: var(--mk-color-rose-400);
-  --mk-primary-foreground: var(--mk-color-rose-950);
-}
-
 .primary-color-switcher {
+  --mk-swatch-slate: var(--mk-color-slate-500);
+  --mk-swatch-gray: var(--mk-color-gray-500);
+  --mk-swatch-zinc: var(--mk-color-zinc-500);
+  --mk-swatch-stone: var(--mk-color-stone-500);
+  --mk-swatch-red: var(--mk-color-red-500);
+  --mk-swatch-orange: var(--mk-color-orange-500);
+  --mk-swatch-amber: var(--mk-color-amber-500);
+  --mk-swatch-yellow: var(--mk-color-yellow-500);
+  --mk-swatch-lime: var(--mk-color-lime-500);
+  --mk-swatch-green: var(--mk-color-green-500);
+  --mk-swatch-emerald: var(--mk-color-emerald-500);
+  --mk-swatch-teal: var(--mk-color-teal-500);
+  --mk-swatch-cyan: var(--mk-color-cyan-500);
+  --mk-swatch-sky: var(--mk-color-sky-500);
+  --mk-swatch-blue: var(--mk-color-blue-500);
+  --mk-swatch-indigo: var(--mk-color-indigo-500);
+  --mk-swatch-violet: var(--mk-color-violet-500);
+  --mk-swatch-purple: var(--mk-color-purple-500);
+  --mk-swatch-fuchsia: var(--mk-color-fuchsia-500);
+  --mk-swatch-pink: var(--mk-color-pink-500);
+  --mk-swatch-rose: var(--mk-color-rose-500);
   position: relative;
   display: flex;
   align-items: center;
@@ -424,6 +419,7 @@ onBeforeUnmount(() => {
 }
 
 .primary-color-switcher__trigger:focus-visible,
+.primary-color-switcher__category:focus-visible,
 .primary-color-switcher__option:focus-visible {
   outline: 2px solid var(--mk-primary);
   outline-offset: 2px;
@@ -433,19 +429,64 @@ onBeforeUnmount(() => {
   display: none;
 }
 
+.primary-color-switcher__menu,
+.primary-color-switcher__submenu {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.75rem;
+  background: var(--vp-c-bg-elv);
+  box-shadow: var(--vp-shadow-3);
+}
+
 .primary-color-switcher__menu {
   position: absolute;
   z-index: 100;
   top: calc(100% + 0.625rem);
   right: 0;
+  width: 15rem;
+  padding: 0.375rem;
+}
+
+.primary-color-switcher__category {
+  display: grid;
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.5rem 0.625rem;
+  grid-template-columns: 1fr auto 1rem;
+  gap: 0.625rem;
+  align-items: center;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--vp-c-text-1);
+  font: inherit;
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.primary-color-switcher__category:hover,
+.primary-color-switcher__category[aria-expanded='true'],
+.primary-color-switcher__option:hover,
+.primary-color-switcher__option.is-selected {
+  background: var(--vp-c-bg-soft);
+}
+
+.primary-color-switcher__current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--vp-c-text-2);
+}
+
+.primary-color-switcher__submenu {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 0.5rem);
   width: 13.5rem;
   max-height: min(70vh, 31rem);
   padding: 0.375rem;
   overflow-y: auto;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 0.75rem;
-  background: var(--vp-c-bg-elv);
-  box-shadow: var(--vp-shadow-3);
 }
 
 .primary-color-switcher__option {
@@ -465,11 +506,6 @@ onBeforeUnmount(() => {
   font-size: 0.875rem;
   text-align: left;
   cursor: pointer;
-}
-
-.primary-color-switcher__option:hover,
-.primary-color-switcher__option.is-selected {
-  background: var(--vp-c-bg-soft);
 }
 
 .primary-color-switcher__swatch {
@@ -507,24 +543,13 @@ onBeforeUnmount(() => {
 }
 
 .primary-color-switcher.is-compact .primary-color-switcher__trigger-label {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  display: inline;
   color: var(--vp-c-text-1);
   font-size: 0.875rem;
 }
 
-.primary-color-switcher__current {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--vp-c-text-2);
-}
-
-.primary-color-switcher.is-compact .primary-color-switcher__menu {
+.primary-color-switcher.is-compact .primary-color-switcher__menu,
+.primary-color-switcher.is-compact .primary-color-switcher__submenu {
   position: static;
   width: 100%;
   max-height: 18rem;

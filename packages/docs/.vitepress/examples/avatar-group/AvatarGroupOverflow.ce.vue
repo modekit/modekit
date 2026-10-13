@@ -1,5 +1,5 @@
 <script lang="ts">
-import { avatarColors, avatarGroupSpacings, avatarSizes } from '@modekit/vue'
+import { avatarGroupSpacings, avatarSizes } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -12,12 +12,6 @@ export const preview = definePreview({
       label: 'Visible',
       defaultValue: 3,
       options: [2, 3, 4, 5].map((value) => ({ label: String(value), value })),
-    },
-    {
-      prop: 'overflowColor',
-      label: 'Overflow color',
-      defaultValue: 'neutral',
-      options: selectOptions(avatarColors),
     },
     {
       prop: 'size',
@@ -35,17 +29,16 @@ export const preview = definePreview({
   code: (values) => `<template>
   <MkAvatarGroup
     :max="${String(values.max)}"
-    overflow-color="${String(values.overflowColor)}"
     size="${String(values.size)}"
     spacing="${String(values.spacing)}"
     aria-label="Team members"
   >
     <MkAvatar src="/avatar-demo.svg" alt="John Doe" fallback="JD" />
     <MkAvatar fallback="JS" color="primary" aria-label="Jane Smith" />
-    <MkAvatar fallback="AB" color="sky" aria-label="Alice Brown" />
-    <MkAvatar fallback="RL" color="amber" aria-label="Robert Lee" />
-    <MkAvatar fallback="EW" color="green" aria-label="Emma Wilson" />
-    <MkAvatar fallback="DM" color="red" aria-label="David Miller" />
+    <MkAvatar fallback="AB" color="neutral" aria-label="Alice Brown" />
+    <MkAvatar fallback="RL" color="primary" aria-label="Robert Lee" />
+    <MkAvatar fallback="EW" color="neutral" aria-label="Emma Wilson" />
+    <MkAvatar fallback="DM" color="primary" aria-label="David Miller" />
   </MkAvatarGroup>
 </template>`,
 })
@@ -81,9 +74,9 @@ const props = withDefaults(
   >
     <MkAvatar src="/avatar-demo.svg" alt="John Doe" fallback="JD" />
     <MkAvatar fallback="JS" color="primary" aria-label="Jane Smith" />
-    <MkAvatar fallback="AB" color="sky" aria-label="Alice Brown" />
-    <MkAvatar fallback="RL" color="amber" aria-label="Robert Lee" />
-    <MkAvatar fallback="EW" color="green" aria-label="Emma Wilson" />
-    <MkAvatar fallback="DM" color="red" aria-label="David Miller" />
+    <MkAvatar fallback="AB" color="neutral" aria-label="Alice Brown" />
+    <MkAvatar fallback="RL" color="primary" aria-label="Robert Lee" />
+    <MkAvatar fallback="EW" color="neutral" aria-label="Emma Wilson" />
+    <MkAvatar fallback="DM" color="primary" aria-label="David Miller" />
   </MkAvatarGroup>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { calloutColors, calloutVariants } from '@modekit/vue'
+import { calloutVariants } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -15,12 +15,6 @@ export const preview = definePreview({
       defaultValue: 'soft',
       options: selectOptions(calloutVariants),
     },
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'green',
-      options: selectOptions(calloutColors),
-    },
   ],
   code: (values) => `<script setup lang="ts">
 import { CircleCheck } from '@lucide/vue'
@@ -29,7 +23,7 @@ ${scriptEnd}
 
 <template>
   <MkCallout
-    color="${String(values.color)}"
+    color="primary"
     variant="${String(values.variant)}"
     title="Changes saved"
   >
@@ -54,7 +48,7 @@ const props = withDefaults(
     variant?: CalloutVariant
   }>(),
   {
-    color: 'green',
+    color: 'primary',
     variant: 'soft',
   },
 )

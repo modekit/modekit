@@ -46,8 +46,22 @@ include `slate`, `gray`, `zinc`, `stone`, `red`, `orange`, `amber`,
 `yellow`, `lime`, `green`, `emerald`, `teal`, `cyan`, `sky`, `blue`, `indigo`, `violet`, `purple`,
 `fuchsia`, `pink`, and `rose`.
 
-The defaults are ordinary CSS custom properties. There is no color generator or JavaScript theme
-resolver.
+The defaults are ordinary CSS custom properties backed by ModeKit's packaged Tailwind palette.
+Configure their palette families when installing the optional plugin:
+
+```ts
+createModeKit({
+  theme: {
+    primary: 'green',
+    neutral: 'slate',
+  },
+})
+```
+
+`primary` accepts `black`, the gray families, and the chromatic palette families. `neutral` accepts
+`slate`, `gray`, `zinc`, and `stone`. The selected families set `data-mk-primary` and
+`data-mk-neutral` on the document root, where the static stylesheet maps them to the public theme
+variables.
 
 ```css
 :root {
@@ -145,6 +159,10 @@ import App from './App.vue'
 createApp(App)
   .use(
     createModeKit({
+      theme: {
+        primary: 'green',
+        neutral: 'slate',
+      },
       ui: {
         button: {
           variants: {

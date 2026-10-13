@@ -13,7 +13,7 @@ export default defineConfig({
     [
       'script',
       {},
-      `(function(){try{var colors=['black','red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];var color=localStorage.getItem('modekit-primary-color');document.documentElement.dataset.mkPrimary=colors.includes(color)?color:'black'}catch{document.documentElement.dataset.mkPrimary='black'}})()`,
+      `(function(){try{var primaryColors=['black','slate','gray','zinc','stone','red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];var neutralColors=['slate','gray','zinc','stone'];var primary=localStorage.getItem('modekit-primary-color');var neutral=localStorage.getItem('modekit-neutral-color');document.documentElement.dataset.mkPrimary=primaryColors.includes(primary)?primary:'black';document.documentElement.dataset.mkNeutral=neutralColors.includes(neutral)?neutral:'zinc'}catch{document.documentElement.dataset.mkPrimary='black';document.documentElement.dataset.mkNeutral='zinc'}})()`,
     ],
   ],
   vite: {

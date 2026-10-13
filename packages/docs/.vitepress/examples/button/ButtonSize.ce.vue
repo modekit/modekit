@@ -1,5 +1,5 @@
 <script lang="ts">
-import { buttonColors, buttonSizes } from '@modekit/vue'
+import { buttonSizes } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -12,12 +12,6 @@ export const preview = definePreview({
       label: 'Size',
       defaultValue: 'md',
       options: selectOptions(buttonSizes),
-    },
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'primary',
-      options: selectOptions(buttonColors),
     },
   ],
 })

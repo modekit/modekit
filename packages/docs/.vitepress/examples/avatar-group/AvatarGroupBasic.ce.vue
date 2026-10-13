@@ -28,8 +28,8 @@ export const preview = definePreview({
   >
     <MkAvatar src="/avatar-demo.svg" alt="John Doe" fallback="JD" />
     <MkAvatar fallback="JS" color="primary" aria-label="Jane Smith" />
-    <MkAvatar fallback="AB" color="sky" aria-label="Alice Brown" />
-    <MkAvatar fallback="RL" color="amber" aria-label="Robert Lee" />
+    <MkAvatar fallback="AB" color="neutral" aria-label="Alice Brown" />
+    <MkAvatar fallback="RL" color="primary" aria-label="Robert Lee" />
   </MkAvatarGroup>
 </template>`,
 })
@@ -55,7 +55,7 @@ const props = withDefaults(
   <MkAvatarGroup :size="props.size" :spacing="props.spacing" aria-label="Project members">
     <MkAvatar src="/avatar-demo.svg" alt="John Doe" fallback="JD" />
     <MkAvatar fallback="JS" color="primary" aria-label="Jane Smith" />
-    <MkAvatar fallback="AB" color="sky" aria-label="Alice Brown" />
-    <MkAvatar fallback="RL" color="amber" aria-label="Robert Lee" />
+    <MkAvatar fallback="AB" color="neutral" aria-label="Alice Brown" />
+    <MkAvatar fallback="RL" color="primary" aria-label="Robert Lee" />
   </MkAvatarGroup>
 </template>

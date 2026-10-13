@@ -1,19 +1,10 @@
 <script lang="ts">
-import { badgeColors } from '@modekit/vue'
-
-import { definePreview, selectOptions } from '../../components/preview.js'
+import { definePreview } from '../../components/preview.js'
 
 export const preview = definePreview({
   componentName: 'MkBadge',
   content: 'Status',
-  controls: [
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'primary',
-      options: selectOptions(badgeColors),
-    },
-  ],
+  controls: [],
 })
 </script>
 

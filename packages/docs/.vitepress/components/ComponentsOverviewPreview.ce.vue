@@ -43,14 +43,14 @@ const tabItems = [
       aria-label="Project members"
     >
       <MkAvatar fallback="AN" color="primary" aria-label="Ana" />
-      <MkAvatar fallback="BO" color="sky" aria-label="Bo" />
-      <MkAvatar fallback="CY" color="amber" aria-label="Cy" />
-      <MkAvatar fallback="DI" color="green" aria-label="Di" />
+      <MkAvatar fallback="BO" color="neutral" aria-label="Bo" />
+      <MkAvatar fallback="CY" color="primary" aria-label="Cy" />
+      <MkAvatar fallback="DI" color="neutral" aria-label="Di" />
     </MkAvatarGroup>
 
     <div v-else-if="props.kind === 'badge'" class="overview-preview__badges">
       <MkBadge color="primary">New</MkBadge>
-      <MkBadge color="green" variant="soft">
+      <MkBadge color="primary" variant="soft">
         <template #leading><Check aria-hidden="true" /></template>
         Ready
       </MkBadge>
@@ -71,7 +71,7 @@ const tabItems = [
     <MkCallout
       v-else-if="props.kind === 'callout'"
       class="overview-preview__fill"
-      color="sky"
+      color="primary"
       size="sm"
       title="Changes saved"
     >

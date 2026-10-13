@@ -1,29 +1,20 @@
 <script lang="ts">
-import { calloutColors } from '@modekit/vue'
-
-import { definePreview, selectOptions } from '../../components/preview.js'
+import { definePreview } from '../../components/preview.js'
 
 const scriptEnd = ['<', '/script>'].join('')
 
 export const preview = definePreview({
   componentName: 'MkCallout',
   content: '',
-  controls: [
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'sky',
-      options: selectOptions(calloutColors),
-    },
-  ],
-  code: (values) => `<script setup lang="ts">
+  controls: [],
+  code: () => `<script setup lang="ts">
 import { Info } from '@lucide/vue'
 import { MkCallout } from '@modekit/vue'
 ${scriptEnd}
 
 <template>
   <MkCallout
-    color="${String(values.color)}"
+    color="primary"
     title="Account notification"
   >
     <template #icon>
@@ -46,7 +37,7 @@ const props = withDefaults(
     color?: CalloutColor
   }>(),
   {
-    color: 'sky',
+    color: 'primary',
   },
 )
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { badgeColors, badgeSizes } from '@modekit/vue'
+import { badgeSizes } from '@modekit/vue'
 
 import { definePreview, selectOptions } from '../../components/preview.js'
 
@@ -21,12 +21,6 @@ export const preview = definePreview({
       label: 'Size',
       defaultValue: 'md',
       options: selectOptions(badgeSizes),
-    },
-    {
-      prop: 'color',
-      label: 'Color',
-      defaultValue: 'primary',
-      options: selectOptions(badgeColors),
     },
   ],
 })

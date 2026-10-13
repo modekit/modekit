@@ -25,3 +25,34 @@ export const modeKitColors = [
 ] as const
 
 export type ModeKitColor = (typeof modeKitColors)[number]
+
+export const modeKitPrimaryColors = [
+  'black',
+  'slate',
+  'gray',
+  'zinc',
+  'stone',
+  'red',
+  'orange',
+  'amber',
+  'yellow',
+  'lime',
+  'green',
+  'emerald',
+  'teal',
+  'cyan',
+  'sky',
+  'blue',
+  'indigo',
+  'violet',
+  'purple',
+  'fuchsia',
+  'pink',
+  'rose',
+] as const
+
+export type ModeKitPrimaryColor = (typeof modeKitPrimaryColors)[number]
+
+export const modeKitNeutralColors = ['slate', 'gray', 'zinc', 'stone'] as const
+
+export type ModeKitNeutralColor = (typeof modeKitNeutralColors)[number]
