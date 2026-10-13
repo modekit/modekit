@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 
 import {
@@ -148,6 +148,58 @@ describe('MkTabs', () => {
 
     expect(tab.classes()).toContain('mk:rounded-none')
     expect(tab.classes()).not.toContain('mk:rounded-lg')
+  })
+
+  it('moves the active indicator between variable-width triggers without adding markup', async () => {
+    const rectangle = (left: number, width: number): DOMRect => ({
+      x: left,
+      y: 0,
+      top: 0,
+      right: left + width,
+      bottom: 40,
+      left,
+      width,
+      height: 40,
+      toJSON: () => ({}),
+    })
+    const getBoundingClientRect = vi
+      .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+      .mockImplementation(function (this: HTMLElement) {
+        if (this.getAttribute('role') === 'tablist') return rectangle(20, 240)
+        if (this.textContent === 'Overview') return rectangle(20, 72)
+        if (this.textContent === 'Activity') return rectangle(92, 68)
+        return rectangle(160, 76)
+      })
+
+    try {
+      const wrapper = mount(MkTabs, { props: { items, modelValue: 'overview' } })
+      const list = wrapper.get('[role="tablist"]')
+      const listElement = list.element as HTMLElement
+      const flushIndicator = async () => {
+        await nextTick()
+        await new Promise<void>((resolve) =>
+          requestAnimationFrame(() => {
+            resolve()
+          }),
+        )
+      }
+
+      await flushIndicator()
+
+      expect(list.attributes('data-mk-indicator-ready')).toBe('')
+      expect(listElement.style.getPropertyValue('--mk-tabs-indicator-x')).toBe('0px')
+      expect(listElement.style.getPropertyValue('--mk-tabs-indicator-width')).toBe('72px')
+      expect(listElement.children).toHaveLength(items.length)
+
+      await wrapper.setProps({ modelValue: 'activity' })
+      await flushIndicator()
+
+      expect(listElement.style.getPropertyValue('--mk-tabs-indicator-x')).toBe('72px')
+      expect(listElement.style.getPropertyValue('--mk-tabs-indicator-width')).toBe('68px')
+      expect(listElement.children).toHaveLength(items.length)
+    } finally {
+      getBoundingClientRect.mockRestore()
+    }
   })
 
   it('renders the pill presentation with semantic surface roles', () => {

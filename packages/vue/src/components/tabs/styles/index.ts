@@ -20,7 +20,7 @@ const tabsStyles = cva('mk-tabs mk:flex mk:min-w-0 mk:flex-col', {
 
 const tabsListStyles = cva(
   [
-    'mk-tabs__list mk:box-border mk:flex mk:max-w-full mk:min-w-0 mk:items-center mk:overflow-x-auto mk:overscroll-x-contain',
+    'mk-tabs__list mk:relative mk:box-border mk:flex mk:max-w-full mk:min-w-0 mk:items-center mk:overflow-x-auto mk:overscroll-x-contain',
     'mk:[scrollbar-width:none] mk:[&::-webkit-scrollbar]:hidden',
   ],
   {
@@ -40,7 +40,7 @@ const tabsListStyles = cva(
 
 const tabsTriggerStyles = cva(
   [
-    'mk-tabs__trigger mk:box-border mk:inline-flex mk:shrink-0 mk:appearance-none mk:items-center mk:justify-center mk:whitespace-nowrap mk:font-medium',
+    'mk-tabs__trigger mk:relative mk:z-1 mk:box-border mk:inline-flex mk:shrink-0 mk:appearance-none mk:items-center mk:justify-center mk:whitespace-nowrap mk:font-medium',
     'mk:border-solid mk:bg-transparent mk:text-muted-foreground',
     'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
     'mk:hover:text-foreground mk:focus-visible:z-10 mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring',

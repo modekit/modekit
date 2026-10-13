@@ -1,6 +1,13 @@
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
-import { defineComponent, h } from 'vue'
-import type { Component, HTMLAttributes, PropType, SlotsType, VNodeChild } from 'vue'
+import { defineComponent, h, onBeforeUnmount, onMounted, onUpdated } from 'vue'
+import type {
+  Component,
+  ComponentPublicInstance,
+  HTMLAttributes,
+  PropType,
+  SlotsType,
+  VNodeChild,
+} from 'vue'
 
 import { useModeKitOptions } from '../../config/context.js'
 import { getTabsClasses, getTabsSlotClasses } from './styles/index.js'
@@ -66,6 +73,75 @@ export const MkTabs = defineComponent({
   slots: Object as SlotsType<TabsSlots>,
   setup(props, { attrs, emit, slots }) {
     const options = useModeKitOptions()
+    let listElement: HTMLElement | undefined
+    let animationFrame: number | undefined
+    let resizeObserver: ResizeObserver | undefined
+
+    const updateIndicator = () => {
+      if (!listElement) return
+
+      const activeTrigger = listElement.querySelector<HTMLElement>(
+        '.mk-tabs__trigger[data-state="active"]',
+      )
+      if (!activeTrigger) {
+        listElement.removeAttribute('data-mk-indicator-ready')
+        return
+      }
+
+      const listRect = listElement.getBoundingClientRect()
+      const triggerRect = activeTrigger.getBoundingClientRect()
+      const offset = triggerRect.left - listRect.left + listElement.scrollLeft
+
+      listElement.style.setProperty('--mk-tabs-indicator-x', `${String(offset)}px`)
+      listElement.style.setProperty('--mk-tabs-indicator-width', `${String(triggerRect.width)}px`)
+      listElement.setAttribute('data-mk-indicator-ready', '')
+    }
+
+    const scheduleIndicatorUpdate = () => {
+      if (typeof requestAnimationFrame === 'undefined') return
+      if (animationFrame !== undefined) cancelAnimationFrame(animationFrame)
+
+      animationFrame = requestAnimationFrame(() => {
+        animationFrame = undefined
+        updateIndicator()
+      })
+    }
+
+    const observeList = () => {
+      resizeObserver?.disconnect()
+      if (!listElement || typeof ResizeObserver === 'undefined') return
+
+      resizeObserver = new ResizeObserver(scheduleIndicatorUpdate)
+      resizeObserver.observe(listElement)
+      listElement
+        .querySelectorAll<HTMLElement>('.mk-tabs__trigger')
+        .forEach((trigger) => resizeObserver?.observe(trigger))
+    }
+
+    const setListElement = (value: Element | ComponentPublicInstance | null) => {
+      let element: unknown = value
+      if (!(typeof Element !== 'undefined' && value instanceof Element)) {
+        element = value && '$el' in value ? value.$el : undefined
+      }
+
+      listElement =
+        typeof HTMLElement !== 'undefined' && element instanceof HTMLElement ? element : undefined
+      observeList()
+      scheduleIndicatorUpdate()
+    }
+
+    onMounted(() => {
+      observeList()
+      scheduleIndicatorUpdate()
+    })
+    onUpdated(() => {
+      observeList()
+      scheduleIndicatorUpdate()
+    })
+    onBeforeUnmount(() => {
+      resizeObserver?.disconnect()
+      if (animationFrame !== undefined) cancelAnimationFrame(animationFrame)
+    })
 
     return () => {
       const tabsConfig = options.ui?.tabs
@@ -101,6 +177,7 @@ export const MkTabs = defineComponent({
           h(
             TabsList,
             {
+              ref: setListElement,
               as: 'div',
               loop: props.loop,
               class: getTabsSlotClasses({
