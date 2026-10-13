@@ -1,3 +1,16 @@
+export { badgeColors, badgeSizes, badgeVariants, MkBadge } from './badge/index.js'
+export type {
+  BadgeAs,
+  BadgeColor,
+  BadgeCompoundVariant,
+  BadgeOptions,
+  BadgeProps,
+  BadgeSize,
+  BadgeSlots,
+  BadgeStyleConfig,
+  BadgeUI,
+  BadgeVariant,
+} from './badge/index.js'
 export { buttonColors, buttonSizes, buttonTypes, buttonVariants, MkButton } from './button/index.js'
 export type {
   ButtonColor,

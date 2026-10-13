@@ -1,6 +1,9 @@
 export { createModeKit } from './config/index.js'
 export type { ModeKitOptions, ModeKitUIConfig } from './config/index.js'
 export {
+  badgeColors,
+  badgeSizes,
+  badgeVariants,
   buttonColors,
   buttonSizes,
   buttonTypes,
@@ -13,6 +16,7 @@ export {
   inputSizes,
   inputVariants,
   labelSizes,
+  MkBadge,
   MkButton,
   MkCard,
   MkCheckbox,
@@ -26,6 +30,16 @@ export {
   tabsVariants,
 } from './components/index.js'
 export type {
+  BadgeAs,
+  BadgeColor,
+  BadgeCompoundVariant,
+  BadgeOptions,
+  BadgeProps,
+  BadgeSize,
+  BadgeSlots,
+  BadgeStyleConfig,
+  BadgeUI,
+  BadgeVariant,
   ButtonColor,
   ButtonCompoundVariant,
   ButtonOptions,

@@ -8,6 +8,7 @@ customization, and working examples.
 
 ## Available components
 
+- [Badge](/components/badge)
 - [Button](/components/button)
 - [Card](/components/card)
 - [Checkbox](/components/checkbox)
