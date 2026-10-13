@@ -9,6 +9,13 @@ export default defineConfig({
   description: 'Accessible, feature-rich UI components for Vue applications.',
   cleanUrls: true,
   lastUpdated: true,
+  head: [
+    [
+      'script',
+      {},
+      `(function(){try{var colors=['black','red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];var color=localStorage.getItem('modekit-primary-color');document.documentElement.dataset.mkPrimary=colors.includes(color)?color:'black'}catch{document.documentElement.dataset.mkPrimary='black'}})()`,
+    ],
+  ],
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -24,6 +31,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/about', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/', activeMatch: '/components/' },
+      { component: 'PrimaryColorSwitcher' },
     ],
     sidebar: {
       '/guide/': [
