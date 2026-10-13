@@ -97,8 +97,8 @@ the item model.
 
 ## Styling
 
-Tabs use semantic `foreground`, `muted`, `surface`, `border`, `primary`, and `ring` roles. The
-component does not depend on fixed palette colors. Use `ui` for a local adjustment:
+Tabs use the neutral scale and white for their surfaces, text, and borders, and primary for selected
+and focus states. Use `ui` for a local adjustment:
 
 ```vue
 <MkTabs

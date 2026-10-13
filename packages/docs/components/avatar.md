@@ -26,7 +26,7 @@ The example uses Lucide's `UserRound` icon.
 
 ### Color
 
-Use `color` to set the fallback surface and foreground. It defaults to `secondary` and is independent
+Use `color` to set the fallback surface and foreground. It defaults to `neutral` and is independent
 from the optional status badge. It accepts any shared `ModeKitColor`, including palette names such as
 `red`, `emerald`, and `violet`.
 
@@ -39,7 +39,7 @@ Avatar is circular by default. Use `square` for size-appropriate rounded square 
 ### Status badge
 
 Use `badge` to add a decorative status dot. `badgeColor` controls the dot independently from the
-Avatar fallback and defaults to `success`. `badgePosition` accepts `top-left`, `top-right`,
+Avatar fallback and defaults to `green`. `badgePosition` accepts `top-left`, `top-right`,
 `bottom-left`, and `bottom-right`, and defaults to `bottom-right`.
 
 <ComponentPreview name="avatar/AvatarBadge" />
@@ -69,11 +69,11 @@ attributes such as `aria-label`, `role`, `title`, and `data-*` are forwarded to 
 | `alt`            | `string`                                                       | `''`             | Native alternative text forwarded to the image.               |
 | `fallback`       | `string`                                                       | —                | Short fallback content, usually initials.                     |
 | `delayMs`        | `number`                                                       | —                | Delays fallback rendering through Reka's fallback primitive.  |
-| `color`          | `ModeKitColor`                                                 | `'secondary'`    | Sets the fallback color.                                      |
+| `color`          | `ModeKitColor`                                                 | `'neutral'`      | Sets the fallback color.                                      |
 | `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                         | `'md'`           | Sets root, fallback text, icon, and badge dimensions.         |
 | `square`         | `boolean`                                                      | `false`          | Replaces the circular shape with rounded square corners.      |
 | `badge`          | `boolean`                                                      | `false`          | Renders a decorative status badge.                            |
-| `badgeColor`     | `ModeKitColor`                                                 | `'success'`      | Sets the badge color independently from `color`.              |
+| `badgeColor`     | `ModeKitColor`                                                 | `'green'`        | Sets the badge color independently from `color`.              |
 | `badgePosition`  | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` | `'bottom-right'` | Positions the status badge.                                   |
 | `referrerPolicy` | `ImgHTMLAttributes['referrerpolicy']`                          | —                | Controls referrer information for the image request.          |
 | `crossOrigin`    | `ImgHTMLAttributes['crossorigin']`                             | —                | Configures the image's CORS request mode.                     |
@@ -106,8 +106,8 @@ with `object-cover`; fallback and status badge colors use ModeKit's shared color
   alt="John Doe"
   fallback="JD"
   badge
-  color="secondary"
-  badge-color="success"
+  color="neutral"
+  badge-color="green"
   :ui="{
     base: 'ring-2 ring-primary/30',
     image: 'grayscale',
@@ -138,10 +138,10 @@ app.use(
         },
         variants: {
           color: {
-            info: 'ring-info/30',
+            sky: 'ring-sky-500/30',
           },
           badgeColor: {
-            warning: 'outline outline-warning/30',
+            amber: 'outline outline-amber-500/30',
           },
           size: {
             xl: 'ring-2',
@@ -154,8 +154,8 @@ app.use(
           },
         },
         defaultVariants: {
-          color: 'secondary',
-          badgeColor: 'success',
+          color: 'neutral',
+          badgeColor: 'green',
           size: 'md',
           square: false,
           badgePosition: 'bottom-right',

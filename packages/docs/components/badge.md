@@ -13,7 +13,6 @@ Use `color` to select a semantic alias or palette family. It defaults to `primar
 <ComponentPreview name="badge/BadgeColor" />
 
 It accepts any shared `ModeKitColor`, including palette names such as `red`, `emerald`, and `violet`.
-`secondary` remains available as a neutral treatment.
 
 ### Variant
 
@@ -45,7 +44,7 @@ Badge renders a `<span>` by default. Use `as` when the label needs different nat
 when composing it with another Vue component.
 
 ```vue
-<MkBadge as="a" href="/releases" color="info" variant="soft">
+<MkBadge as="a" href="/releases" color="sky" variant="soft">
   Release notes
 </MkBadge>
 ```
@@ -93,7 +92,7 @@ Use `ui.base` when an override belongs to Badge's styling contract. Native `clas
 and remains useful for layout or a one-off adjustment.
 
 ```vue
-<MkBadge color="success" variant="soft" :ui="{ base: 'font-semibold' }" class="uppercase">
+<MkBadge color="green" variant="soft" :ui="{ base: 'font-semibold' }" class="uppercase">
   Active
 </MkBadge>
 ```
@@ -129,14 +128,14 @@ app.use(
         },
         compoundVariants: [
           {
-            color: ['success', 'info'],
+            color: ['green', 'sky'],
             variant: ['outline', 'subtle'],
             rounded: true,
             class: 'uppercase tracking-wide',
           },
         ],
         defaultVariants: {
-          color: 'secondary',
+          color: 'neutral',
           variant: 'soft',
           size: 'md',
           rounded: false,

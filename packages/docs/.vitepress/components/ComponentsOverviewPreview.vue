@@ -40,8 +40,12 @@ const frameStyles = `
   min-width: 0;
   align-items: center;
   justify-content: center;
-  color: var(--mk-foreground);
+  color: var(--mk-neutral-950);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.mk-docs-overview-preview-surface.dark {
+  color: var(--mk-neutral-50);
 }
 `
 

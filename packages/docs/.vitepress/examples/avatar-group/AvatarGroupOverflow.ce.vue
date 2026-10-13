@@ -16,7 +16,7 @@ export const preview = definePreview({
     {
       prop: 'overflowColor',
       label: 'Overflow color',
-      defaultValue: 'secondary',
+      defaultValue: 'neutral',
       options: selectOptions(avatarColors),
     },
     {
@@ -42,10 +42,10 @@ export const preview = definePreview({
   >
     <MkAvatar src="/avatar-demo.svg" alt="John Doe" fallback="JD" />
     <MkAvatar fallback="JS" color="primary" aria-label="Jane Smith" />
-    <MkAvatar fallback="AB" color="info" aria-label="Alice Brown" />
-    <MkAvatar fallback="RL" color="warning" aria-label="Robert Lee" />
-    <MkAvatar fallback="EW" color="success" aria-label="Emma Wilson" />
-    <MkAvatar fallback="DM" color="destructive" aria-label="David Miller" />
+    <MkAvatar fallback="AB" color="sky" aria-label="Alice Brown" />
+    <MkAvatar fallback="RL" color="amber" aria-label="Robert Lee" />
+    <MkAvatar fallback="EW" color="green" aria-label="Emma Wilson" />
+    <MkAvatar fallback="DM" color="red" aria-label="David Miller" />
   </MkAvatarGroup>
 </template>`,
 })
@@ -64,7 +64,7 @@ const props = withDefaults(
   }>(),
   {
     max: 3,
-    overflowColor: 'secondary',
+    overflowColor: 'neutral',
     size: 'md',
     spacing: 'normal',
   },
@@ -81,9 +81,9 @@ const props = withDefaults(
   >
     <MkAvatar src="/avatar-demo.svg" alt="John Doe" fallback="JD" />
     <MkAvatar fallback="JS" color="primary" aria-label="Jane Smith" />
-    <MkAvatar fallback="AB" color="info" aria-label="Alice Brown" />
-    <MkAvatar fallback="RL" color="warning" aria-label="Robert Lee" />
-    <MkAvatar fallback="EW" color="success" aria-label="Emma Wilson" />
-    <MkAvatar fallback="DM" color="destructive" aria-label="David Miller" />
+    <MkAvatar fallback="AB" color="sky" aria-label="Alice Brown" />
+    <MkAvatar fallback="RL" color="amber" aria-label="Robert Lee" />
+    <MkAvatar fallback="EW" color="green" aria-label="Emma Wilson" />
+    <MkAvatar fallback="DM" color="red" aria-label="David Miller" />
   </MkAvatarGroup>
 </template>

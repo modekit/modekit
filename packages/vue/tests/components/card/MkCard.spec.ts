@@ -16,9 +16,9 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toContain('mk:rounded-xl')
     expect(wrapper.classes()).not.toContain('mk:border')
     expect(wrapper.classes()).not.toContain('mk:border-solid')
-    expect(wrapper.classes()).not.toContain('mk:border-border')
-    expect(wrapper.classes()).toContain('mk:bg-surface')
-    expect(wrapper.classes()).toContain('mk:text-surface-foreground')
+    expect(wrapper.classes()).not.toContain('mk:border-neutral-200')
+    expect(wrapper.classes()).toContain('mk:bg-white')
+    expect(wrapper.classes()).toContain('mk:text-neutral-950')
     expect(wrapper.classes()).toContain('mk:shadow-raised')
     expect(wrapper.classes()).toContain('mk:p-6')
     expect(wrapper.get('.mk-card__body').text()).toBe('Card content')
@@ -33,10 +33,10 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['shadow', ['mk:bg-surface', 'mk:shadow-raised'], false],
-    ['muted', ['mk:bg-muted'], false],
-    ['outline', ['mk:border', 'mk:border-solid', 'mk:border-border', 'mk:bg-surface'], true],
-    ['plain', ['mk:bg-surface'], false],
+    ['shadow', ['mk:bg-white', 'mk:shadow-raised'], false],
+    ['muted', ['mk:bg-neutral-100'], false],
+    ['outline', ['mk:border', 'mk:border-solid', 'mk:border-neutral-200', 'mk:bg-white'], true],
+    ['plain', ['mk:bg-white'], false],
   ] as const)('resolves the %s variant', (variant, classes, hasBorder) => {
     const wrapper = mount(MkCard, { props: { variant } })
 
@@ -44,7 +44,7 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toEqual(expect.arrayContaining([...classes]))
     expect(wrapper.classes().includes('mk:border')).toBe(hasBorder)
     expect(wrapper.classes().includes('mk:border-solid')).toBe(hasBorder)
-    expect(wrapper.classes().includes('mk:border-border')).toBe(hasBorder)
+    expect(wrapper.classes().includes('mk:border-neutral-200')).toBe(hasBorder)
   })
 
   it.each([

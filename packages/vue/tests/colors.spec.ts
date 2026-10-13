@@ -7,12 +7,6 @@ describe('shared color contract', () => {
     expect(modeKitColors).toEqual([
       'primary',
       'neutral',
-      'secondary',
-      'muted',
-      'success',
-      'warning',
-      'info',
-      'destructive',
       'slate',
       'gray',
       'zinc',

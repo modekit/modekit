@@ -90,14 +90,14 @@ All other native button attributes, listeners, and classes are forwarded to the 
 ModeKit exposes a primary theme pair, a configurable neutral scale, palette colors, and semantic
 aliases. Button keeps color independent from surface treatment.
 
-| Role          | Default light palette | Default dark palette |
-| ------------- | --------------------- | -------------------- |
-| `primary`     | `neutral-900`         | `neutral-50`         |
-| `neutral`     | `zinc-700`            | `zinc-300`           |
-| `success`     | `green-700`           | `green-400`          |
-| `warning`     | `amber-400`           | `amber-300`          |
-| `info`        | `sky-700`             | `sky-400`            |
-| `destructive` | `red-700`             | `red-400`            |
+| Role      | Default light palette | Default dark palette |
+| --------- | --------------------- | -------------------- |
+| `primary` | `neutral-900`         | `neutral-50`         |
+| `neutral` | `zinc-700`            | `zinc-300`           |
+| `green`   | `green-700`           | `green-400`          |
+| `amber`   | `amber-400`           | `amber-300`          |
+| `sky`     | `sky-700`             | `sky-400`            |
+| `red`     | `red-700`             | `red-400`            |
 
 Override `--mk-primary`, `--mk-primary-foreground`, or the `--mk-neutral-*` aliases after importing
 ModeKit styles. Direct palette colors use ModeKit's packaged Tailwind palette.

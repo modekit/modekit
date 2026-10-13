@@ -19,7 +19,7 @@ const calloutStyles = cva(
       variant: {
         solid: 'mk:border-0',
         soft: 'mk:border-0',
-        outline: 'mk:border mk:bg-surface',
+        outline: 'mk:border mk:bg-white mk:dark:bg-white/10',
       },
       size: {
         sm: 'mk:gap-2.5 mk:rounded-lg mk:p-3',

@@ -97,7 +97,7 @@ export const MkAvatarGroup = defineComponent({
       const avatarGroupConfig = options.ui?.avatarGroup
       const spacing = props.spacing ?? avatarGroupConfig?.defaultVariants?.spacing ?? 'normal'
       const overflowColor =
-        props.overflowColor ?? avatarGroupConfig?.defaultVariants?.overflowColor ?? 'secondary'
+        props.overflowColor ?? avatarGroupConfig?.defaultVariants?.overflowColor ?? 'neutral'
       const attributes: HTMLAttributes = attrs
       const slotContent = slots.default?.()
       const children = flattenAvatarChildren(

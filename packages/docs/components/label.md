@@ -24,7 +24,7 @@ primitive and provides the typography and states shared by ModeKit form componen
 | ---------- | ---------------------- | ------- | ------------------------------------------------- |
 | `for`      | `string`               | —       | Identifies the control associated with the label. |
 | `size`     | `'sm' \| 'md' \| 'lg'` | `'md'`  | Sets typography and line height.                  |
-| `required` | `boolean`              | `false` | Displays a semantic destructive required marker.  |
+| `required` | `boolean`              | `false` | Displays a red required marker.                   |
 | `disabled` | `boolean`              | `false` | Applies the shared disabled cursor presentation.  |
 | `ui`       | `LabelUI`              | —       | Adds classes to the label and required indicator. |
 
@@ -38,7 +38,7 @@ All other native label attributes and classes are forwarded to the underlying `<
 
 ## Styling
 
-Label uses the semantic `foreground` role for text and `destructive` for the required marker. Its
+Label uses the neutral scale for text and the red palette for the required marker. Its
 sizes share the same typography scale used by ModeKit fields and controls.
 
 ```vue

@@ -10,7 +10,7 @@ export const preview = definePreview({
     {
       prop: 'color',
       label: 'Color',
-      defaultValue: 'secondary',
+      defaultValue: 'neutral',
       options: selectOptions(avatarColors),
     },
     {
@@ -46,7 +46,7 @@ const props = withDefaults(
     size?: AvatarSize
   }>(),
   {
-    color: 'secondary',
+    color: 'neutral',
     size: 'md',
   },
 )

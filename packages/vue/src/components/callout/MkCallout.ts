@@ -78,7 +78,7 @@ export const MkCallout = defineComponent({
 
     return () => {
       const calloutConfig = options.ui?.callout
-      const color = props.color ?? calloutConfig?.defaultVariants?.color ?? 'info'
+      const color = props.color ?? calloutConfig?.defaultVariants?.color ?? 'sky'
       const variant = props.variant ?? calloutConfig?.defaultVariants?.variant ?? 'soft'
       const size = props.size ?? calloutConfig?.defaultVariants?.size ?? 'md'
       const attributes: HTMLAttributes = attrs

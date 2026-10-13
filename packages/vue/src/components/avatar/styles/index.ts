@@ -58,7 +58,7 @@ const avatarSlotStyles = {
   badge: cva(
     [
       'mk-avatar__badge mk:absolute mk:z-10 mk:block mk:rounded-full',
-      'mk:ring-2 mk:ring-background',
+      'mk:ring-2 mk:ring-white mk:dark:ring-neutral-950',
     ],
     {
       variants: {

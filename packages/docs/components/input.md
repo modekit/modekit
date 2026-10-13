@@ -27,8 +27,8 @@ Input component implying content it does not own.
 
 All variants except `plain` expose a keyboard-focus ring. The complete perimeter uses a short,
 simple opacity and color transition, then becomes immediate when reduced motion is requested.
-Floating labels remain above the ring. Invalid inputs use the same treatment with the destructive
-color. Outline and subtle
+Floating labels remain above the ring. Invalid inputs use the same treatment with the red palette.
+Outline and subtle
 also change their existing border color; soft and ghost retain their filled or transparent treatment.
 Plain intentionally adds no visual chrome.
 
@@ -148,9 +148,9 @@ Without `floating`, `label` becomes the native input's `aria-label`; an explicit
 
 ## Styling
 
-Input uses ModeKit's semantic `background`, `foreground`, `muted`, `muted-foreground`, `input`,
-`border`, `ring`, and `destructive` roles. Placeholder text uses a reduced muted-foreground opacity
-to remain visibly distinct from entered values and nearby body text.
+Input uses explicit neutral and white utilities for its surfaces, text, and borders, the primary
+color for focus, and the red palette for invalid states. Placeholder text uses reduced neutral
+opacity to remain visibly distinct from entered values and nearby body text.
 
 `InputUI` exposes `base`, `input`, `leading`, `trailing`, `label`, and `spinner`. Use local slot classes
 for a targeted adjustment:
@@ -160,7 +160,7 @@ for a targeted adjustment:
   :ui="{
     base: 'max-w-sm',
     input: 'font-mono',
-    trailing: 'text-foreground',
+    trailing: 'text-neutral-950 dark:text-neutral-50',
   }"
 >
   <template #trailing>.com</template>

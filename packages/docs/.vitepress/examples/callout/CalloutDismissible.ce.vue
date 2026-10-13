@@ -18,7 +18,7 @@ ${scriptEnd}
 <template>
   <MkCallout
     v-if="visible"
-    color="warning"
+    color="amber"
     title="Session expires soon"
     dismissible
     dismiss-label="Dismiss session warning"
@@ -52,7 +52,7 @@ const visible = ref(true)
   <div style="width: min(100%, 36rem)">
     <MkCallout
       v-if="visible"
-      color="warning"
+      color="amber"
       title="Session expires soon"
       dismissible
       dismiss-label="Dismiss session warning"

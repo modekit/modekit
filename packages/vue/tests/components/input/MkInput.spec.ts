@@ -26,8 +26,8 @@ describe('MkInput', () => {
       expect.arrayContaining([
         'mk-input',
         'mk:h-10',
-        'mk:border-input',
-        'mk:bg-background',
+        'mk:border-neutral-300',
+        'mk:bg-white',
         'mk:rounded-lg',
       ]),
     )
@@ -43,7 +43,7 @@ describe('MkInput', () => {
         'mk-input__control',
         'mk:h-full',
         'mk:px-3',
-        'mk:placeholder:text-muted-foreground/60',
+        'mk:placeholder:text-neutral-600/60',
       ]),
     )
   })
@@ -196,10 +196,10 @@ describe('MkInput', () => {
   })
 
   it.each([
-    ['outline', ['mk:border-input', 'mk:bg-background']],
-    ['soft', ['mk:border-0', 'mk:bg-muted']],
-    ['subtle', ['mk:border-border', 'mk:bg-muted/50']],
-    ['ghost', ['mk:border-0', 'mk:bg-transparent', 'mk:hover:bg-muted/50']],
+    ['outline', ['mk:border-neutral-300', 'mk:bg-white']],
+    ['soft', ['mk:border-0', 'mk:bg-neutral-100']],
+    ['subtle', ['mk:border-neutral-200', 'mk:bg-neutral-100/50']],
+    ['ghost', ['mk:border-0', 'mk:bg-transparent', 'mk:hover:bg-neutral-100/50']],
     ['plain', ['mk:border-0', 'mk:bg-transparent']],
   ] as const)('renders the %s chrome variant', (variant, classes) => {
     const wrapper = mount(MkInput, { props: { variant } })
@@ -218,7 +218,7 @@ describe('MkInput', () => {
           'mk:after:opacity-0',
           'mk:after:transition-[opacity,border-color]',
           'mk:after:duration-150',
-          'mk:has-focus-visible:after:border-ring',
+          'mk:has-focus-visible:after:border-primary',
           'mk:has-focus-visible:after:opacity-100',
           'mk:data-[mk-invalid]:has-focus-visible:after:border-red-700',
           'mk:dark:data-[mk-invalid]:has-focus-visible:after:border-red-400',
@@ -379,7 +379,7 @@ describe('MkInput', () => {
                 base: 'mk:border-2',
                 slots: {
                   input: 'mk:font-medium',
-                  leading: 'mk:text-foreground',
+                  leading: 'mk:text-neutral-950',
                 },
                 variants: {
                   size: {
@@ -399,7 +399,7 @@ describe('MkInput', () => {
         ],
       },
       props: {
-        ui: { base: 'mk:bg-surface', input: 'mk:text-primary' },
+        ui: { base: 'mk:bg-white', input: 'mk:text-primary' },
         class: 'mk:rounded-none',
       },
       slots: { leading: () => '@' },
@@ -409,17 +409,12 @@ describe('MkInput', () => {
     expect(wrapper.attributes('data-mk-size')).toBe('lg')
     expect(wrapper.attributes('data-mk-variant')).toBe('soft')
     expect(wrapper.classes()).toEqual(
-      expect.arrayContaining([
-        'mk:border-2',
-        'mk:shadow-raised',
-        'mk:bg-surface',
-        'mk:rounded-none',
-      ]),
+      expect.arrayContaining(['mk:border-2', 'mk:shadow-raised', 'mk:bg-white', 'mk:rounded-none']),
     )
     expect(wrapper.classes()).not.toContain('mk:rounded-xl')
     expect(input.classes()).toEqual(expect.arrayContaining(['mk:font-medium', 'mk:text-primary']))
-    expect(input.classes()).not.toContain('mk:text-foreground')
-    expect(wrapper.get('.mk-input__leading').classes()).toContain('mk:text-foreground')
+    expect(input.classes()).not.toContain('mk:text-neutral-950')
+    expect(wrapper.get('.mk-input__leading').classes()).toContain('mk:text-neutral-950')
   })
 
   it('exports the finite floating, size, and variant contracts', () => {

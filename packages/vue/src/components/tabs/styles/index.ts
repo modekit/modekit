@@ -36,14 +36,14 @@ const tabsListStyles = cva(
       variant: {
         line: [
           ...tabsIndicatorStyles,
-          'mk:border-0 mk:border-b mk:border-solid mk:border-border',
+          'mk:border-0 mk:border-b mk:border-solid mk:border-neutral-200 mk:dark:border-neutral-800',
           'mk:after:bottom-0 mk:after:h-0.5 mk:after:bg-primary',
           "mk:data-[mk-indicator-ready]:[&_[role='tab'][data-state='active']]:border-b-transparent",
         ],
         segmented: [
           ...tabsIndicatorStyles,
-          'mk:w-fit mk:gap-1 mk:rounded-xl mk:bg-muted mk:p-1',
-          'mk:after:inset-y-1 mk:after:bg-surface mk:after:shadow-raised',
+          'mk:w-fit mk:gap-1 mk:rounded-xl mk:bg-neutral-100 mk:p-1 mk:dark:bg-neutral-800',
+          'mk:after:inset-y-1 mk:after:bg-white mk:after:shadow-raised mk:dark:after:bg-white/10',
           "mk:data-[mk-indicator-ready]:[&_[role='tab'][data-state='active']]:bg-transparent",
           "mk:data-[mk-indicator-ready]:[&_[role='tab'][data-state='active']]:shadow-none",
         ],
@@ -66,9 +66,9 @@ const tabsListStyles = cva(
 const tabsTriggerStyles = cva(
   [
     'mk-tabs__trigger mk:relative mk:z-1 mk:box-border mk:inline-flex mk:shrink-0 mk:appearance-none mk:items-center mk:justify-center mk:whitespace-nowrap mk:font-medium',
-    'mk:border-solid mk:bg-transparent mk:text-muted-foreground',
+    'mk:border-solid mk:bg-transparent mk:text-neutral-600 mk:dark:text-neutral-400',
     'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
-    'mk:focus-visible:z-10 mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring',
+    'mk:focus-visible:z-10 mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-primary',
     'mk:disabled:pointer-events-none mk:disabled:cursor-not-allowed mk:disabled:opacity-50',
   ],
   {
@@ -76,14 +76,14 @@ const tabsTriggerStyles = cva(
       variant: {
         line: [
           'mk:-mb-px mk:rounded-none mk:border-0 mk:border-b-2 mk:border-transparent',
-          'mk:hover:text-foreground mk:data-[state=active]:border-primary mk:data-[state=active]:text-foreground',
+          'mk:hover:text-neutral-950 mk:data-[state=active]:border-primary mk:data-[state=active]:text-neutral-950 mk:dark:hover:text-neutral-50 mk:dark:data-[state=active]:text-neutral-50',
         ],
         segmented: [
           'mk:border-0',
-          'mk:data-[state=active]:bg-surface mk:data-[state=active]:text-surface-foreground mk:data-[state=active]:shadow-raised',
+          'mk:data-[state=active]:bg-white mk:data-[state=active]:text-neutral-950 mk:data-[state=active]:shadow-raised mk:dark:data-[state=active]:bg-white/10 mk:dark:data-[state=active]:text-neutral-50',
         ],
         pill: [
-          'mk:rounded-full mk:border-0 mk:bg-muted',
+          'mk:rounded-full mk:border-0 mk:bg-neutral-100 mk:dark:bg-neutral-800',
           'mk:data-[state=active]:bg-primary mk:data-[state=active]:text-primary-foreground',
         ],
       },
@@ -106,7 +106,7 @@ const tabsSlotStyles = {
   leading: cva('mk-tabs__leading mk:flex mk:shrink-0 mk:items-center'),
   trailing: cva('mk-tabs__trailing mk:flex mk:shrink-0 mk:items-center'),
   content: cva(
-    'mk-tabs__content mk:min-w-0 mk:pt-4 mk:text-foreground mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring',
+    'mk-tabs__content mk:min-w-0 mk:pt-4 mk:text-neutral-950 mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-primary mk:dark:text-neutral-50',
   ),
 } as const
 

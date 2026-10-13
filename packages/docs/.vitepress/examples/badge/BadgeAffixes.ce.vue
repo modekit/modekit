@@ -12,7 +12,7 @@ export const preview = definePreview({
     {
       prop: 'color',
       label: 'Color',
-      defaultValue: 'success',
+      defaultValue: 'green',
       options: selectOptions(badgeColors),
     },
     {
@@ -51,7 +51,7 @@ const props = withDefaults(
     size?: BadgeSize
   }>(),
   {
-    color: 'success',
+    color: 'green',
     size: 'md',
   },
 )

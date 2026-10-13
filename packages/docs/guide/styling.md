@@ -28,7 +28,7 @@ ModeKit prefixes its generated Tailwind utilities and theme variables with `mk`:
 ```text
 mk:bg-primary
 mk:rounded-lg
---mk-color-neutral-900
+--mk-neutral-900
 ```
 
 This keeps ModeKit's generated utility selectors and theme variables separate from similarly named
@@ -37,62 +37,47 @@ reset the application's elements.
 
 ## Theme colors
 
-ModeKit keeps the application theme focused on a primary pair and a neutral scale. Surface roles are
-derived from those values:
+ModeKit's configurable color theme contains only `primary`, `primary-foreground`, and a neutral
+scale. Components use explicit neutral, white, and primary utilities for their surfaces, text,
+borders, and focus states instead of adding more semantic color variables.
 
-| Role                                 | Purpose                                |
-| ------------------------------------ | -------------------------------------- |
-| `background` / `foreground`          | Application canvas and default text    |
-| `surface` / `surface-foreground`     | Raised component surfaces              |
-| `primary` / `primary-foreground`     | Primary actions and emphasized content |
-| `secondary` / `secondary-foreground` | Lower-emphasis controls and surfaces   |
-| `muted` / `muted-foreground`         | Subdued surfaces and supporting text   |
-| `accent` / `accent-foreground`       | Selected or highlighted content        |
-| `border`                             | General component boundaries           |
-| `input`                              | Form-control boundaries                |
-| `ring`                               | Focus rings                            |
-
-Color-capable components accept `primary`, neutral aliases, semantic aliases, and Tailwind palette
-families. Palette values include `slate`, `gray`, `zinc`, `stone`, `red`, `orange`, `amber`,
+Color-capable components accept `primary`, `neutral`, and Tailwind palette families. Palette values
+include `slate`, `gray`, `zinc`, `stone`, `red`, `orange`, `amber`,
 `yellow`, `lime`, `green`, `emerald`, `teal`, `cyan`, `sky`, `blue`, `indigo`, `violet`, `purple`,
-`fuchsia`, `pink`, and `rose`. Semantic aliases remain available: `success` uses green, `warning`
-uses amber, `info` uses sky, and `destructive` uses red.
+`fuchsia`, `pink`, and `rose`.
 
 The defaults are ordinary CSS custom properties. There is no color generator or JavaScript theme
 resolver.
 
 ```css
 :root {
-  --mk-background: var(--mk-color-white);
+  --mk-neutral-50: var(--mk-color-zinc-50);
+  --mk-neutral-500: var(--mk-color-zinc-500);
   --mk-neutral-950: var(--mk-color-zinc-950);
-  --mk-foreground: var(--mk-neutral-950);
   --mk-primary: var(--mk-neutral-900);
   --mk-primary-foreground: var(--mk-color-white);
 }
 
 .dark {
-  --mk-background: var(--mk-neutral-950);
-  --mk-foreground: var(--mk-neutral-50);
   --mk-primary: var(--mk-neutral-50);
   --mk-primary-foreground: var(--mk-neutral-950);
 }
 ```
 
-Override the public `--mk-*` semantic variables after importing ModeKit to adapt the theme without
-rewriting component recipes:
+Override the primary pair after importing ModeKit to adapt branded controls without rewriting
+component recipes:
 
 ```css
 :root {
   --mk-primary: #4338ca;
   --mk-primary-foreground: #ffffff;
-  --mk-ring: #6366f1;
 }
 ```
 
 To select a different neutral family, override the `--mk-neutral-50` through `--mk-neutral-950`
 aliases. They use the zinc scale by default.
 
-Add `dark` to an ancestor to activate ModeKit's dark defaults. The application remains responsible
+Add `dark` to an ancestor to activate ModeKit's explicit dark utilities. The application remains responsible
 for deciding when that class is present and for setting the document's `color-scheme`; ModeKit does
 not change native controls or scrollbars outside its components and does not require a theme provider.
 
@@ -207,7 +192,7 @@ CSS.
 ## Styling rules
 
 - Keep rendering and behavior separate from the CVA recipe.
-- Use semantic theme roles instead of palette colors in component recipes.
+- Use the primary pair and neutral scale for component recipes; use direct palette colors for explicit states.
 - Use the shared radius scale and semantic elevation roles instead of one-off geometry or shadows.
 - Keep finite visual choices in CVA variants.
 - Keep state styling in explicit modifiers such as `disabled:` and `focus-visible:`.

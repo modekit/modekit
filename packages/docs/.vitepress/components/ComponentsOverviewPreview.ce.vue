@@ -43,18 +43,18 @@ const tabItems = [
       aria-label="Project members"
     >
       <MkAvatar fallback="AN" color="primary" aria-label="Ana" />
-      <MkAvatar fallback="BO" color="info" aria-label="Bo" />
-      <MkAvatar fallback="CY" color="warning" aria-label="Cy" />
-      <MkAvatar fallback="DI" color="success" aria-label="Di" />
+      <MkAvatar fallback="BO" color="sky" aria-label="Bo" />
+      <MkAvatar fallback="CY" color="amber" aria-label="Cy" />
+      <MkAvatar fallback="DI" color="green" aria-label="Di" />
     </MkAvatarGroup>
 
     <div v-else-if="props.kind === 'badge'" class="overview-preview__badges">
       <MkBadge color="primary">New</MkBadge>
-      <MkBadge color="success" variant="soft">
+      <MkBadge color="green" variant="soft">
         <template #leading><Check aria-hidden="true" /></template>
         Ready
       </MkBadge>
-      <MkBadge color="secondary" variant="outline">v1.0</MkBadge>
+      <MkBadge color="neutral" variant="outline">v1.0</MkBadge>
     </div>
 
     <MkButton v-else-if="props.kind === 'button'">
@@ -71,7 +71,7 @@ const tabItems = [
     <MkCallout
       v-else-if="props.kind === 'callout'"
       class="overview-preview__fill"
-      color="info"
+      color="sky"
       size="sm"
       title="Changes saved"
     >
@@ -141,7 +141,7 @@ const tabItems = [
   min-width: 0;
   align-items: center;
   justify-content: center;
-  color: var(--mk-foreground);
+  color: var(--mk-neutral-950);
 }
 
 .overview-preview__badges,
@@ -176,7 +176,7 @@ const tabItems = [
 
 .overview-preview__card span:last-child {
   margin-top: 0.2rem;
-  color: var(--mk-muted-foreground);
+  color: var(--mk-neutral-600);
   font-size: 0.7rem;
 }
 
@@ -189,12 +189,26 @@ const tabItems = [
   width: 100%;
   margin-top: 0.4rem;
   padding: 0.55rem 0.7rem;
-  border: 1px solid var(--mk-input);
+  border: 1px solid var(--mk-neutral-300);
   border-radius: 0.45rem;
-  background: var(--mk-background);
-  color: var(--mk-muted-foreground);
+  background: var(--mk-color-white);
+  color: var(--mk-neutral-600);
   font: inherit;
   font-size: 0.75rem;
   outline: none;
+}
+
+.dark .overview-preview {
+  color: var(--mk-neutral-50);
+}
+
+.dark .overview-preview__card span:last-child,
+.dark .overview-preview__label-field {
+  color: var(--mk-neutral-400);
+}
+
+.dark .overview-preview__label-field {
+  border-color: var(--mk-neutral-700);
+  background: color-mix(in oklab, var(--mk-color-white) 10%, transparent);
 }
 </style>

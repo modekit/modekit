@@ -12,7 +12,7 @@ export const preview = definePreview({
     {
       prop: 'color',
       label: 'Color',
-      defaultValue: 'info',
+      defaultValue: 'sky',
       options: selectOptions(calloutColors),
     },
   ],
@@ -46,7 +46,7 @@ const props = withDefaults(
     color?: CalloutColor
   }>(),
   {
-    color: 'info',
+    color: 'sky',
   },
 )
 </script>

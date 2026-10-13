@@ -169,7 +169,7 @@ describe('MkBadge', () => {
                 base: 'font-bold',
                 variants: {
                   color: {
-                    success: 'tracking-wide',
+                    green: 'tracking-wide',
                   },
                   variant: {
                     outline: 'border-2',
@@ -183,14 +183,14 @@ describe('MkBadge', () => {
                 },
                 compoundVariants: [
                   {
-                    color: ['success', 'info'],
+                    color: ['green', 'sky'],
                     variant: ['outline', 'subtle'],
                     rounded: true,
                     class: 'uppercase ring-1',
                   },
                 ],
                 defaultVariants: {
-                  color: 'success',
+                  color: 'green',
                   variant: 'outline',
                   size: 'md',
                   rounded: true,
@@ -203,7 +203,7 @@ describe('MkBadge', () => {
       slots: { default: 'Ready' },
     })
 
-    expect(wrapper.attributes('data-mk-color')).toBe('success')
+    expect(wrapper.attributes('data-mk-color')).toBe('green')
     expect(wrapper.attributes('data-mk-variant')).toBe('outline')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.attributes('data-mk-rounded')).toBe('')

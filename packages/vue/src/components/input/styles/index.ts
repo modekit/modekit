@@ -7,14 +7,14 @@ import type { InputFloating, InputSize, InputStyleConfig, InputUI, InputVariant 
 const animatedFocusRingStyles = [
   "mk:after:pointer-events-none mk:after:absolute mk:after:-inset-1 mk:after:border-2 mk:after:border-solid mk:after:border-transparent mk:after:opacity-0 mk:after:content-['']",
   'mk:after:transition-[opacity,border-color] mk:after:duration-150 mk:after:ease-out',
-  'mk:has-focus-visible:after:border-ring mk:has-focus-visible:after:opacity-100',
+  'mk:has-focus-visible:after:border-primary mk:has-focus-visible:after:opacity-100',
   'mk:data-[mk-invalid]:has-focus-visible:after:border-red-700 mk:dark:data-[mk-invalid]:has-focus-visible:after:border-red-400',
   'mk:motion-reduce:after:transition-none',
 ]
 
 const inputStyles = cva(
   [
-    'mk-input mk:group mk:relative mk:inline-flex mk:w-full mk:items-center mk:box-border mk:text-foreground',
+    'mk-input mk:group mk:relative mk:inline-flex mk:w-full mk:items-center mk:box-border mk:text-neutral-950 mk:dark:text-neutral-50',
     'mk:border-solid mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
     'mk:data-[mk-disabled]:pointer-events-none mk:data-[mk-disabled]:cursor-not-allowed mk:data-[mk-disabled]:opacity-50',
     'mk:data-[mk-loading]:cursor-progress',
@@ -23,28 +23,28 @@ const inputStyles = cva(
     variants: {
       variant: {
         outline: [
-          'mk:border mk:border-input mk:bg-background',
-          'mk:has-focus-visible:border-ring',
+          'mk:border mk:border-neutral-300 mk:bg-white mk:dark:border-neutral-700 mk:dark:bg-white/10',
+          'mk:has-focus-visible:border-primary',
           'mk:data-[mk-invalid]:border-red-700 mk:dark:data-[mk-invalid]:border-red-400',
-          'mk:data-[mk-readonly]:bg-muted/50',
+          'mk:data-[mk-readonly]:bg-neutral-100/50 mk:dark:data-[mk-readonly]:bg-neutral-800/50',
           ...animatedFocusRingStyles,
         ],
         soft: [
-          'mk:border-0 mk:bg-muted',
+          'mk:border-0 mk:bg-neutral-100 mk:dark:bg-neutral-800',
           'mk:data-[mk-invalid]:outline-1 mk:data-[mk-invalid]:outline-solid mk:data-[mk-invalid]:outline-red-700 mk:dark:data-[mk-invalid]:outline-red-400',
           ...animatedFocusRingStyles,
         ],
         subtle: [
-          'mk:border mk:border-border mk:bg-muted/50',
-          'mk:has-focus-visible:border-ring',
+          'mk:border mk:border-neutral-200 mk:bg-neutral-100/50 mk:dark:border-neutral-800 mk:dark:bg-neutral-800/50',
+          'mk:has-focus-visible:border-primary',
           'mk:data-[mk-invalid]:border-red-700 mk:dark:data-[mk-invalid]:border-red-400',
           ...animatedFocusRingStyles,
         ],
         ghost: [
-          'mk:border-0 mk:bg-transparent mk:hover:bg-muted/50',
-          'mk:has-focus-visible:bg-muted/50',
+          'mk:border-0 mk:bg-transparent mk:hover:bg-neutral-100/50 mk:dark:hover:bg-neutral-800/50',
+          'mk:has-focus-visible:bg-neutral-100/50 mk:dark:has-focus-visible:bg-neutral-800/50',
           'mk:data-[mk-invalid]:outline-1 mk:data-[mk-invalid]:outline-solid mk:data-[mk-invalid]:outline-red-700 mk:dark:data-[mk-invalid]:outline-red-400',
-          'mk:data-[mk-readonly]:bg-muted/50',
+          'mk:data-[mk-readonly]:bg-neutral-100/50 mk:dark:data-[mk-readonly]:bg-neutral-800/50',
           ...animatedFocusRingStyles,
         ],
         plain:
@@ -62,7 +62,7 @@ const inputStyles = cva(
 const inputControlStyles = cva(
   [
     'mk-input__control mk:peer mk:box-border mk:block mk:h-full mk:w-full mk:min-w-0 mk:appearance-none',
-    'mk:border-0 mk:bg-transparent mk:text-foreground mk:outline-none mk:placeholder:text-muted-foreground/60',
+    'mk:border-0 mk:bg-transparent mk:text-neutral-950 mk:outline-none mk:placeholder:text-neutral-600/60 mk:dark:text-neutral-50 mk:dark:placeholder:text-neutral-400/60',
     'mk:disabled:cursor-not-allowed mk:read-only:cursor-default',
   ],
   {
@@ -106,7 +106,7 @@ const inputControlStyles = cva(
 
 const inputAffixStyles = {
   leading: cva(
-    'mk-input__leading mk:pointer-events-none mk:absolute mk:inset-y-0 mk:left-0 mk:flex mk:items-center mk:justify-center mk:text-muted-foreground',
+    'mk-input__leading mk:pointer-events-none mk:absolute mk:inset-y-0 mk:left-0 mk:flex mk:items-center mk:justify-center mk:text-neutral-600 mk:dark:text-neutral-400',
     {
       variants: {
         size: {
@@ -118,7 +118,7 @@ const inputAffixStyles = {
     },
   ),
   trailing: cva(
-    'mk-input__trailing mk:pointer-events-none mk:absolute mk:inset-y-0 mk:right-0 mk:flex mk:items-center mk:justify-center mk:text-muted-foreground',
+    'mk-input__trailing mk:pointer-events-none mk:absolute mk:inset-y-0 mk:right-0 mk:flex mk:items-center mk:justify-center mk:text-neutral-600 mk:dark:text-neutral-400',
     {
       variants: {
         size: {
@@ -156,8 +156,8 @@ const inputLabelStyles = cva(
         true: '',
       },
       focused: {
-        false: 'mk:text-muted-foreground',
-        true: 'mk:text-foreground',
+        false: 'mk:text-neutral-600 mk:dark:text-neutral-400',
+        true: 'mk:text-neutral-950 mk:dark:text-neutral-50',
       },
       invalid: {
         false: '',

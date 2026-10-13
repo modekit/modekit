@@ -11,10 +11,10 @@ const checkboxStyles = cva(
       variant: {
         default: '',
         card: [
-          'mk:relative mk:flex mk:w-full mk:cursor-pointer mk:border mk:border-solid mk:border-border mk:bg-surface',
+          'mk:relative mk:flex mk:w-full mk:cursor-pointer mk:border mk:border-solid mk:border-neutral-200 mk:bg-white mk:dark:border-neutral-800 mk:dark:bg-white/10',
           'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
-          'mk:hover:bg-muted/50 mk:has-data-[state=checked]:border-primary/50 mk:has-data-[state=checked]:bg-primary/10',
-          'mk:has-focus-visible:border-ring mk:has-focus-visible:outline-2 mk:has-focus-visible:outline-solid mk:has-focus-visible:outline-offset-2 mk:has-focus-visible:outline-ring',
+          'mk:hover:bg-neutral-100/50 mk:dark:hover:bg-neutral-800/50 mk:has-data-[state=checked]:border-primary/50 mk:has-data-[state=checked]:bg-primary/10',
+          'mk:has-focus-visible:border-primary mk:has-focus-visible:outline-2 mk:has-focus-visible:outline-solid mk:has-focus-visible:outline-offset-2 mk:has-focus-visible:outline-primary',
           'mk:has-aria-invalid:border-red-700 mk:dark:has-aria-invalid:border-red-400 mk:data-[mk-disabled]:cursor-not-allowed mk:data-[mk-disabled]:pointer-events-none',
         ],
       },
@@ -35,7 +35,7 @@ const checkboxStyles = cva(
 const checkboxControlStyles = cva(
   [
     'mk-checkbox__control mk:box-border mk:inline-flex mk:shrink-0 mk:appearance-none mk:items-center mk:justify-center',
-    'mk:border mk:border-solid mk:border-input mk:bg-background mk:text-primary-foreground',
+    'mk:border mk:border-solid mk:border-neutral-300 mk:bg-white mk:text-primary-foreground mk:dark:border-neutral-700 mk:dark:bg-white/10',
     'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
     'mk:data-[state=checked]:border-primary mk:data-[state=checked]:bg-primary',
     'mk:data-[state=indeterminate]:border-primary mk:data-[state=indeterminate]:bg-primary',
@@ -45,7 +45,7 @@ const checkboxControlStyles = cva(
     variants: {
       variant: {
         default:
-          'mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring mk:aria-invalid:focus-visible:outline-red-700 mk:dark:aria-invalid:focus-visible:outline-red-400',
+          'mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-primary mk:aria-invalid:focus-visible:outline-red-700 mk:dark:aria-invalid:focus-visible:outline-red-400',
         card: 'mk:focus-visible:outline-none',
       },
       size: {
@@ -72,7 +72,7 @@ const checkboxSlotStyles = {
   }),
   content: cva('mk-checkbox__content mk:flex mk:min-w-0 mk:flex-col mk:gap-0.5'),
   label: cva(''),
-  description: cva('mk-checkbox__description mk:m-0 mk:text-muted-foreground', {
+  description: cva('mk-checkbox__description mk:m-0 mk:text-neutral-600 mk:dark:text-neutral-400', {
     variants: {
       size: {
         sm: 'mk:text-xs mk:leading-4',

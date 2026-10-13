@@ -1,15 +1,15 @@
 # Callout
 
 Callouts communicate important contextual information without interrupting the current task. `MkCallout`
-combines independent semantic colors and surface treatments with optional icon, title, actions, and
+combines independent colors and surface treatments with optional icon, title, actions, and
 dismissal regions.
 
 ## Usage
 
 ### Color
 
-Use `color` to communicate meaning. Callout defaults to `info`; use `secondary` for neutral emphasis
-and `muted` for lower-priority, subdued notices. Always reinforce color with clear text.
+Use `color` to communicate meaning. Callout defaults to `sky`; use `neutral` for neutral emphasis.
+Always reinforce color with clear text.
 
 <ComponentPreview name="callout/CalloutColor" />
 
@@ -47,7 +47,7 @@ import { MkCallout } from '@modekit/vue'
 </script>
 
 <template>
-  <MkCallout color="success" title="Payment received">
+  <MkCallout color="green" title="Payment received">
     <template #icon>
       <CircleCheck aria-hidden="true" :stroke-width="1.75" />
     </template>
@@ -86,7 +86,7 @@ attributes, including `role`, are forwarded to that root.
 | Prop           | Type                                                                 | Default             | Description                                                     |
 | -------------- | -------------------------------------------------------------------- | ------------------- | --------------------------------------------------------------- |
 | `as`           | `AsTag \| Component`                                                 | `'div'`             | Changes the rendered root element or component.                 |
-| `color`        | `ModeKitColor`                                                       | `'info'`            | Sets the Callout color.                                         |
+| `color`        | `ModeKitColor`                                                       | `'sky'`             | Sets the Callout color.                                         |
 | `variant`      | `'solid' \| 'soft' \| 'outline'`                                     | `'soft'`            | Sets the surface treatment independently of color.              |
 | `size`         | `'sm' \| 'md' \| 'lg'`                                               | `'md'`              | Sets spacing, typography, icon, action, and close geometry.     |
 | `title`        | `string`                                                             | —                   | Renders a concise title before the supporting message.          |
@@ -126,7 +126,7 @@ Use `ui` to customize the supported regions. Native `class` applies last to the 
 
 ```vue
 <MkCallout
-  color="info"
+  color="sky"
   title="Import running"
   :ui="{
     base: 'shadow-sm',
@@ -173,14 +173,14 @@ app.use(
         },
         compoundVariants: [
           {
-            color: ['warning', 'destructive'],
+            color: ['amber', 'red'],
             variant: ['soft', 'outline'],
             size: 'lg',
             class: 'shadow-md',
           },
         ],
         defaultVariants: {
-          color: 'info',
+          color: 'sky',
           variant: 'soft',
           size: 'md',
         },

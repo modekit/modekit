@@ -16,7 +16,7 @@ export const preview = definePreview({
     {
       prop: 'badgeColor',
       label: 'Badge color',
-      defaultValue: 'success',
+      defaultValue: 'green',
       options: selectOptions(avatarColors),
     },
     {
@@ -51,7 +51,7 @@ const props = withDefaults(
   }>(),
   {
     badgePosition: 'bottom-right',
-    badgeColor: 'success',
+    badgeColor: 'green',
     size: 'lg',
   },
 )

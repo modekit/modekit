@@ -2,8 +2,7 @@
 
 Cards group related information and actions into one visual surface. `MkCard` renders through Reka
 UI's `Primitive` as a neutral div and provides surface variants, a compact spacing scale, named
-composition slots, native div attributes, and class-based customization without introducing another
-semantic color role.
+composition slots, native div attributes, and class-based customization.
 
 ## Usage
 
@@ -19,10 +18,10 @@ and `lg`.
 The `shadow` variant uses the same raised shadow at every Card size. ModeKit keeps the full raised
 shadow token scale available for other components and application overrides.
 
-- `shadow` uses the semantic surface and a clear raised shadow without a border.
-- `muted` uses the semantic muted surface without a border.
-- `outline` uses the semantic surface with an explicit border and no shadow.
-- `plain` uses the semantic surface without a border or shadow.
+- `shadow` uses white, `white/10` in dark mode, and a clear raised shadow without a border.
+- `muted` uses the neutral scale without a border.
+- `outline` uses the white surface with an explicit neutral border and no shadow.
+- `plain` uses the white surface without a border or shadow.
 
 Card corners use the container steps of ModeKit's shared radius scale. With the default
 `--mk-radius`, `sm`, `md`, and `lg` resolve to 8, 12, and 16 pixels. Controls use lower steps at the

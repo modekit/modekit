@@ -282,7 +282,7 @@ describe('MkButton', () => {
                 base: 'font-bold',
                 variants: {
                   color: {
-                    destructive: 'tracking-wide',
+                    red: 'tracking-wide',
                   },
                   variant: {
                     outline: 'rounded-full',
@@ -293,13 +293,13 @@ describe('MkButton', () => {
                 },
                 compoundVariants: [
                   {
-                    color: ['primary', 'destructive'],
+                    color: ['primary', 'red'],
                     variant: ['outline', 'soft'],
                     class: 'border-fuchsia-400 text-fuchsia-700',
                   },
                 ],
                 defaultVariants: {
-                  color: 'destructive',
+                  color: 'red',
                   variant: 'outline',
                   size: 'lg',
                 },
@@ -310,7 +310,7 @@ describe('MkButton', () => {
       },
     })
 
-    expect(wrapper.attributes('data-mk-color')).toBe('destructive')
+    expect(wrapper.attributes('data-mk-color')).toBe('red')
     expect(wrapper.attributes('data-mk-variant')).toBe('outline')
     expect(wrapper.attributes('data-mk-size')).toBe('lg')
     expect(wrapper.classes()).toContain('font-bold')

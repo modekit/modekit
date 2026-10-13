@@ -5,7 +5,7 @@ import { cn } from '../../../utils/cn.js'
 import type { LabelSize, LabelStyleConfig, LabelUI } from '../types.js'
 
 const labelStyles = cva(
-  'mk-label mk:cursor-pointer mk:font-medium mk:text-foreground mk:data-[disabled]:cursor-not-allowed',
+  'mk-label mk:cursor-pointer mk:font-medium mk:text-neutral-950 mk:dark:text-neutral-50 mk:data-[disabled]:cursor-not-allowed',
   {
     variants: {
       size: {

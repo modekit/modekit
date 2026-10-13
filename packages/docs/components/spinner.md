@@ -32,7 +32,7 @@ after the built-in recipe. Conflicts are merged independently within the ModeKit
 namespaces. Load application CSS after ModeKit when it should override built-in declarations.
 
 ```vue
-<MkSpinner size="lg" class="text-destructive" />
+<MkSpinner size="lg" class="text-red-700 dark:text-red-400" />
 ```
 
 Global configuration can override base classes, each size, and the default size:

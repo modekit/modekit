@@ -76,7 +76,7 @@ const items: readonly TabsItem[] = [
 <template>
   <MkTabs v-model="activeTab" :items="items" :size="props.size" :variant="props.variant">
     <template #content="{ item }">
-      <p class="mk:m-0 mk:text-sm mk:text-muted-foreground">
+      <p class="mk:m-0 mk:text-sm mk:text-neutral-600 mk:dark:text-neutral-400">
         This panel contains the {{ item.label.toLowerCase() }} content.
       </p>
     </template>

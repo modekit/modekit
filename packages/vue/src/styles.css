@@ -8,21 +8,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme static inline {
-  --color-background: var(--mk-background);
-  --color-foreground: var(--mk-foreground);
-  --color-surface: var(--mk-surface);
-  --color-surface-foreground: var(--mk-surface-foreground);
   --color-primary: var(--mk-primary);
   --color-primary-foreground: var(--mk-primary-foreground);
-  --color-secondary: var(--mk-secondary);
-  --color-secondary-foreground: var(--mk-secondary-foreground);
-  --color-muted: var(--mk-muted);
-  --color-muted-foreground: var(--mk-muted-foreground);
-  --color-accent: var(--mk-accent);
-  --color-accent-foreground: var(--mk-accent-foreground);
-  --color-border: var(--mk-border);
-  --color-input: var(--mk-input);
-  --color-ring: var(--mk-ring);
+  --color-neutral-50: var(--mk-neutral-50);
+  --color-neutral-100: var(--mk-neutral-100);
+  --color-neutral-200: var(--mk-neutral-200);
+  --color-neutral-300: var(--mk-neutral-300);
+  --color-neutral-400: var(--mk-neutral-400);
+  --color-neutral-500: var(--mk-neutral-500);
+  --color-neutral-600: var(--mk-neutral-600);
+  --color-neutral-700: var(--mk-neutral-700);
+  --color-neutral-800: var(--mk-neutral-800);
+  --color-neutral-900: var(--mk-neutral-900);
+  --color-neutral-950: var(--mk-neutral-950);
   --color-component: var(--mk-component-color);
   --color-component-foreground: var(--mk-component-color-foreground);
   --color-component-hover: var(--mk-component-color-hover);
@@ -54,21 +52,8 @@
   --mk-neutral-800: var(--mk-color-zinc-800);
   --mk-neutral-900: var(--mk-color-zinc-900);
   --mk-neutral-950: var(--mk-color-zinc-950);
-  --mk-background: var(--mk-color-white);
-  --mk-foreground: var(--mk-neutral-950);
-  --mk-surface: var(--mk-color-white);
-  --mk-surface-foreground: var(--mk-neutral-950);
   --mk-primary: var(--mk-neutral-900);
   --mk-primary-foreground: var(--mk-color-white);
-  --mk-secondary: var(--mk-neutral-100);
-  --mk-secondary-foreground: var(--mk-neutral-900);
-  --mk-muted: var(--mk-neutral-100);
-  --mk-muted-foreground: var(--mk-neutral-600);
-  --mk-accent: color-mix(in oklab, var(--mk-primary) 10%, transparent);
-  --mk-accent-foreground: var(--mk-primary);
-  --mk-border: var(--mk-neutral-200);
-  --mk-input: var(--mk-neutral-300);
-  --mk-ring: var(--mk-neutral-500);
   --mk-radius: 0.5rem;
   --mk-elevation-raised-sm: 0 0 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --mk-elevation-raised: 0 0 6px 0 rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.14);
@@ -77,21 +62,8 @@
 }
 
 .dark {
-  --mk-background: var(--mk-neutral-950);
-  --mk-foreground: var(--mk-neutral-50);
-  --mk-surface: var(--mk-neutral-900);
-  --mk-surface-foreground: var(--mk-neutral-50);
   --mk-primary: var(--mk-neutral-50);
   --mk-primary-foreground: var(--mk-neutral-950);
-  --mk-secondary: var(--mk-neutral-800);
-  --mk-secondary-foreground: var(--mk-neutral-50);
-  --mk-muted: var(--mk-neutral-800);
-  --mk-muted-foreground: var(--mk-neutral-400);
-  --mk-accent: color-mix(in oklab, var(--mk-primary) 15%, transparent);
-  --mk-accent-foreground: var(--mk-primary);
-  --mk-border: var(--mk-neutral-800);
-  --mk-input: var(--mk-neutral-700);
-  --mk-ring: var(--mk-neutral-400);
   --mk-elevation-raised-sm: 0 0 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.28);
   --mk-elevation-raised: 0 0 6px 0 rgb(0 0 0 / 0.32), 0 2px 4px -2px rgb(0 0 0 / 0.3);
   --mk-elevation-raised-lg: 0 0 12px 0 rgb(0 0 0 / 0.36), 0 8px 16px -8px rgb(0 0 0 / 0.4);
@@ -111,9 +83,7 @@
   --mk-component-color-foreground: var(--mk-primary-foreground);
 }
 
-[data-mk-color='neutral'],
-[data-mk-color='secondary'],
-[data-mk-color='muted'] {
+[data-mk-color='neutral'] {
   --mk-component-color: var(--mk-neutral-700);
   --mk-component-color-foreground: var(--mk-color-white);
 }
@@ -138,8 +108,7 @@
   --mk-component-color-foreground: var(--mk-color-stone-50);
 }
 
-[data-mk-color='red'],
-[data-mk-color='destructive'] {
+[data-mk-color='red'] {
   --mk-component-color: var(--mk-color-red-700);
   --mk-component-color-foreground: var(--mk-color-white);
 }
@@ -149,8 +118,7 @@
   --mk-component-color-foreground: var(--mk-color-white);
 }
 
-[data-mk-color='amber'],
-[data-mk-color='warning'] {
+[data-mk-color='amber'] {
   --mk-component-color: var(--mk-color-amber-400);
   --mk-component-color-foreground: var(--mk-color-amber-950);
 }
@@ -165,8 +133,7 @@
   --mk-component-color-foreground: var(--mk-color-lime-950);
 }
 
-[data-mk-color='green'],
-[data-mk-color='success'] {
+[data-mk-color='green'] {
   --mk-component-color: var(--mk-color-green-700);
   --mk-component-color-foreground: var(--mk-color-white);
 }
@@ -186,8 +153,7 @@
   --mk-component-color-foreground: var(--mk-color-white);
 }
 
-[data-mk-color='sky'],
-[data-mk-color='info'] {
+[data-mk-color='sky'] {
   --mk-component-color: var(--mk-color-sky-700);
   --mk-component-color-foreground: var(--mk-color-white);
 }
@@ -227,9 +193,7 @@
   --mk-component-color-foreground: var(--mk-color-white);
 }
 
-:where(.dark, .dark *)[data-mk-color='neutral'],
-:where(.dark, .dark *)[data-mk-color='secondary'],
-:where(.dark, .dark *)[data-mk-color='muted'] {
+:where(.dark, .dark *)[data-mk-color='neutral'] {
   --mk-component-color: var(--mk-neutral-300);
   --mk-component-color-foreground: var(--mk-neutral-950);
 }
@@ -254,8 +218,7 @@
   --mk-component-color-foreground: var(--mk-color-stone-950);
 }
 
-:where(.dark, .dark *)[data-mk-color='red'],
-:where(.dark, .dark *)[data-mk-color='destructive'] {
+:where(.dark, .dark *)[data-mk-color='red'] {
   --mk-component-color: var(--mk-color-red-400);
   --mk-component-color-foreground: var(--mk-color-red-950);
 }
@@ -265,8 +228,7 @@
   --mk-component-color-foreground: var(--mk-color-orange-950);
 }
 
-:where(.dark, .dark *)[data-mk-color='amber'],
-:where(.dark, .dark *)[data-mk-color='warning'] {
+:where(.dark, .dark *)[data-mk-color='amber'] {
   --mk-component-color: var(--mk-color-amber-300);
   --mk-component-color-foreground: var(--mk-color-amber-950);
 }
@@ -281,8 +243,7 @@
   --mk-component-color-foreground: var(--mk-color-lime-950);
 }
 
-:where(.dark, .dark *)[data-mk-color='green'],
-:where(.dark, .dark *)[data-mk-color='success'] {
+:where(.dark, .dark *)[data-mk-color='green'] {
   --mk-component-color: var(--mk-color-green-400);
   --mk-component-color-foreground: var(--mk-color-green-950);
 }
@@ -302,8 +263,7 @@
   --mk-component-color-foreground: var(--mk-color-cyan-950);
 }
 
-:where(.dark, .dark *)[data-mk-color='sky'],
-:where(.dark, .dark *)[data-mk-color='info'] {
+:where(.dark, .dark *)[data-mk-color='sky'] {
   --mk-component-color: var(--mk-color-sky-400);
   --mk-component-color-foreground: var(--mk-color-sky-950);
 }

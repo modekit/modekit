@@ -77,7 +77,7 @@ describe('MkAvatarGroup', () => {
 
   it('limits visible members and renders a deterministic overflow Avatar', () => {
     const wrapper = mount(MkAvatarGroup, {
-      props: { max: 2, size: 'lg', overflowColor: 'info' },
+      props: { max: 2, size: 'lg', overflowColor: 'sky' },
       slots: { default: () => avatars(5) },
     })
 
@@ -89,7 +89,7 @@ describe('MkAvatarGroup', () => {
     expect(wrapper.attributes('data-mk-max')).toBe('2')
     expect(wrapper.attributes('data-mk-overflow-count')).toBe('3')
     expect(overflow?.attributes('aria-label')).toBe('3 more members')
-    expect(overflow?.attributes('data-mk-color')).toBe('info')
+    expect(overflow?.attributes('data-mk-color')).toBe('sky')
     expect(overflow?.attributes('data-mk-size')).toBe('lg')
     expect(overflow?.classes()).toContain('mk-avatar-group__overflow')
   })
@@ -182,13 +182,13 @@ describe('MkAvatarGroup', () => {
                     loose: 'gap-px',
                   },
                   overflowColor: {
-                    warning: 'outline',
+                    amber: 'outline',
                   },
                 },
                 defaultVariants: {
                   size: 'xl',
                   spacing: 'loose',
-                  overflowColor: 'warning',
+                  overflowColor: 'amber',
                 },
               },
             },
@@ -208,7 +208,7 @@ describe('MkAvatarGroup', () => {
     expect(wrapper.classes()).toContain('p-1')
     expect(wrapper.classes()).toContain('gap-px')
     expect(children[0]?.classes()).toContain('shadow-sm')
-    expect(overflow?.attributes('data-mk-color')).toBe('warning')
+    expect(overflow?.attributes('data-mk-color')).toBe('amber')
     expect(overflow?.classes()).toContain('font-semibold')
     expect(overflow?.classes()).toContain('outline')
   })

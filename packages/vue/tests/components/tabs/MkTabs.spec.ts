@@ -169,8 +169,8 @@ describe('MkTabs', () => {
     const tab = mount(MkTabs, { props: { items, variant: 'line' } }).get('[role="tab"]')
 
     expect(tab.classes()).toContain('mk:rounded-none')
-    expect(tab.classes()).toContain('mk:hover:text-foreground')
-    expect(tab.classes()).not.toContain('mk:hover:bg-muted/50')
+    expect(tab.classes()).toContain('mk:hover:text-neutral-950')
+    expect(tab.classes()).not.toContain('mk:hover:bg-neutral-100/50')
     expect(tab.classes()).not.toContain('mk:rounded-lg')
   })
 
@@ -232,10 +232,10 @@ describe('MkTabs', () => {
     expect(wrapper.attributes('data-mk-variant')).toBe('segmented')
     expect(wrapper.get('[role="tablist"]').classes()).toEqual(
       expect.arrayContaining([
-        'mk:bg-muted',
+        'mk:bg-neutral-100',
         'mk:rounded-xl',
         'mk:p-1',
-        'mk:after:bg-surface',
+        'mk:after:bg-white',
         'mk:after:shadow-raised',
       ]),
     )
@@ -243,8 +243,8 @@ describe('MkTabs', () => {
 
     expect(triggerClasses).toEqual(
       expect.arrayContaining([
-        'mk:data-[state=active]:bg-surface',
-        'mk:data-[state=active]:text-surface-foreground',
+        'mk:data-[state=active]:bg-white',
+        'mk:data-[state=active]:text-neutral-950',
         'mk:data-[state=active]:shadow-raised',
       ]),
     )
@@ -274,7 +274,7 @@ describe('MkTabs', () => {
     expect(triggerClasses).toEqual(
       expect.arrayContaining([
         'mk:rounded-full',
-        'mk:bg-muted',
+        'mk:bg-neutral-100',
         'mk:data-[state=active]:bg-primary',
         'mk:data-[state=active]:text-primary-foreground',
       ]),

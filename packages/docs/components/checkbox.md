@@ -58,7 +58,7 @@ checkbox control. Native `class` and `style` apply to the complete field wrapper
 
 Use `model-value="indeterminate"` when a parent option represents a partially selected group. The
 next user activation changes it to `true`. Pass `aria-invalid="true"` when validation fails; the
-control then uses ModeKit's semantic destructive role.
+control then uses ModeKit's red palette treatment.
 
 ```vue
 <MkCheckbox model-value="indeterminate" aria-label="Select all rows" />
@@ -102,13 +102,8 @@ control and preserves required and disabled behavior.
 
 ## Styling
 
-Checkbox uses only semantic theme roles:
-
-- `background` and `input` while unchecked;
-- `primary` and `primary-foreground` while checked or indeterminate;
-- `ring` for keyboard focus;
-- `foreground` and `muted-foreground` for field text;
-- `destructive` when `aria-invalid="true"`.
+Checkbox uses the neutral scale and white for its unchecked surface and text, the primary pair for
+checked and focus states, and the red palette when `aria-invalid="true"`.
 
 The `sm`, `md`, and `lg` controls use 4, 6, and 8-pixel corners with ModeKit's default radius base.
 Override `--mk-radius` to adjust the complete library coherently.

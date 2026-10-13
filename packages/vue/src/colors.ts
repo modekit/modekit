@@ -1,12 +1,6 @@
 export const modeKitColors = [
   'primary',
   'neutral',
-  'secondary',
-  'muted',
-  'success',
-  'warning',
-  'info',
-  'destructive',
   'slate',
   'gray',
   'zinc',

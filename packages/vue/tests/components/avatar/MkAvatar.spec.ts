@@ -12,7 +12,7 @@ import {
 } from '../../../src/index.js'
 
 describe('MkAvatar', () => {
-  it('renders a circular native span with secondary fallback content and safe defaults', () => {
+  it('renders a circular native span with neutral fallback content and safe defaults', () => {
     const wrapper = mount(MkAvatar, {
       props: { fallback: 'JD' },
     })
@@ -21,7 +21,7 @@ describe('MkAvatar', () => {
     expect(wrapper.findComponent(AvatarRoot).exists()).toBe(true)
     expect(wrapper.findComponent(AvatarImage).exists()).toBe(false)
     expect(wrapper.findComponent(AvatarFallback).exists()).toBe(true)
-    expect(wrapper.attributes('data-mk-color')).toBe('secondary')
+    expect(wrapper.attributes('data-mk-color')).toBe('neutral')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.attributes('data-mk-square')).toBeUndefined()
     expect(wrapper.classes()).toContain('mk:size-10')
@@ -172,16 +172,16 @@ describe('MkAvatar', () => {
       props: {
         badge: true,
         badgePosition,
-        color: 'destructive',
-        badgeColor: 'success',
+        color: 'red',
+        badgeColor: 'green',
         fallback: 'JD',
       },
     })
     const badge = wrapper.find('.mk-avatar__badge')
 
     expect(avatarBadgePositions).toContain(badgePosition)
-    expect(wrapper.attributes('data-mk-color')).toBe('destructive')
-    expect(wrapper.attributes('data-mk-badge-color')).toBe('success')
+    expect(wrapper.attributes('data-mk-color')).toBe('red')
+    expect(wrapper.attributes('data-mk-badge-color')).toBe('green')
     expect(wrapper.attributes('data-mk-badge-position')).toBe(badgePosition)
     expect(wrapper.findComponent(AvatarFallback).classes()).toContain('mk:bg-component')
     expect(badge.exists()).toBe(true)
@@ -218,7 +218,7 @@ describe('MkAvatar', () => {
     expect(wrapper.classes()).toContain('ring-2')
     expect(wrapper.classes()).toContain('team-avatar')
     expect(wrapper.findComponent(AvatarFallback).classes()).toContain('font-bold')
-    expect(wrapper.attributes('data-mk-badge-color')).toBe('success')
+    expect(wrapper.attributes('data-mk-badge-color')).toBe('green')
     expect(wrapper.find('.mk-avatar__badge').classes()).toContain('mk:bg-component')
     expect(wrapper.find('.mk-avatar__badge').classes()).toContain('outline')
   })
@@ -238,10 +238,10 @@ describe('MkAvatar', () => {
                 },
                 variants: {
                   color: {
-                    info: 'text-info',
+                    sky: 'text-sky',
                   },
                   badgeColor: {
-                    warning: 'shadow-sm',
+                    amber: 'shadow-sm',
                   },
                   size: {
                     xl: 'ring-4',
@@ -254,8 +254,8 @@ describe('MkAvatar', () => {
                   },
                 },
                 defaultVariants: {
-                  color: 'info',
-                  badgeColor: 'warning',
+                  color: 'sky',
+                  badgeColor: 'amber',
                   size: 'xl',
                   square: true,
                   badgePosition: 'top-left',
@@ -272,13 +272,13 @@ describe('MkAvatar', () => {
       },
     })
 
-    expect(wrapper.attributes('data-mk-color')).toBe('info')
-    expect(wrapper.attributes('data-mk-badge-color')).toBe('warning')
+    expect(wrapper.attributes('data-mk-color')).toBe('sky')
+    expect(wrapper.attributes('data-mk-badge-color')).toBe('amber')
     expect(wrapper.attributes('data-mk-size')).toBe('xl')
     expect(wrapper.attributes('data-mk-square')).toBe('')
     expect(wrapper.attributes('data-mk-badge-position')).toBe('top-left')
     expect(wrapper.classes()).toContain('mk:size-16')
-    expect(wrapper.classes()).toContain('text-info')
+    expect(wrapper.classes()).toContain('text-sky')
     expect(wrapper.classes()).not.toContain('ring-1')
     expect(wrapper.classes()).toContain('ring-4')
     expect(wrapper.classes()).toContain('outline')

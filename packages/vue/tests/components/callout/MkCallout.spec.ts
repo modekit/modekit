@@ -27,7 +27,7 @@ describe('MkCallout', () => {
     expect((wrapper.element as HTMLElement).tagName).toBe('DIV')
     expect(wrapper.findComponent(Primitive).exists()).toBe(true)
     expect(wrapper.attributes('role')).toBeUndefined()
-    expect(wrapper.attributes('data-mk-color')).toBe('info')
+    expect(wrapper.attributes('data-mk-color')).toBe('sky')
     expect(wrapper.attributes('data-mk-variant')).toBe('soft')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.attributes('data-mk-dismissible')).toBeUndefined()
@@ -82,7 +82,7 @@ describe('MkCallout', () => {
       if (variant === 'outline') {
         expect(wrapper.classes()).toContain('mk:border')
         expect(wrapper.classes()).toContain('mk:border-solid')
-        expect(wrapper.classes()).toContain('mk:bg-surface')
+        expect(wrapper.classes()).toContain('mk:bg-white')
         expect(wrapper.classes()).toContain(expected.outline)
       } else {
         expect(wrapper.classes()).toContain('mk:border-0')
@@ -248,7 +248,7 @@ describe('MkCallout', () => {
                 },
                 variants: {
                   color: {
-                    destructive: 'tracking-wide',
+                    red: 'tracking-wide',
                   },
                   variant: {
                     outline: 'border-2',
@@ -259,14 +259,14 @@ describe('MkCallout', () => {
                 },
                 compoundVariants: [
                   {
-                    color: ['destructive', 'warning'],
+                    color: ['red', 'amber'],
                     variant: ['outline', 'soft'],
                     size: 'lg',
                     class: 'uppercase ring-1',
                   },
                 ],
                 defaultVariants: {
-                  color: 'destructive',
+                  color: 'red',
                   variant: 'outline',
                   size: 'lg',
                 },
@@ -283,7 +283,7 @@ describe('MkCallout', () => {
       },
     })
 
-    expect(wrapper.attributes('data-mk-color')).toBe('destructive')
+    expect(wrapper.attributes('data-mk-color')).toBe('red')
     expect(wrapper.attributes('data-mk-variant')).toBe('outline')
     expect(wrapper.attributes('data-mk-size')).toBe('lg')
     expect(wrapper.classes()).toContain('font-bold')

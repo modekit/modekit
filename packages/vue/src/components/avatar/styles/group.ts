@@ -14,7 +14,7 @@ import type {
 const avatarGroupStyles = cva(
   [
     'mk-avatar-group mk:inline-flex mk:isolate mk:items-center mk:align-middle',
-    'mk:[&>.mk-avatar]:ring-2 mk:[&>.mk-avatar]:ring-background',
+    'mk:[&>.mk-avatar]:ring-2 mk:[&>.mk-avatar]:ring-white mk:dark:[&>.mk-avatar]:ring-neutral-950',
     'mk:[&>.mk-avatar:hover]:z-10 mk:[&>.mk-avatar:focus-visible]:z-10 mk:[&>.mk-avatar:focus-within]:z-10',
   ],
   {

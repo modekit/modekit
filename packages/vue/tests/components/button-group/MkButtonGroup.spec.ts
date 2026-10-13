@@ -59,14 +59,10 @@ describe('MkButtonGroup', () => {
         default: () => [
           h(
             MkButton,
-            { color: 'success', size: 'sm', onClick: handleClick },
+            { color: 'green', size: 'sm', onClick: handleClick },
             { default: () => 'Save' },
           ),
-          h(
-            MkButton,
-            { color: 'destructive', size: 'lg', disabled: true },
-            { default: () => 'Delete' },
-          ),
+          h(MkButton, { color: 'red', size: 'lg', disabled: true }, { default: () => 'Delete' }),
         ],
       },
     })
@@ -75,9 +71,9 @@ describe('MkButtonGroup', () => {
     await children[0]?.trigger('click')
 
     expect(handleClick).toHaveBeenCalledOnce()
-    expect(children[0]?.attributes('data-mk-color')).toBe('success')
+    expect(children[0]?.attributes('data-mk-color')).toBe('green')
     expect(children[0]?.attributes('data-mk-size')).toBe('sm')
-    expect(children[1]?.attributes('data-mk-color')).toBe('destructive')
+    expect(children[1]?.attributes('data-mk-color')).toBe('red')
     expect(children[1]?.attributes('data-mk-size')).toBe('lg')
     expect(children[1]?.attributes('disabled')).toBeDefined()
   })

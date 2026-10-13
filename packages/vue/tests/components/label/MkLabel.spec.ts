@@ -18,7 +18,7 @@ describe('MkLabel', () => {
     expect(wrapper.attributes('title')).toBe('Email address')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.classes()).toEqual(
-      expect.arrayContaining(['mk-label', 'mk:text-sm', 'mk:leading-5', 'mk:text-foreground']),
+      expect.arrayContaining(['mk-label', 'mk:text-sm', 'mk:leading-5', 'mk:text-neutral-950']),
     )
     expect(wrapper.text()).toBe('Email')
   })

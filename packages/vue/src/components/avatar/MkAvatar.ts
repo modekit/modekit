@@ -101,11 +101,11 @@ export const MkAvatar = defineComponent({
 
     return () => {
       const avatarConfig = options.ui?.avatar
-      const color = props.color ?? avatarConfig?.defaultVariants?.color ?? 'secondary'
+      const color = props.color ?? avatarConfig?.defaultVariants?.color ?? 'neutral'
       const size =
         props.size ?? avatarGroup?.size.value ?? avatarConfig?.defaultVariants?.size ?? 'md'
       const square = props.square ?? avatarConfig?.defaultVariants?.square ?? false
-      const badgeColor = props.badgeColor ?? avatarConfig?.defaultVariants?.badgeColor ?? 'success'
+      const badgeColor = props.badgeColor ?? avatarConfig?.defaultVariants?.badgeColor ?? 'green'
       const badgePosition =
         props.badgePosition ?? avatarConfig?.defaultVariants?.badgePosition ?? 'bottom-right'
       const attributes: HTMLAttributes = attrs

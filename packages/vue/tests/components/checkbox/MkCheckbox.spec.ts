@@ -24,7 +24,12 @@ describe('MkCheckbox', () => {
     expect(control.attributes('data-state')).toBe('unchecked')
     expect(control.attributes('aria-describedby')).toBe('updates-description')
     expect(control.classes()).toEqual(
-      expect.arrayContaining(['mk:size-5', 'mk:rounded-md', 'mk:border-input', 'mk:bg-background']),
+      expect.arrayContaining([
+        'mk:size-5',
+        'mk:rounded-md',
+        'mk:border-neutral-300',
+        'mk:bg-white',
+      ]),
     )
     expect(label.attributes('for')).toBe('updates')
     expect(label.classes()).toContain('mk-label')
@@ -118,8 +123,8 @@ describe('MkCheckbox', () => {
         'mk-label',
         'mk:w-full',
         'mk:rounded-xl',
-        'mk:border-border',
-        'mk:bg-surface',
+        'mk:border-neutral-200',
+        'mk:bg-white',
         'mk:p-4',
         'mk:has-data-[state=checked]:bg-primary/10',
       ]),

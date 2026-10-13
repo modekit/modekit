@@ -26,7 +26,7 @@ A child can opt out of shared sizing when a deliberate exception is needed:
 ### Overflow
 
 Use `max` to set how many member Avatars remain visible. When more members exist, the group appends a
-same-size `+N` Avatar. `overflowColor` changes only that indicator and defaults to `secondary`.
+same-size `+N` Avatar. `overflowColor` changes only that indicator and defaults to `neutral`.
 
 <ComponentPreview name="avatar-group/AvatarGroupOverflow" />
 
@@ -36,7 +36,7 @@ non-negative integer, so `max="0"` can represent the entire collection through o
 ### Custom overflow content
 
 The `overflow` slot replaces `+N` inside the generated overflow Avatar and receives the hidden
-`count`. Its geometry, inherited size, semantic color, and group overlap remain intact.
+`count`. Its geometry, inherited size, color, and group overlap remain intact.
 
 ```vue
 <MkAvatarGroup :max="2" overflow-label="Additional reviewers" aria-label="Reviewers">
@@ -65,15 +65,15 @@ component. Native attributes and an explicit `role` are forwarded.
 
 ### Props
 
-| Prop            | Type                                                                            | Default         | Description                                                    |
-| --------------- | ------------------------------------------------------------------------------- | --------------- | -------------------------------------------------------------- |
-| `as`            | `AsTag \| Component`                                                            | `'div'`         | Changes the rendered root element or component.                |
-| `size`          | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                          | `'md'`          | Provides a shared size to Avatar descendants.                  |
-| `spacing`       | `'tight' \| 'normal' \| 'loose'`                                                | `'normal'`      | Controls overlap between direct Avatar children.               |
-| `max`           | `number`                                                                        | —               | Limits visible members before a `+N` indicator is appended.    |
-| `overflowColor` | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'info' \| 'destructive'` | `'secondary'`   | Sets the overflow Avatar's semantic color.                     |
-| `overflowLabel` | `string`                                                                        | Generated count | Overrides the overflow Avatar's accessible label.              |
-| `ui`            | `{ base?, item?, overflow? }`                                                   | —               | Adds or overrides classes for the root, members, and overflow. |
+| Prop            | Type                                   | Default         | Description                                                    |
+| --------------- | -------------------------------------- | --------------- | -------------------------------------------------------------- |
+| `as`            | `AsTag \| Component`                   | `'div'`         | Changes the rendered root element or component.                |
+| `size`          | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`          | Provides a shared size to Avatar descendants.                  |
+| `spacing`       | `'tight' \| 'normal' \| 'loose'`       | `'normal'`      | Controls overlap between direct Avatar children.               |
+| `max`           | `number`                               | —               | Limits visible members before a `+N` indicator is appended.    |
+| `overflowColor` | `ModeKitColor`                         | `'neutral'`     | Sets the overflow Avatar color.                                |
+| `overflowLabel` | `string`                               | Generated count | Overrides the overflow Avatar's accessible label.              |
+| `ui`            | `{ base?, item?, overflow? }`          | —               | Adds or overrides classes for the root, members, and overflow. |
 
 ### Slots
 
@@ -96,7 +96,7 @@ neighbors without changing layout.
   spacing="tight"
   :max="3"
   :ui="{
-    base: 'rounded-lg bg-muted p-2',
+    base: 'rounded-lg bg-neutral-100 p-2 dark:bg-neutral-800',
     item: 'shadow-sm',
     overflow: 'font-bold',
   }"
@@ -131,13 +131,13 @@ app.use(
             loose: 'gap-px',
           },
           overflowColor: {
-            warning: 'outline outline-warning/30',
+            amber: 'outline outline-amber-500/30',
           },
         },
         defaultVariants: {
           size: 'md',
           spacing: 'normal',
-          overflowColor: 'secondary',
+          overflowColor: 'neutral',
         },
       },
     },
