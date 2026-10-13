@@ -123,8 +123,10 @@ because the same shadow opacity does not read equally against both schemes:
 }
 ```
 
-Components consume the radius scale and semantic elevation role through namespaced Tailwind
-utilities. Component recipes must not introduce raw palette colors or one-off shadows.
+The elevation role is mapped into Tailwind’s `--shadow-raised` theme namespace and consumed with
+the namespaced `mk:shadow-raised` utility. Components consume the radius scale and semantic
+elevation role through namespaced Tailwind utilities; component recipes must not introduce raw
+palette colors or one-off shadows.
 
 ## Component configuration
 

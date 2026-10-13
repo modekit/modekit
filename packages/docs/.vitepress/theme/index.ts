@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
 
 import ComponentPreview from '../components/ComponentPreview.vue'
+import '../../../vue/src/styles.css'
 import './preview.css'
 
 export default {

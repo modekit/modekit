@@ -12,7 +12,7 @@ between each tab and panel.
 
 - Controlled and uncontrolled selection
 - Automatic first-enabled-item selection
-- Line and pill presentations
+- Line, segmented, and pill presentations
 - Three shared component sizes
 - Disabled items
 - Automatic or manual keyboard activation
@@ -25,17 +25,17 @@ between each tab and panel.
 
 ### Props
 
-| Prop             | Type                      | Default       | Description                                      |
-| ---------------- | ------------------------- | ------------- | ------------------------------------------------ |
-| `items`          | `readonly TabsItem[]`     | —             | Defines tab values, labels, and disabled states. |
-| `modelValue`     | `string \| number`        | —             | Controls the active tab with `v-model`.          |
-| `defaultValue`   | `string \| number`        | first enabled | Sets the initial uncontrolled tab.               |
-| `variant`        | `'line' \| 'pill'`        | `'line'`      | Sets the visual presentation.                    |
-| `size`           | `'sm' \| 'md' \| 'lg'`    | `'md'`        | Sets trigger height, spacing, and typography.    |
-| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` | Controls whether focus also selects a tab.       |
-| `loop`           | `boolean`                 | `true`        | Lets arrow-key focus wrap between the ends.      |
-| `unmountOnHide`  | `boolean`                 | `true`        | Unmounts inactive panel content.                 |
-| `ui`             | `TabsUI`                  | —             | Adds classes to the root and named parts.        |
+| Prop             | Type                              | Default       | Description                                      |
+| ---------------- | --------------------------------- | ------------- | ------------------------------------------------ |
+| `items`          | `readonly TabsItem[]`             | —             | Defines tab values, labels, and disabled states. |
+| `modelValue`     | `string \| number`                | —             | Controls the active tab with `v-model`.          |
+| `defaultValue`   | `string \| number`                | first enabled | Sets the initial uncontrolled tab.               |
+| `variant`        | `'line' \| 'segmented' \| 'pill'` | `'line'`      | Sets the visual presentation.                    |
+| `size`           | `'sm' \| 'md' \| 'lg'`            | `'md'`        | Sets trigger height, spacing, and typography.    |
+| `activationMode` | `'automatic' \| 'manual'`         | `'automatic'` | Controls whether focus also selects a tab.       |
+| `loop`           | `boolean`                         | `true`        | Lets arrow-key focus wrap between the ends.      |
+| `unmountOnHide`  | `boolean`                         | `true`        | Unmounts inactive panel content.                 |
+| `ui`             | `TabsUI`                          | —             | Adds classes to the root and named parts.        |
 
 `TabsItem` contains `value`, `label`, and an optional `disabled` property. Native attributes and
 listeners are forwarded to the root element.
@@ -59,11 +59,13 @@ Every slot receives `{ item, active }`.
 
 ## Variants
 
-Use `line` for navigation that should blend into its surrounding layout. Use `pill` when the tabs
-need a contained surface or stronger separation from nearby controls.
+Use `line` for navigation that should blend into its surrounding layout. Use `segmented` for a
+contained control with one moving selected segment. Use `pill` for independent rounded badge-like
+tabs.
 
 ```vue
 <MkTabs :items="items" variant="line" />
+<MkTabs :items="items" variant="segmented" />
 <MkTabs :items="items" variant="pill" />
 ```
 
@@ -121,7 +123,7 @@ app.use(
           trigger: 'font-semibold',
         },
         defaultVariants: {
-          variant: 'pill',
+          variant: 'segmented',
           size: 'md',
         },
       },

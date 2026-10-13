@@ -76,9 +76,16 @@ export const MkTabs = defineComponent({
     let listElement: HTMLElement | undefined
     let animationFrame: number | undefined
     let resizeObserver: ResizeObserver | undefined
+    let indicatorEnabled = true
 
     const updateIndicator = () => {
       if (!listElement) return
+      if (!indicatorEnabled) {
+        listElement.removeAttribute('data-mk-indicator-ready')
+        listElement.style.removeProperty('--mk-tabs-indicator-x')
+        listElement.style.removeProperty('--mk-tabs-indicator-width')
+        return
+      }
 
       const activeTrigger = listElement.querySelector<HTMLElement>(
         '.mk-tabs__trigger[data-state="active"]',
@@ -109,7 +116,7 @@ export const MkTabs = defineComponent({
 
     const observeList = () => {
       resizeObserver?.disconnect()
-      if (!listElement || typeof ResizeObserver === 'undefined') return
+      if (!listElement || !indicatorEnabled || typeof ResizeObserver === 'undefined') return
 
       resizeObserver = new ResizeObserver(scheduleIndicatorUpdate)
       resizeObserver.observe(listElement)
@@ -147,6 +154,7 @@ export const MkTabs = defineComponent({
       const tabsConfig = options.ui?.tabs
       const variant = props.variant ?? tabsConfig?.defaultVariants?.variant ?? 'line'
       const size = props.size ?? tabsConfig?.defaultVariants?.size ?? 'md'
+      indicatorEnabled = variant !== 'pill'
       const attributes: HTMLAttributes = attrs
       const firstEnabledItem = props.items.find((item) => !item.disabled)
       const rootProps: Record<string, unknown> = {

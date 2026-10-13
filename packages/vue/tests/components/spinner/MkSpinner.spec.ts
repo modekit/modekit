@@ -12,7 +12,7 @@ describe('MkSpinner', () => {
     expect(wrapper.attributes('aria-label')).toBe('Loading')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.classes()).toContain('mk:size-4')
-    expect(wrapper.classes()).toContain('mk:animate-[mk-spinner-spin_1s_linear_infinite]')
+    expect(wrapper.classes()).toContain('mk:animate-spin')
     expect(wrapper.classes()).toContain('mk:motion-reduce:animate-none')
     expect(wrapper.classes()).toContain('mk:border-solid')
     expect(wrapper.classes()).toContain('mk:border-current')

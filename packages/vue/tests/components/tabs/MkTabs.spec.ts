@@ -132,21 +132,27 @@ describe('MkTabs', () => {
   })
 
   it.each([
-    ['sm', 'mk:h-8', 'mk:rounded-md'],
-    ['md', 'mk:h-10', 'mk:rounded-lg'],
-    ['lg', 'mk:h-12', 'mk:rounded-xl'],
-  ] as const)('resolves the %s pill size coherently', (size, height, radius) => {
-    const wrapper = mount(MkTabs, { props: { items, size, variant: 'pill' } })
-    const tab = wrapper.get('[role="tab"]')
+    ['sm', 'mk:h-8', 'mk:rounded-md', 'mk:after:rounded-md'],
+    ['md', 'mk:h-10', 'mk:rounded-lg', 'mk:after:rounded-lg'],
+    ['lg', 'mk:h-12', 'mk:rounded-xl', 'mk:after:rounded-xl'],
+  ] as const)(
+    'resolves the %s segmented size coherently',
+    (size, height, radius, indicatorRadius) => {
+      const wrapper = mount(MkTabs, { props: { items, size, variant: 'segmented' } })
+      const tab = wrapper.get('[role="tab"]')
 
-    expect(wrapper.attributes('data-mk-size')).toBe(size)
-    expect(tab.classes()).toEqual(expect.arrayContaining([height, radius]))
-  })
+      expect(wrapper.attributes('data-mk-size')).toBe(size)
+      expect(tab.classes()).toEqual(expect.arrayContaining([height, radius]))
+      expect(wrapper.get('[role="tablist"]').classes()).toContain(indicatorRadius)
+    },
+  )
 
-  it('keeps line triggers square for a straight active indicator', () => {
+  it('keeps line triggers square and preserves their hover treatment', () => {
     const tab = mount(MkTabs, { props: { items, variant: 'line' } }).get('[role="tab"]')
 
     expect(tab.classes()).toContain('mk:rounded-none')
+    expect(tab.classes()).toContain('mk:hover:text-foreground')
+    expect(tab.classes()).not.toContain('mk:hover:bg-muted/50')
     expect(tab.classes()).not.toContain('mk:rounded-lg')
   })
 
@@ -202,20 +208,60 @@ describe('MkTabs', () => {
     }
   })
 
-  it('renders the pill presentation with semantic surface roles', () => {
-    const wrapper = mount(MkTabs, { props: { items, variant: 'pill' } })
+  it('renders the segmented presentation with a moving surface indicator', () => {
+    const wrapper = mount(MkTabs, { props: { items, variant: 'segmented' } })
 
-    expect(wrapper.attributes('data-mk-variant')).toBe('pill')
+    expect(wrapper.attributes('data-mk-variant')).toBe('segmented')
     expect(wrapper.get('[role="tablist"]').classes()).toEqual(
-      expect.arrayContaining(['mk:bg-muted', 'mk:rounded-xl', 'mk:p-1']),
+      expect.arrayContaining([
+        'mk:bg-muted',
+        'mk:rounded-xl',
+        'mk:p-1',
+        'mk:after:bg-surface',
+        'mk:after:shadow-raised',
+      ]),
     )
-    expect(wrapper.get('[role="tab"]').classes()).toEqual(
+    const triggerClasses = wrapper.get('[role="tab"]').classes()
+
+    expect(triggerClasses).toEqual(
       expect.arrayContaining([
         'mk:data-[state=active]:bg-surface',
         'mk:data-[state=active]:text-surface-foreground',
-        'mk:data-[state=active]:[box-shadow:var(--mk-elevation-raised)]',
+        'mk:data-[state=active]:shadow-raised',
       ]),
     )
+    expect(triggerClasses.some((className) => className.includes('hover:'))).toBe(false)
+  })
+
+  it('renders pill tabs as independent rounded badges without an indicator', async () => {
+    const wrapper = mount(MkTabs, { props: { items, variant: 'pill' } })
+    const listClasses = wrapper.get('[role="tablist"]').classes()
+    const triggerClasses = wrapper.get('[role="tab"]').classes()
+
+    expect(wrapper.attributes('data-mk-variant')).toBe('pill')
+    expect(listClasses).toEqual(expect.arrayContaining(['mk:w-fit', 'mk:gap-2']))
+    expect(listClasses.some((className) => className.includes('after:'))).toBe(false)
+    await nextTick()
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => {
+        resolve()
+      }),
+    )
+    expect(wrapper.get('[role="tablist"]').attributes('data-mk-indicator-ready')).toBeUndefined()
+    expect(
+      (wrapper.get('[role="tablist"]').element as HTMLElement).style.getPropertyValue(
+        '--mk-tabs-indicator-width',
+      ),
+    ).toBe('')
+    expect(triggerClasses).toEqual(
+      expect.arrayContaining([
+        'mk:rounded-full',
+        'mk:bg-muted',
+        'mk:data-[state=active]:bg-primary',
+        'mk:data-[state=active]:text-primary-foreground',
+      ]),
+    )
+    expect(triggerClasses.some((className) => className.includes('hover:'))).toBe(false)
   })
 
   it('supports typed presentation slots for each item', () => {
@@ -250,11 +296,11 @@ describe('MkTabs', () => {
                 },
                 variants: {
                   size: { lg: 'gap-5' },
-                  variant: { pill: 'custom-pill' },
+                  variant: { segmented: 'custom-segmented' },
                 },
                 defaultVariants: {
                   size: 'lg',
-                  variant: 'pill',
+                  variant: 'segmented',
                 },
               },
             },
@@ -269,7 +315,7 @@ describe('MkTabs', () => {
     })
 
     expect(wrapper.classes()).toEqual(
-      expect.arrayContaining(['mk-tabs', 'w-full', 'gap-5', 'custom-pill', 'local-root']),
+      expect.arrayContaining(['mk-tabs', 'w-full', 'gap-5', 'custom-segmented', 'local-root']),
     )
     expect(wrapper.get('[role="tablist"]').classes()).toEqual(
       expect.arrayContaining(['mk-tabs__list', 'justify-center']),
@@ -280,7 +326,7 @@ describe('MkTabs', () => {
   })
 
   it('exports its finite contracts', () => {
-    expect(tabsVariants).toEqual(['line', 'pill'])
+    expect(tabsVariants).toEqual(['line', 'segmented', 'pill'])
     expect(tabsSizes).toEqual(['sm', 'md', 'lg'])
     expect(tabsActivationModes).toEqual(['automatic', 'manual'])
   })

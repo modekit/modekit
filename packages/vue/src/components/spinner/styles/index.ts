@@ -7,7 +7,7 @@ import type { SpinnerSize, SpinnerStyleConfig, SpinnerUI } from '../types.js'
 const spinnerStyles = cva(
   [
     'mk-spinner mk:inline-block mk:shrink-0 mk:rounded-full',
-    'mk:animate-[mk-spinner-spin_1s_linear_infinite] mk:motion-reduce:animate-none',
+    'mk:animate-spin mk:motion-reduce:animate-none',
     // ModeKit excludes Preflight, so the border style must be explicit.
     'mk:border-2 mk:border-solid mk:border-current mk:border-r-transparent',
   ],

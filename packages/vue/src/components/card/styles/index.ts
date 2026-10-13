@@ -13,8 +13,7 @@ const cardStyles = cva(
   {
     variants: {
       variant: {
-        default:
-          'mk:border mk:border-border mk:bg-surface mk:[box-shadow:var(--mk-elevation-raised)]',
+        default: 'mk:border mk:border-border mk:bg-surface mk:shadow-raised',
         muted: 'mk:border mk:border-border mk:bg-muted',
         outline: 'mk:border mk:border-border mk:bg-transparent',
       },

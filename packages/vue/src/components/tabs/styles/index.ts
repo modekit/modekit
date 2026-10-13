@@ -8,6 +8,7 @@ const tabsStyles = cva('mk-tabs mk:flex mk:min-w-0 mk:flex-col', {
   variants: {
     variant: {
       line: '',
+      segmented: '',
       pill: '',
     },
     size: {
@@ -18,6 +19,13 @@ const tabsStyles = cva('mk-tabs mk:flex mk:min-w-0 mk:flex-col', {
   },
 })
 
+const tabsIndicatorStyles = [
+  "mk:after:pointer-events-none mk:after:absolute mk:after:left-0 mk:after:w-[var(--mk-tabs-indicator-width,0px)] mk:after:content-['']",
+  'mk:after:opacity-0 mk:data-[mk-indicator-ready]:after:opacity-100',
+  'mk:after:[transform:translate3d(var(--mk-tabs-indicator-x,0px),0,0)]',
+  'mk:after:transition-[width,transform,opacity] mk:after:duration-200 mk:after:ease-out mk:motion-reduce:after:transition-none',
+] as const
+
 const tabsListStyles = cva(
   [
     'mk-tabs__list mk:relative mk:box-border mk:flex mk:max-w-full mk:min-w-0 mk:items-center mk:overflow-x-auto mk:overscroll-x-contain',
@@ -26,8 +34,20 @@ const tabsListStyles = cva(
   {
     variants: {
       variant: {
-        line: 'mk:border-0 mk:border-b mk:border-solid mk:border-border',
-        pill: 'mk:w-fit mk:gap-1 mk:rounded-xl mk:bg-muted mk:p-1',
+        line: [
+          ...tabsIndicatorStyles,
+          'mk:border-0 mk:border-b mk:border-solid mk:border-border',
+          'mk:after:bottom-0 mk:after:h-0.5 mk:after:bg-primary',
+          "mk:data-[mk-indicator-ready]:[&_[role='tab'][data-state='active']]:border-b-transparent",
+        ],
+        segmented: [
+          ...tabsIndicatorStyles,
+          'mk:w-fit mk:gap-1 mk:rounded-xl mk:bg-muted mk:p-1',
+          'mk:after:inset-y-1 mk:after:bg-surface mk:after:shadow-raised',
+          "mk:data-[mk-indicator-ready]:[&_[role='tab'][data-state='active']]:bg-transparent",
+          "mk:data-[mk-indicator-ready]:[&_[role='tab'][data-state='active']]:shadow-none",
+        ],
+        pill: 'mk:w-fit mk:gap-2',
       },
       size: {
         sm: '',
@@ -35,6 +55,11 @@ const tabsListStyles = cva(
         lg: '',
       },
     },
+    compoundVariants: [
+      { variant: 'segmented', size: 'sm', class: 'mk:after:rounded-md' },
+      { variant: 'segmented', size: 'md', class: 'mk:after:rounded-lg' },
+      { variant: 'segmented', size: 'lg', class: 'mk:after:rounded-xl' },
+    ],
   },
 )
 
@@ -43,7 +68,7 @@ const tabsTriggerStyles = cva(
     'mk-tabs__trigger mk:relative mk:z-1 mk:box-border mk:inline-flex mk:shrink-0 mk:appearance-none mk:items-center mk:justify-center mk:whitespace-nowrap mk:font-medium',
     'mk:border-solid mk:bg-transparent mk:text-muted-foreground',
     'mk:transition-colors mk:duration-150 mk:ease-out mk:motion-reduce:transition-none',
-    'mk:hover:text-foreground mk:focus-visible:z-10 mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring',
+    'mk:focus-visible:z-10 mk:focus-visible:outline-2 mk:focus-visible:outline-solid mk:focus-visible:outline-offset-2 mk:focus-visible:outline-ring',
     'mk:disabled:pointer-events-none mk:disabled:cursor-not-allowed mk:disabled:opacity-50',
   ],
   {
@@ -51,11 +76,15 @@ const tabsTriggerStyles = cva(
       variant: {
         line: [
           'mk:-mb-px mk:rounded-none mk:border-0 mk:border-b-2 mk:border-transparent',
-          'mk:hover:bg-muted/50 mk:data-[state=active]:border-primary mk:data-[state=active]:text-foreground',
+          'mk:hover:text-foreground mk:data-[state=active]:border-primary mk:data-[state=active]:text-foreground',
+        ],
+        segmented: [
+          'mk:border-0',
+          'mk:data-[state=active]:bg-surface mk:data-[state=active]:text-surface-foreground mk:data-[state=active]:shadow-raised',
         ],
         pill: [
-          'mk:border-0',
-          'mk:hover:bg-background/60 mk:data-[state=active]:bg-surface mk:data-[state=active]:text-surface-foreground mk:data-[state=active]:[box-shadow:var(--mk-elevation-raised)]',
+          'mk:rounded-full mk:border-0 mk:bg-muted',
+          'mk:data-[state=active]:bg-primary mk:data-[state=active]:text-primary-foreground',
         ],
       },
       size: {
@@ -65,9 +94,9 @@ const tabsTriggerStyles = cva(
       },
     },
     compoundVariants: [
-      { variant: 'pill', size: 'sm', class: 'mk:rounded-md' },
-      { variant: 'pill', size: 'md', class: 'mk:rounded-lg' },
-      { variant: 'pill', size: 'lg', class: 'mk:rounded-xl' },
+      { variant: 'segmented', size: 'sm', class: 'mk:rounded-md' },
+      { variant: 'segmented', size: 'md', class: 'mk:rounded-lg' },
+      { variant: 'segmented', size: 'lg', class: 'mk:rounded-xl' },
     ],
   },
 )

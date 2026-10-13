@@ -2,7 +2,7 @@ import type { HTMLAttributes, VNodeChild } from 'vue'
 
 import type { ModeKitClassValue } from '../../types/classes.js'
 
-export const tabsVariants = ['line', 'pill'] as const
+export const tabsVariants = ['line', 'segmented', 'pill'] as const
 export const tabsSizes = ['sm', 'md', 'lg'] as const
 export const tabsActivationModes = ['automatic', 'manual'] as const
 
