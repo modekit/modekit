@@ -11,12 +11,12 @@ describe('MkCard', () => {
     })
 
     expect((wrapper.element as HTMLElement).tagName).toBe('DIV')
-    expect(wrapper.attributes('data-mk-variant')).toBe('default')
+    expect(wrapper.attributes('data-mk-variant')).toBe('shadow')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.classes()).toContain('mk:rounded-xl')
-    expect(wrapper.classes()).toContain('mk:border')
-    expect(wrapper.classes()).toContain('mk:border-solid')
-    expect(wrapper.classes()).toContain('mk:border-border')
+    expect(wrapper.classes()).not.toContain('mk:border')
+    expect(wrapper.classes()).not.toContain('mk:border-solid')
+    expect(wrapper.classes()).not.toContain('mk:border-border')
     expect(wrapper.classes()).toContain('mk:bg-surface')
     expect(wrapper.classes()).toContain('mk:text-surface-foreground')
     expect(wrapper.classes()).toContain('mk:shadow-raised')
@@ -33,14 +33,18 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['default', ['mk:border', 'mk:border-border', 'mk:bg-surface', 'mk:shadow-raised']],
-    ['muted', ['mk:border', 'mk:border-border', 'mk:bg-muted']],
-    ['outline', ['mk:border', 'mk:border-border', 'mk:bg-transparent']],
-  ] as const)('resolves the %s variant', (variant, classes) => {
+    ['shadow', ['mk:bg-surface', 'mk:shadow-raised'], false],
+    ['muted', ['mk:bg-muted'], false],
+    ['outline', ['mk:border', 'mk:border-solid', 'mk:border-border', 'mk:bg-surface'], true],
+    ['plain', ['mk:bg-surface'], false],
+  ] as const)('resolves the %s variant', (variant, classes, hasBorder) => {
     const wrapper = mount(MkCard, { props: { variant } })
 
     expect(wrapper.attributes('data-mk-variant')).toBe(variant)
     expect(wrapper.classes()).toEqual(expect.arrayContaining([...classes]))
+    expect(wrapper.classes().includes('mk:border')).toBe(hasBorder)
+    expect(wrapper.classes().includes('mk:border-solid')).toBe(hasBorder)
+    expect(wrapper.classes().includes('mk:border-border')).toBe(hasBorder)
   })
 
   it.each([
@@ -52,6 +56,7 @@ describe('MkCard', () => {
 
     expect(wrapper.attributes('data-mk-size')).toBe(size)
     expect(wrapper.classes()).toEqual(expect.arrayContaining([...classes]))
+    expect(wrapper.classes()).toContain('mk:shadow-raised')
   })
 
   it('renders header, body, and footer slots in order', () => {
@@ -176,7 +181,7 @@ describe('MkCard', () => {
   })
 
   it('exports finite variant and size contracts', () => {
-    expect(cardVariants).toEqual(['default', 'muted', 'outline'])
+    expect(cardVariants).toEqual(['shadow', 'muted', 'outline', 'plain'])
     expect(cardSizes).toEqual(['sm', 'md', 'lg'])
   })
 

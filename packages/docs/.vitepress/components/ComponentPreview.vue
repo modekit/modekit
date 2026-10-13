@@ -51,14 +51,9 @@ const frameStyles = `
   justify-content: center;
   min-height: 10rem;
   padding: 2rem;
-  background: #ffffff;
-  color: #0f172a;
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.mk-docs-preview-surface.dark {
-  background: #020617;
-  color: #f8fafc;
 }
 
 @media (max-width: 639px) {

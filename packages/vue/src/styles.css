@@ -36,7 +36,10 @@
   --radius-lg: var(--mk-radius);
   --radius-xl: calc(var(--mk-radius) + 0.25rem);
   --radius-2xl: calc(var(--mk-radius) + 0.5rem);
+  --shadow-raised-sm: var(--mk-elevation-raised-sm);
   --shadow-raised: var(--mk-elevation-raised);
+  --shadow-raised-lg: var(--mk-elevation-raised-lg);
+  --shadow-raised-xl: var(--mk-elevation-raised-xl);
 }
 
 :root,
@@ -66,7 +69,10 @@
   --mk-destructive: var(--mk-color-red-700);
   --mk-destructive-foreground: var(--mk-color-white);
   --mk-radius: 0.5rem;
-  --mk-elevation-raised: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --mk-elevation-raised-sm: 0 0 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --mk-elevation-raised: 0 0 6px 0 rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.14);
+  --mk-elevation-raised-lg: 0 0 12px 0 rgb(0 0 0 / 0.11), 0 8px 16px -8px rgb(0 0 0 / 0.2);
+  --mk-elevation-raised-xl: 0 0 20px 0 rgb(0 0 0 / 0.12), 0 14px 28px -12px rgb(0 0 0 / 0.22);
 }
 
 .dark {
@@ -94,5 +100,8 @@
   --mk-info-foreground: var(--mk-color-sky-950);
   --mk-destructive: var(--mk-color-red-400);
   --mk-destructive-foreground: var(--mk-color-red-950);
-  --mk-elevation-raised: 0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --mk-elevation-raised-sm: 0 0 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.28);
+  --mk-elevation-raised: 0 0 6px 0 rgb(0 0 0 / 0.32), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --mk-elevation-raised-lg: 0 0 12px 0 rgb(0 0 0 / 0.36), 0 8px 16px -8px rgb(0 0 0 / 0.4);
+  --mk-elevation-raised-xl: 0 0 20px 0 rgb(0 0 0 / 0.4), 0 14px 28px -12px rgb(0 0 0 / 0.46);
 }

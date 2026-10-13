@@ -33,7 +33,7 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
 ) => {
   const options = useModeKitOptions()
   const cardConfig = options.ui?.card
-  const variant = props.variant ?? cardConfig?.defaultVariants?.variant ?? 'default'
+  const variant = props.variant ?? cardConfig?.defaultVariants?.variant ?? 'shadow'
   const size = props.size ?? cardConfig?.defaultVariants?.size ?? 'md'
   const attributes: HTMLAttributes = attrs
 

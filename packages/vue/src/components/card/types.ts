@@ -2,7 +2,7 @@ import type { HTMLAttributes, VNodeChild } from 'vue'
 
 import type { ModeKitClassValue } from '../../types/classes.js'
 
-export const cardVariants = ['default', 'muted', 'outline'] as const
+export const cardVariants = ['shadow', 'muted', 'outline', 'plain'] as const
 export const cardSizes = ['sm', 'md', 'lg'] as const
 
 export type CardVariant = (typeof cardVariants)[number]

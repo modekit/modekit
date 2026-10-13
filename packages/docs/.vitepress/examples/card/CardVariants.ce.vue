@@ -10,7 +10,7 @@ export const preview = definePreview({
     {
       prop: 'variant',
       label: 'Variant',
-      defaultValue: 'default',
+      defaultValue: 'shadow',
       options: selectOptions(cardVariants),
     },
     {
@@ -20,7 +20,10 @@ export const preview = definePreview({
       options: selectOptions(cardSizes),
     },
   ],
-  code: (values) => `<MkCard variant="${String(values.variant)}" size="${String(values.size)}">
+  code: (values) => `<MkCard
+  variant="${String(values.variant)}"
+  size="${String(values.size)}"
+>
   <template #header>
     <strong>Weekly overview</strong>
   </template>
@@ -43,7 +46,7 @@ withDefaults(
   }>(),
   {
     size: 'md',
-    variant: 'default',
+    variant: 'shadow',
   },
 )
 </script>

@@ -13,11 +13,16 @@ Use `variant` to choose the surface treatment and `size` to control internal spa
 
 <ComponentPreview name="card/CardVariants" />
 
-Available variants are `default`, `muted`, and `outline`. Available sizes are `sm`, `md`, and `lg`.
+Available variants are `shadow`, `muted`, `outline`, and `plain`. Available sizes are `sm`, `md`,
+and `lg`.
 
-- `default` uses a low-contrast border and subtle shadow.
-- `muted` uses the existing semantic muted surface.
-- `outline` uses a stronger transparent outline without a shadow.
+The `shadow` variant uses the same raised shadow at every Card size. ModeKit keeps the full raised
+shadow token scale available for other components and application overrides.
+
+- `shadow` uses the semantic surface and a clear raised shadow without a border.
+- `muted` uses the semantic muted surface without a border.
+- `outline` uses the semantic surface with an explicit border and no shadow.
+- `plain` uses the semantic surface without a border or shadow.
 
 Card corners use the container steps of ModeKit's shared radius scale. With the default
 `--mk-radius`, `sm`, `md`, and `lg` resolve to 8, 12, and 16 pixels. Controls use lower steps at the
@@ -27,11 +32,11 @@ same size, so a Button placed inside a Card remains visually subordinate to its 
 
 ### Props
 
-| Prop      | Type                                | Default     | Description                                      |
-| --------- | ----------------------------------- | ----------- | ------------------------------------------------ |
-| `variant` | `'default' \| 'muted' \| 'outline'` | `'default'` | Sets the neutral surface treatment.              |
-| `size`    | `'sm' \| 'md' \| 'lg'`              | `'md'`      | Sets the gap and padding scale.                  |
-| `ui`      | `CardUI`                            | —           | Adds or overrides root and slot wrapper classes. |
+| Prop      | Type                                          | Default    | Description                                      |
+| --------- | --------------------------------------------- | ---------- | ------------------------------------------------ |
+| `variant` | `'shadow' \| 'muted' \| 'outline' \| 'plain'` | `'shadow'` | Sets the neutral surface treatment.              |
+| `size`    | `'sm' \| 'md' \| 'lg'`                        | `'md'`     | Sets the gap and padding scale.                  |
+| `ui`      | `CardUI`                                      | —          | Adds or overrides root and slot wrapper classes. |
 
 All other native div attributes, listeners, and classes are forwarded to the root `<div>`.
 
@@ -87,7 +92,7 @@ app.use(
           },
         },
         defaultVariants: {
-          variant: 'default',
+          variant: 'shadow',
           size: 'md',
         },
       },

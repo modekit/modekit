@@ -5,17 +5,15 @@ import { cn } from '../../../utils/cn.js'
 import type { CardSize, CardStyleConfig, CardUI, CardVariant } from '../types.js'
 
 const cardStyles = cva(
-  [
-    'mk-card mk:box-border mk:flex mk:min-w-0 mk:flex-col mk:text-surface-foreground',
-    // ModeKit excludes Preflight, so the border style must be explicit.
-    'mk:border-solid',
-  ],
+  'mk-card mk:box-border mk:flex mk:min-w-0 mk:flex-col mk:text-surface-foreground',
   {
     variants: {
       variant: {
-        default: 'mk:border mk:border-border mk:bg-surface mk:shadow-raised',
-        muted: 'mk:border mk:border-border mk:bg-muted',
-        outline: 'mk:border mk:border-border mk:bg-transparent',
+        shadow: 'mk:bg-surface mk:shadow-raised',
+        muted: 'mk:bg-muted',
+        // ModeKit excludes Preflight, so the border style must be explicit.
+        outline: 'mk:bg-surface mk:border mk:border-solid mk:border-border',
+        plain: 'mk:bg-surface',
       },
       size: {
         sm: 'mk:gap-3 mk:rounded-lg mk:p-4',
