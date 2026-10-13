@@ -1,3 +1,4 @@
+import type { CalloutStyleConfig } from '../components/callout/types.js'
 import type { AvatarGroupStyleConfig, AvatarStyleConfig } from '../components/avatar/types.js'
 import type { BadgeStyleConfig } from '../components/badge/types.js'
 import type { ButtonStyleConfig } from '../components/button/types.js'
@@ -9,6 +10,7 @@ import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
 
 export interface ModeKitUIConfig {
+  callout?: CalloutStyleConfig
   avatar?: AvatarStyleConfig
   avatarGroup?: AvatarGroupStyleConfig
   badge?: BadgeStyleConfig

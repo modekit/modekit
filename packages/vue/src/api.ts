@@ -1,6 +1,9 @@
 export { createModeKit } from './config/index.js'
 export type { ModeKitOptions, ModeKitUIConfig } from './config/index.js'
 export {
+  calloutColors,
+  calloutSizes,
+  calloutVariants,
   avatarBadgePositions,
   avatarColors,
   avatarGroupSpacings,
@@ -20,6 +23,7 @@ export {
   inputSizes,
   inputVariants,
   labelSizes,
+  MkCallout,
   MkAvatar,
   MkAvatarGroup,
   MkBadge,
@@ -36,6 +40,20 @@ export {
   tabsVariants,
 } from './components/index.js'
 export type {
+  CalloutAs,
+  CalloutCloseSlotProps,
+  CalloutColor,
+  CalloutCompoundVariant,
+  CalloutEmits,
+  CalloutOptions,
+  CalloutProps,
+  CalloutSize,
+  CalloutSlot,
+  CalloutSlots,
+  CalloutStyleConfig,
+  CalloutTitleSlotProps,
+  CalloutUI,
+  CalloutVariant,
   AvatarAs,
   AvatarBadgePosition,
   AvatarColor,

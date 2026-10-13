@@ -72,6 +72,10 @@ export default defineConfig({
           ],
         },
         {
+          text: 'Feedback',
+          items: [{ text: 'Callout', link: '/components/callout' }],
+        },
+        {
           text: 'Navigation',
           items: [{ text: 'Tabs', link: '/components/tabs' }],
         },

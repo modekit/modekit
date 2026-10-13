@@ -8,6 +8,7 @@ customization, and working examples.
 
 ## Available components
 
+- [Callout](/components/callout)
 - [Avatar](/components/avatar)
 - [Avatar Group](/components/avatar-group)
 - [Badge](/components/badge)
