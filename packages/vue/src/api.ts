@@ -1,6 +1,9 @@
 export { createModeKit } from './config/index.js'
 export type { ModeKitOptions, ModeKitUIConfig } from './config/index.js'
 export {
+  avatarBadgePositions,
+  avatarColors,
+  avatarSizes,
   badgeColors,
   badgeSizes,
   badgeVariants,
@@ -16,6 +19,7 @@ export {
   inputSizes,
   inputVariants,
   labelSizes,
+  MkAvatar,
   MkBadge,
   MkButton,
   MkCard,
@@ -30,6 +34,17 @@ export {
   tabsVariants,
 } from './components/index.js'
 export type {
+  AvatarAs,
+  AvatarBadgePosition,
+  AvatarColor,
+  AvatarEmits,
+  AvatarLoadingStatus,
+  AvatarOptions,
+  AvatarProps,
+  AvatarSize,
+  AvatarSlots,
+  AvatarStyleConfig,
+  AvatarUI,
   BadgeAs,
   BadgeColor,
   BadgeCompoundVariant,

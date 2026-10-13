@@ -8,6 +8,7 @@ customization, and working examples.
 
 ## Available components
 
+- [Avatar](/components/avatar)
 - [Badge](/components/badge)
 - [Button](/components/button)
 - [Card](/components/card)

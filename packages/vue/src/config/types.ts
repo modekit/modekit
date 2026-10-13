@@ -1,3 +1,4 @@
+import type { AvatarStyleConfig } from '../components/avatar/types.js'
 import type { BadgeStyleConfig } from '../components/badge/types.js'
 import type { ButtonStyleConfig } from '../components/button/types.js'
 import type { CardStyleConfig } from '../components/card/types.js'
@@ -8,6 +9,7 @@ import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
 
 export interface ModeKitUIConfig {
+  avatar?: AvatarStyleConfig
   badge?: BadgeStyleConfig
   button?: ButtonStyleConfig
   card?: CardStyleConfig

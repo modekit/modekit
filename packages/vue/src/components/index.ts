@@ -1,3 +1,17 @@
+export { avatarBadgePositions, avatarColors, avatarSizes, MkAvatar } from './avatar/index.js'
+export type {
+  AvatarAs,
+  AvatarBadgePosition,
+  AvatarColor,
+  AvatarEmits,
+  AvatarLoadingStatus,
+  AvatarOptions,
+  AvatarProps,
+  AvatarSize,
+  AvatarSlots,
+  AvatarStyleConfig,
+  AvatarUI,
+} from './avatar/index.js'
 export { badgeColors, badgeSizes, badgeVariants, MkBadge } from './badge/index.js'
 export type {
   BadgeAs,
