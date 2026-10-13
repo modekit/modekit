@@ -1,4 +1,4 @@
-import { defineComponent, h, ref, useId } from 'vue'
+import { defineComponent, h, onBeforeUnmount, onMounted, onUpdated, ref, useId } from 'vue'
 import type { PropType, SlotsType } from 'vue'
 
 import { useModeKitOptions } from '../../config/context.js'
@@ -96,6 +96,38 @@ export const MkInput = defineComponent({
     const generatedId = useId()
     const focused = ref(false)
     const uncontrolledValue = ref<InputValue | undefined>(props.defaultValue)
+    const inputElement = ref<HTMLInputElement>()
+    let formElement: HTMLFormElement | null = null
+    let composing = false
+
+    const getInitialValue = (): InputValue | undefined => {
+      const attributeValue = attrs.value
+      const fallbackValue =
+        typeof attributeValue === 'string' || typeof attributeValue === 'number'
+          ? attributeValue
+          : undefined
+
+      return props.defaultValue ?? fallbackValue
+    }
+
+    const handleFormReset = () => {
+      if (props.modelValue === undefined) uncontrolledValue.value = getInitialValue()
+    }
+
+    const syncFormResetListener = () => {
+      const nextFormElement = inputElement.value?.form ?? null
+      if (nextFormElement === formElement) return
+
+      formElement?.removeEventListener('reset', handleFormReset)
+      formElement = nextFormElement
+      formElement?.addEventListener('reset', handleFormReset)
+    }
+
+    onMounted(syncFormResetListener)
+    onUpdated(syncFormResetListener)
+    onBeforeUnmount(() => {
+      formElement?.removeEventListener('reset', handleFormReset)
+    })
 
     return () => {
       const inputConfig = options.ui?.input
@@ -107,6 +139,8 @@ export const MkInput = defineComponent({
       const onInput = attributes.onInput
       const onFocus = attributes.onFocus
       const onBlur = attributes.onBlur
+      const onCompositionstart = attributes.onCompositionstart
+      const onCompositionend = attributes.onCompositionend
       const attributeValue = attributes.value
       const ariaInvalid = attributes['aria-invalid']
       const ariaBusy = attributes['aria-busy']
@@ -116,6 +150,8 @@ export const MkInput = defineComponent({
       delete attributes.onInput
       delete attributes.onFocus
       delete attributes.onBlur
+      delete attributes.onCompositionstart
+      delete attributes.onCompositionend
       delete attributes.value
       delete attributes['aria-invalid']
       delete attributes['aria-busy']
@@ -154,19 +190,39 @@ export const MkInput = defineComponent({
 
       const input = h('input', {
         ...attributes,
+        ref: inputElement,
         id: controlId,
         value,
         class: getInputSlotClasses({ slot: 'input', ...slotClassOptions }),
         disabled: props.disabled,
         readonly: props.readonly,
         required: props.required,
+        'aria-label':
+          attributes['aria-label'] ??
+          (!hasFloatingLabel && attributes['aria-labelledby'] === undefined
+            ? props.label
+            : undefined),
         'aria-invalid': props.invalid ? 'true' : ariaInvalid,
         'aria-busy': props.loading ? 'true' : ariaBusy,
         onInput: (event: Event) => {
+          const inputEvent = event as InputEvent
+          if (!composing && !inputEvent.isComposing) {
+            const nextValue = (event.currentTarget as HTMLInputElement).value
+            if (props.modelValue === undefined) uncontrolledValue.value = nextValue
+            emit('update:modelValue', nextValue)
+          }
+          callEventHandler(onInput, event)
+        },
+        onCompositionstart: (event: CompositionEvent) => {
+          composing = true
+          callEventHandler(onCompositionstart, event)
+        },
+        onCompositionend: (event: CompositionEvent) => {
+          composing = false
           const nextValue = (event.currentTarget as HTMLInputElement).value
           if (props.modelValue === undefined) uncontrolledValue.value = nextValue
           emit('update:modelValue', nextValue)
-          callEventHandler(onInput, event)
+          callEventHandler(onCompositionend, event)
         },
         onFocus: (event: FocusEvent) => {
           focused.value = true

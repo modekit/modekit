@@ -46,4 +46,4 @@ A component is expected to pass:
 - accessibility tests;
 - production package and documentation builds;
 - bundle-size reporting;
-- public API and package-export validation.
+- public API and package-export validation through an isolated packed-package consumer.

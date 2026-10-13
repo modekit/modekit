@@ -49,8 +49,9 @@ with the `loader` slot.
 <ComponentPreview name="input/InputFloatingLabel" />
 
 Set `floating="inside"` or `floating="border"` together with `label` to render a native `<label>`
-associated with the input's supplied or generated ID. Without `floating`, Input does not render the
-label. The label stays in the content position until the control receives focus or has a controlled
+associated with the input's supplied or generated ID. Without `floating`, `label` supplies the
+native input's accessible name through `aria-label` without rendering visible label content. The
+floating label stays in the content position until the control receives focus or has a controlled
 or uncontrolled value.
 
 `border` moves the active label onto the existing border without changing the selected height or
@@ -82,7 +83,7 @@ available through [Label](/components/label) when floating behavior is not wante
 | `modelValue`   | `string \| number`                                      | —           | Controls the rendered value with `v-model`.                    |
 | `defaultValue` | `string \| number`                                      | —           | Sets the initial value when the input is uncontrolled.         |
 | `floating`     | `'inside' \| 'border'`                                  | —           | Enables the label and selects its active position.             |
-| `label`        | `string`                                                | —           | Supplies the floating label content.                           |
+| `label`        | `string`                                                | —           | Names the input and supplies optional floating-label content.  |
 | `size`         | `'sm' \| 'md' \| 'lg'`                                  | `'md'`      | Sets the control, content, affix, spinner, and label sizing.   |
 | `variant`      | `'outline' \| 'soft' \| 'subtle' \| 'ghost' \| 'plain'` | `'outline'` | Sets the complete input-surface treatment.                     |
 | `disabled`     | `boolean`                                               | `false`     | Prevents interaction and dims the complete surface.            |
@@ -142,8 +143,8 @@ validation fails. Input exposes the state through `aria-invalid` and variant-awa
 validation text remains the application's responsibility.
 
 Floating labels generate an ID when none is supplied and always use a native label association.
-Leading, trailing, and default spinner content are decorative. Supply an accessible name through a
-regular Label, `label` with `floating`, `aria-label`, or `aria-labelledby`.
+Without `floating`, `label` becomes the native input's `aria-label`; an explicit `aria-label` or
+`aria-labelledby` takes precedence. Leading, trailing, and default spinner content are decorative.
 
 ## Styling
 

@@ -89,7 +89,8 @@ rewriting component recipes:
 ```
 
 Add `dark` to an ancestor to activate ModeKit's dark defaults. The application remains responsible
-for deciding when that class is present; ModeKit does not require a theme provider.
+for deciding when that class is present and for setting the document's `color-scheme`; ModeKit does
+not change native controls or scrollbars outside its components and does not require a theme provider.
 
 ## Shape and elevation
 

@@ -44,7 +44,6 @@
 
 :root,
 :host {
-  color-scheme: light;
   --mk-background: var(--mk-color-white);
   --mk-foreground: var(--mk-color-neutral-950);
   --mk-surface: var(--mk-color-white);
@@ -76,7 +75,6 @@
 }
 
 .dark {
-  color-scheme: dark;
   --mk-background: var(--mk-color-neutral-950);
   --mk-foreground: var(--mk-color-neutral-50);
   --mk-surface: var(--mk-color-neutral-900);

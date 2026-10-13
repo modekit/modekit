@@ -73,6 +73,51 @@ describe('MkInput', () => {
     expect(wrapper.emitted('update:modelValue')).toEqual([['Updated']])
   })
 
+  it('restores an uncontrolled initial value when its form resets', async () => {
+    const wrapper = mount(MkInput, {
+      props: { defaultValue: 'Initial', form: 'profile' },
+      attachTo: document.body,
+    })
+    const form = document.createElement('form')
+    form.id = 'profile'
+    document.body.append(form)
+    await wrapper.vm.$nextTick()
+    const input = wrapper.get('input')
+
+    await input.setValue('Changed')
+    form.reset()
+    await wrapper.vm.$nextTick()
+
+    expect((input.element as HTMLInputElement).value).toBe('Initial')
+    expect(wrapper.emitted('update:modelValue')).toEqual([['Changed']])
+
+    wrapper.unmount()
+    form.remove()
+  })
+
+  it('waits for IME composition to finish before updating the model', async () => {
+    const onInput = vi.fn()
+    const onCompositionstart = vi.fn()
+    const onCompositionend = vi.fn()
+    const wrapper = mount(MkInput, {
+      attrs: { onInput, onCompositionstart, onCompositionend },
+    })
+    const input = wrapper.get('input')
+
+    await input.trigger('compositionstart')
+    ;(input.element as HTMLInputElement).value = '途中'
+    await input.trigger('input', { isComposing: true })
+
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(onInput).toHaveBeenCalledOnce()
+
+    await input.trigger('compositionend')
+
+    expect(wrapper.emitted('update:modelValue')).toEqual([['途中']])
+    expect(onCompositionstart).toHaveBeenCalledOnce()
+    expect(onCompositionend).toHaveBeenCalledOnce()
+  })
+
   it('preserves native input, focus, and blur listeners', async () => {
     const onInput = vi.fn()
     const onFocus = vi.fn()
@@ -223,13 +268,27 @@ describe('MkInput', () => {
     expect(wrapper.find('.mk-spinner').exists()).toBe(false)
   })
 
-  it('does not render a label unless a floating position is selected', () => {
+  it('uses a non-floating label prop as the accessible name', () => {
     const withLabelProp = mount(MkInput, { props: { label: 'Email address' } })
     const withLabelSlot = mount(MkInput, { slots: { label: () => 'Email address' } })
 
     expect(withLabelProp.find('label').exists()).toBe(false)
     expect(withLabelSlot.find('label').exists()).toBe(false)
     expect(withLabelProp.get('input').attributes('id')).toBeUndefined()
+    expect(withLabelProp.get('input').attributes('aria-label')).toBe('Email address')
+  })
+
+  it('does not replace an explicit accessible name with the label prop', () => {
+    const withAriaLabel = mount(MkInput, {
+      props: { label: 'Email address', 'aria-label': 'Work email' },
+    })
+    const withAriaLabelledby = mount(MkInput, {
+      props: { label: 'Email address', 'aria-labelledby': 'email-label' },
+    })
+
+    expect(withAriaLabel.get('input').attributes('aria-label')).toBe('Work email')
+    expect(withAriaLabelledby.get('input').attributes('aria-label')).toBeUndefined()
+    expect(withAriaLabelledby.get('input').attributes('aria-labelledby')).toBe('email-label')
   })
 
   it('keeps an active inside-floating label within the selected control size', () => {

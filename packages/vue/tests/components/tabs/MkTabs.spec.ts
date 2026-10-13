@@ -41,6 +41,24 @@ describe('MkTabs', () => {
     expect(panel.classes()).toContain('mk-tabs__content')
   })
 
+  it('forwards accessible naming to the tablist', () => {
+    const withLabel = mount(MkTabs, {
+      props: { items },
+      attrs: { 'aria-label': 'Project sections' },
+    })
+    const withLabelledby = mount(MkTabs, {
+      props: { items },
+      attrs: { 'aria-labelledby': 'project-sections-heading' },
+    })
+
+    expect(withLabel.attributes('aria-label')).toBeUndefined()
+    expect(withLabel.get('[role="tablist"]').attributes('aria-label')).toBe('Project sections')
+    expect(withLabelledby.attributes('aria-labelledby')).toBeUndefined()
+    expect(withLabelledby.get('[role="tablist"]').attributes('aria-labelledby')).toBe(
+      'project-sections-heading',
+    )
+  })
+
   it('updates uncontrolled selection through Reka UI behavior', async () => {
     const wrapper = mount(MkTabs, {
       props: { items },

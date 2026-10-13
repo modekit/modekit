@@ -155,7 +155,11 @@ export const MkTabs = defineComponent({
       const variant = props.variant ?? tabsConfig?.defaultVariants?.variant ?? 'line'
       const size = props.size ?? tabsConfig?.defaultVariants?.size ?? 'md'
       indicatorEnabled = variant !== 'pill'
-      const attributes: HTMLAttributes = attrs
+      const attributes: HTMLAttributes = { ...attrs }
+      const ariaLabel = attributes['aria-label']
+      const ariaLabelledby = attributes['aria-labelledby']
+      delete attributes['aria-label']
+      delete attributes['aria-labelledby']
       const firstEnabledItem = props.items.find((item) => !item.disabled)
       const rootProps: Record<string, unknown> = {
         ...attributes,
@@ -188,6 +192,8 @@ export const MkTabs = defineComponent({
               ref: setListElement,
               as: 'div',
               loop: props.loop,
+              'aria-label': ariaLabel,
+              'aria-labelledby': ariaLabelledby,
               class: getTabsSlotClasses({
                 slot: 'list',
                 variant,

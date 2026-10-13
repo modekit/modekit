@@ -138,3 +138,6 @@ app.use(
 to its panel with `aria-controls` and `aria-labelledby`. Left and Right Arrow move focus, Home and
 End move to the first and last available tab, and disabled items are skipped. In automatic mode,
 moving focus selects the tab. In manual mode, press Enter or Space to select it.
+
+Pass `aria-label` or `aria-labelledby` to `MkTabs` to name the semantic tablist. ModeKit forwards
+those naming attributes to the element with `role="tablist"` rather than the visual root wrapper.
