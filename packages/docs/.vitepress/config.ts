@@ -55,21 +55,21 @@ export default defineConfig({
         {
           text: 'Element',
           items: [
-            { text: 'Button', link: '/components/button' },
-            { text: 'Button Group', link: '/components/button-group' },
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'Avatar Group', link: '/components/avatar-group' },
             { text: 'Badge', link: '/components/badge' },
-            { text: 'Spinner', link: '/components/spinner' },
+            { text: 'Button', link: '/components/button' },
+            { text: 'Button Group', link: '/components/button-group' },
             { text: 'Card', link: '/components/card' },
+            { text: 'Spinner', link: '/components/spinner' },
           ],
         },
         {
           text: 'Form',
           items: [
-            { text: 'Label', link: '/components/label' },
-            { text: 'Input', link: '/components/input' },
             { text: 'Checkbox', link: '/components/checkbox' },
+            { text: 'Input', link: '/components/input' },
+            { text: 'Label', link: '/components/label' },
           ],
         },
         {
