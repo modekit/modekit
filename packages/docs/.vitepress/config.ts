@@ -56,6 +56,7 @@ export default defineConfig({
             { text: 'Checkbox', link: '/components/checkbox' },
             { text: 'Label', link: '/components/label' },
             { text: 'Spinner', link: '/components/spinner' },
+            { text: 'Tabs', link: '/components/tabs' },
           ],
         },
       ],

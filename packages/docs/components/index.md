@@ -13,3 +13,4 @@ customization, and working examples.
 - [Checkbox](/components/checkbox)
 - [Label](/components/label)
 - [Spinner](/components/spinner)
+- [Tabs](/components/tabs)

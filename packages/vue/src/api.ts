@@ -16,6 +16,10 @@ export {
   MkLabel,
   MkSpinner,
   spinnerSizes,
+  MkTabs,
+  tabsActivationModes,
+  tabsSizes,
+  tabsVariants,
 } from './components/index.js'
 export type {
   ButtonColor,
@@ -58,5 +62,17 @@ export type {
   SpinnerSize,
   SpinnerStyleConfig,
   SpinnerUI,
+  TabsActivationMode,
+  TabsEmits,
+  TabsItem,
+  TabsOptions,
+  TabsProps,
+  TabsSize,
+  TabsSlotProps,
+  TabsSlots,
+  TabsStyleConfig,
+  TabsUI,
+  TabsValue,
+  TabsVariant,
 } from './components/index.js'
 export type { ModeKitClassValue } from './types/classes.js'

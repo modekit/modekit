@@ -53,3 +53,18 @@ export type {
   SpinnerStyleConfig,
   SpinnerUI,
 } from './spinner/index.js'
+export { MkTabs, tabsActivationModes, tabsSizes, tabsVariants } from './tabs/index.js'
+export type {
+  TabsActivationMode,
+  TabsEmits,
+  TabsItem,
+  TabsOptions,
+  TabsProps,
+  TabsSize,
+  TabsSlotProps,
+  TabsSlots,
+  TabsStyleConfig,
+  TabsUI,
+  TabsValue,
+  TabsVariant,
+} from './tabs/index.js'
