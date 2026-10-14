@@ -18,8 +18,13 @@ function run(command, args, cwd) {
   execFileSync(command, args, { cwd, stdio: 'inherit' })
 }
 
+function runPnpm(args, cwd) {
+  const command = process.platform === 'win32' ? 'corepack.cmd' : 'corepack'
+  run(command, ['pnpm', ...args], cwd)
+}
+
 try {
-  run('pnpm', ['pack', '--out', tarballPath], packageDirectory)
+  runPnpm(['pack', '--out', tarballPath], packageDirectory)
   mkdirSync(consumerDirectory)
 
   writeFileSync(
@@ -70,8 +75,8 @@ try {
     `import assert from 'node:assert/strict'\nimport { readFile } from 'node:fs/promises'\nimport { createSSRApp, h } from 'vue'\nimport { renderToString } from 'vue/server-renderer'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ theme: { primary: 'green', neutral: 'slate' }, ui: { button: { defaultVariants: { size: 'sm' } } } }))\nconst html = await renderToString(app)\nassert.match(html, /<button/)\nassert.match(html, /type="submit"/)\nassert.match(html, /data-mk-size="sm"/)\nassert.match(html, /Save/)\nassert.match(html, /<\\/button>$/)\n\nconst cssUrl = import.meta.resolve('@modekit/vue/styles.css')\nconst css = await readFile(new URL(cssUrl), 'utf8')\nassert.match(css, /\\.mk-button/)\nassert.match(css, /data-mk-primary/)\nassert.match(css, /data-mk-neutral/)\n`,
   )
 
-  run('pnpm', ['install', '--ignore-scripts', '--offline'], consumerDirectory)
-  run('pnpm', ['exec', 'tsc'], consumerDirectory)
+  runPnpm(['install', '--ignore-scripts', '--prefer-offline'], consumerDirectory)
+  runPnpm(['exec', 'tsc'], consumerDirectory)
   run('node', ['verify.mjs'], consumerDirectory)
 
   const packedManifest = JSON.parse(
