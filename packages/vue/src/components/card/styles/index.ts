@@ -5,7 +5,7 @@ import { cn } from '../../../utils/cn.js'
 import type { CardSize, CardStyleConfig, CardUI, CardVariant } from '../types.js'
 
 const cardStyles = cva(
-  'mk-card mk:box-border mk:flex mk:min-w-0 mk:flex-col mk:text-neutral-950 mk:dark:text-neutral-50',
+  'mk-card mk:box-border mk:min-w-0 mk:text-neutral-950 mk:dark:text-neutral-50',
   {
     variants: {
       variant: {
@@ -17,9 +17,9 @@ const cardStyles = cva(
         plain: 'mk:bg-white mk:dark:bg-white/10',
       },
       size: {
-        sm: 'mk:gap-3 mk:rounded-lg mk:p-4',
-        md: 'mk:gap-4 mk:rounded-xl mk:p-6',
-        lg: 'mk:gap-6 mk:rounded-2xl mk:p-8',
+        sm: 'mk:rounded-lg mk:p-4',
+        md: 'mk:rounded-xl mk:p-6',
+        lg: 'mk:rounded-2xl mk:p-8',
       },
     },
   },

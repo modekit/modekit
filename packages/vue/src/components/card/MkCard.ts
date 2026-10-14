@@ -1,4 +1,3 @@
-import { Primitive } from 'reka-ui'
 import { h } from 'vue'
 import type {
   ComponentObjectPropsOptions,
@@ -8,11 +7,18 @@ import type {
 } from 'vue'
 
 import { useModeKitOptions } from '../../config/context.js'
+import { MkGrid } from '../grid/MkGrid.js'
 import { MkHeadline } from '../typography/MkHeadline.js'
 import { MkText } from '../typography/MkText.js'
 import { getCardClasses, getCardSlotClasses } from './styles/index.js'
 import { cardSizes, cardVariants } from './types.js'
 import type { CardOptions, CardProps, CardSize, CardSlots, CardUI, CardVariant } from './types.js'
+
+const cardGaps = {
+  sm: 'l',
+  md: 'xl',
+  lg: '2xl',
+} as const satisfies Record<CardSize, 'l' | 'xl' | '2xl'>
 
 const runtimeProps = {
   variant: {
@@ -60,10 +66,14 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
       ]
 
   return h(
-    Primitive,
+    MkGrid,
     {
       ...attributes,
+      align: 'stretch',
       as: 'div',
+      columns: 1,
+      display: 'grid',
+      gap: cardGaps[size],
       class: getCardClasses({
         variant,
         size,

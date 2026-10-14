@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { Primitive } from 'reka-ui'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
-import { cardSizes, cardVariants, createModeKit, MkCard } from '../../../src/index.js'
+import { cardSizes, cardVariants, createModeKit, MkCard, MkGrid } from '../../../src/index.js'
 
 describe('MkCard', () => {
   it('renders a neutral div container with safe defaults', () => {
@@ -25,11 +25,16 @@ describe('MkCard', () => {
     expect(wrapper.get('.mk-card__body').classes()).not.toContain('mk:border')
   })
 
-  it('renders through the Reka UI Primitive', () => {
+  it('renders a one-column MkGrid through the Reka UI Primitive', () => {
     const wrapper = mount(MkCard)
 
+    expect(wrapper.findComponent(MkGrid).exists()).toBe(true)
     expect(wrapper.findComponent(Primitive).exists()).toBe(true)
-    expect(wrapper.attributes('as')).toBeUndefined()
+    expect((wrapper.element as HTMLElement).tagName).toBe('DIV')
+    expect(wrapper.attributes('data-mk-display')).toBe('grid')
+    expect(wrapper.attributes('data-mk-columns')).toBe('1')
+    expect(wrapper.classes()).toContain('mk:grid')
+    expect(wrapper.classes()).not.toContain('mk:flex')
   })
 
   it.each([
@@ -48,15 +53,18 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['sm', ['mk:gap-3', 'mk:rounded-lg', 'mk:p-4']],
-    ['md', ['mk:gap-4', 'mk:rounded-xl', 'mk:p-6']],
-    ['lg', ['mk:gap-6', 'mk:rounded-2xl', 'mk:p-8']],
-  ] as const)('resolves the %s size', (size, classes) => {
+    ['sm', ['mk:rounded-lg', 'mk:p-4'], '1rem'],
+    ['md', ['mk:rounded-xl', 'mk:p-6'], '1.5rem'],
+    ['lg', ['mk:rounded-2xl', 'mk:p-8'], '2rem'],
+  ] as const)('resolves the %s size', (size, classes, gap) => {
     const wrapper = mount(MkCard, { props: { size } })
+    const style = (wrapper.element as HTMLElement).style
 
     expect(wrapper.attributes('data-mk-size')).toBe(size)
     expect(wrapper.classes()).toEqual(expect.arrayContaining([...classes]))
     expect(wrapper.classes()).toContain('mk:shadow-raised')
+    expect(style.rowGap).toBe(gap)
+    expect(style.columnGap).toBe(gap)
   })
 
   it('renders header, body, and footer slots in order', () => {

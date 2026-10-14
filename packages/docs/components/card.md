@@ -1,14 +1,15 @@
 # Card
 
 Cards group related information and actions into one visual surface. `MkCard` renders through Reka
-UI's `Primitive` as a neutral div and provides surface variants, a compact spacing scale, named
-composition slots, native div attributes, and class-based customization.
+UI's `Primitive` as a neutral div through `MkGrid` and provides surface variants, a compact spacing
+scale, named composition slots, native div attributes, and class-based customization.
 
 ## Usage
 
 ### Variant and size
 
-Use `variant` to choose the surface treatment and `size` to control internal spacing.
+Use `variant` to choose the surface treatment and `size` to control padding, corners, and the
+`MkGrid` gap between the header, body, and footer.
 
 <ComponentPreview name="card/CardVariants" />
 
@@ -34,7 +35,7 @@ same size, so a Button placed inside a Card remains visually subordinate to its 
 | Prop          | Type                                          | Default    | Description                                                   |
 | ------------- | --------------------------------------------- | ---------- | ------------------------------------------------------------- |
 | `variant`     | `'shadow' \| 'muted' \| 'outline' \| 'plain'` | `'shadow'` | Sets the neutral surface treatment.                           |
-| `size`        | `'sm' \| 'md' \| 'lg'`                        | `'md'`     | Sets the gap and padding scale.                               |
+| `size`        | `'sm' \| 'md' \| 'lg'`                        | `'md'`     | Sets the Grid gap, padding, and corner scale.                 |
 | `title`       | `string`                                      | —          | Renders an `MkHeadline` in the header when no slot is given.  |
 | `description` | `string`                                      | —          | Renders an `MkText` description when no header slot is given. |
 | `ui`          | `CardUI`                                      | —          | Adds or overrides root and slot wrapper classes.              |
@@ -113,6 +114,7 @@ slot config. Conflicts are merged independently within the ModeKit and applicati
 ## Accessibility
 
 Card uses a Reka UI `Primitive` rendered as a neutral `<div>` and adds no landmark semantics
-automatically. Supply native `role` and an accessible name only when the Card represents a
+automatically. Its internal `MkGrid` renders as that same root `<div>` without adding another
+wrapper. Supply native `role` and an accessible name only when the Card represents a
 meaningful region. The `title` convenience prop renders an `h3`; use the `header` slot with
 `MkHeadline` when the surrounding document requires a different heading level.

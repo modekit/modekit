@@ -28,8 +28,8 @@ export const preview = definePreview({
     size="${String(values.size)}"
     style="width: min(100%, 24rem)"
   >
-    <form style="display: grid; gap: 1rem" @submit.prevent>
-      <div style="display: grid; gap: 0.5rem">
+    <MkGrid as="form" gap="l" @submit.prevent>
+      <MkGrid gap="s">
         <MkLabel for="login-email">Email address</MkLabel>
         <MkInput
           id="login-email"
@@ -38,9 +38,9 @@ export const preview = definePreview({
           required
           type="email"
         />
-      </div>
+      </MkGrid>
 
-      <div style="display: grid; gap: 0.5rem">
+      <MkGrid gap="s">
         <MkLabel for="login-password">Password</MkLabel>
         <MkInput
           id="login-password"
@@ -49,11 +49,11 @@ export const preview = definePreview({
           required
           type="password"
         />
-      </div>
+      </MkGrid>
 
       <MkCheckbox label="Remember me" />
-      <MkButton style="width: 100%" type="submit">Sign in</MkButton>
-    </form>
+      <MkButton type="submit">Sign in</MkButton>
+    </MkGrid>
 
     <template #footer>
       <MkText as="p" size="sm">
@@ -67,7 +67,16 @@ export const preview = definePreview({
 </script>
 
 <script setup lang="ts">
-import { MkButton, MkCard, MkCheckbox, MkInput, MkLabel, MkLink, MkText } from '@modekit/vue'
+import {
+  MkButton,
+  MkCard,
+  MkCheckbox,
+  MkGrid,
+  MkInput,
+  MkLabel,
+  MkLink,
+  MkText,
+} from '@modekit/vue'
 import type { CardSize, CardVariant } from '@modekit/vue'
 
 const props = withDefaults(
@@ -90,8 +99,8 @@ const props = withDefaults(
     title="Welcome back"
     :variant="props.variant"
   >
-    <form style="display: grid; gap: 1rem" @submit.prevent>
-      <div style="display: grid; gap: 0.5rem">
+    <MkGrid as="form" gap="l" @submit.prevent>
+      <MkGrid gap="s">
         <MkLabel for="login-email">Email address</MkLabel>
         <MkInput
           id="login-email"
@@ -100,9 +109,9 @@ const props = withDefaults(
           required
           type="email"
         />
-      </div>
+      </MkGrid>
 
-      <div style="display: grid; gap: 0.5rem">
+      <MkGrid gap="s">
         <MkLabel for="login-password">Password</MkLabel>
         <MkInput
           id="login-password"
@@ -111,11 +120,11 @@ const props = withDefaults(
           required
           type="password"
         />
-      </div>
+      </MkGrid>
 
       <MkCheckbox label="Remember me" />
-      <MkButton style="width: 100%" type="submit">Sign in</MkButton>
-    </form>
+      <MkButton type="submit">Sign in</MkButton>
+    </MkGrid>
 
     <template #footer>
       <MkText as="p" size="sm">
