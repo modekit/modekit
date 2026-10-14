@@ -13,6 +13,20 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@keyframes mk-popover-open {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes mk-popover-close {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
 @theme static inline {
   --color-primary: var(--mk-primary);
   --color-primary-foreground: var(--mk-primary-foreground);

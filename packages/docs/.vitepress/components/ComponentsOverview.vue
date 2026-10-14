@@ -84,6 +84,13 @@ const components = [
     href: '/components/separator',
   },
   {
+    id: 'popover',
+    name: 'Popover',
+    category: 'Overlay',
+    description: 'Reveal interactive content in an accessible anchored overlay.',
+    href: '/components/popover',
+  },
+  {
     id: 'headline',
     name: 'Headline',
     category: 'Typography',
@@ -169,12 +176,18 @@ const components = [
   },
 ] as const
 
-const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 'Navigation'].map(
-  (category) => ({
-    category,
-    components: components.filter((component) => component.category === category),
-  }),
-)
+const componentGroups = [
+  'Layout',
+  'Element',
+  'Typography',
+  'Form',
+  'Overlay',
+  'Feedback',
+  'Navigation',
+].map((category) => ({
+  category,
+  components: components.filter((component) => component.category === category),
+}))
 
 const router = useRouter()
 

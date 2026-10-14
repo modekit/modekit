@@ -203,6 +203,27 @@ export type {
   LabelUI,
 } from './label/index.js'
 export {
+  MkPopover,
+  popoverAlignments,
+  popoverPositionStrategies,
+  popoverSides,
+} from './popover/index.js'
+export type {
+  PopoverAlign,
+  PopoverAs,
+  PopoverCollisionPadding,
+  PopoverEmits,
+  PopoverOptions,
+  PopoverPortalTarget,
+  PopoverPositionStrategy,
+  PopoverProps,
+  PopoverSide,
+  PopoverSlotProps,
+  PopoverSlots,
+  PopoverStyleConfig,
+  PopoverUI,
+} from './popover/index.js'
+export {
   MkSeparator,
   separatorOrientations,
   separatorPositions,

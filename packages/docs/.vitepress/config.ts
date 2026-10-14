@@ -102,6 +102,10 @@ export default defineConfig({
           ],
         },
         {
+          text: 'Overlay',
+          items: [{ text: 'Popover', link: '/components/popover' }],
+        },
+        {
           text: 'Feedback',
           items: [{ text: 'Callout', link: '/components/callout' }],
         },

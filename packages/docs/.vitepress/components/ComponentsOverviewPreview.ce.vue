@@ -19,6 +19,7 @@ import {
   MkLink,
   MkMark,
   MkParagraph,
+  MkPopover,
   MkSeparator,
   MkSpacing,
   MkSpinner,
@@ -188,6 +189,22 @@ const tabItems = [
       />
     </div>
 
+    <MkPopover
+      v-else-if="props.kind === 'popover'"
+      align="center"
+      arrow
+      class="overview-preview__popover"
+      :default-open="true"
+      :portal="false"
+      :side-offset="4"
+      position-strategy="absolute"
+    >
+      <MkButton size="xs" variant="outline">Open details</MkButton>
+      <template #content>
+        <MkText size="xs">Anchored content</MkText>
+      </template>
+    </MkPopover>
+
     <MkSeparator
       v-else-if="props.kind === 'separator'"
       class="overview-preview__separator"
@@ -269,6 +286,11 @@ const tabItems = [
 
 .overview-preview__separator {
   width: min(100%, 13rem);
+}
+
+.overview-preview__popover {
+  min-width: 9rem;
+  padding: 0.625rem 0.75rem;
 }
 
 .overview-preview__card {
