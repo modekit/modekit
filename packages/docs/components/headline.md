@@ -8,13 +8,16 @@
 
 The `display` variant tightens line height and tracking for prominent dashboard or marketing titles. It does not change the rendered heading level.
 
+Headline size names map directly to Tailwind's text scale: `xs` uses `text-xs`, `sm` uses `text-sm`,
+`md` uses `text-base`, and `lg` through `9xl` use their matching `text-*` utilities.
+
 ## API
 
 | Prop      | Values                                            | Default   |
 | --------- | ------------------------------------------------- | --------- |
 | `as`      | `h1`–`h6` or a component                          | `h2`      |
 | `variant` | `default`, `display`                              | `default` |
-| `size`    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`               | `md`      |
+| `size`    | `xs`–`9xl`                                        | `md`      |
 | `primary` | `boolean`                                         | `false`   |
 | `weight`  | `inherit`, `normal`, `medium`, `semibold`, `bold` | `bold`    |
 | `align`   | `inherit`, `left`, `center`, `right`, `justify`   | `inherit` |

@@ -113,7 +113,11 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
     ? [slots.header()]
     : [
         props.title !== undefined
-          ? h(MkHeadline, { as: 'h3', size: 'xs' }, { default: () => props.title })
+          ? h(
+              MkHeadline,
+              { as: 'h3', size: 'md', weight: 'medium' },
+              { default: () => props.title },
+            )
           : undefined,
         props.description !== undefined
           ? h(MkText, { as: 'p', size: 'sm' }, { default: () => props.description })

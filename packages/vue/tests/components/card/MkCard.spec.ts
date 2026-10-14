@@ -202,7 +202,8 @@ describe('MkCard', () => {
     const description = header.get('.mk-text')
 
     expect((title.element as HTMLElement).tagName).toBe('H3')
-    expect(title.attributes('data-mk-size')).toBe('xs')
+    expect(title.attributes('data-mk-size')).toBe('md')
+    expect(title.classes()).toContain('mk:font-medium')
     expect(title.text()).toBe('Welcome back')
     expect((description.element as HTMLElement).tagName).toBe('P')
     expect(description.attributes('data-mk-size')).toBe('sm')

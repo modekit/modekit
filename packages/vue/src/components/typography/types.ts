@@ -5,7 +5,21 @@ import type { ModeKitClassValue } from '../../types/classes.js'
 export const typographyWeights = ['inherit', 'normal', 'medium', 'semibold', 'bold'] as const
 export const typographyAlignments = ['inherit', 'left', 'center', 'right', 'justify'] as const
 export const textSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
-export const headlineSizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const
+export const headlineSizes = [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  '2xl',
+  '3xl',
+  '4xl',
+  '5xl',
+  '6xl',
+  '7xl',
+  '8xl',
+  '9xl',
+] as const
 export const headlineVariants = ['default', 'display'] as const
 export const textVariants = ['default', 'label'] as const
 export const paragraphVariants = ['default', 'lead'] as const

@@ -27,12 +27,36 @@ describe('typography components', () => {
     expect(wrapper.classes()).toEqual(
       expect.arrayContaining([
         'mk-headline',
-        'mk:text-2xl',
+        'mk:text-sm',
         'mk:text-neutral-800',
         'mk:font-bold',
         'mk:leading-none',
       ]),
     )
+  })
+
+  it.each([
+    ['xs', 'mk:text-xs'],
+    ['sm', 'mk:text-sm'],
+    ['md', 'mk:text-base'],
+    ['lg', 'mk:text-lg'],
+    ['xl', 'mk:text-xl'],
+    ['2xl', 'mk:text-2xl'],
+    ['3xl', 'mk:text-3xl'],
+    ['4xl', 'mk:text-4xl'],
+    ['5xl', 'mk:text-5xl'],
+    ['6xl', 'mk:text-6xl'],
+    ['7xl', 'mk:text-7xl'],
+    ['8xl', 'mk:text-8xl'],
+    ['9xl', 'mk:text-9xl'],
+  ] as const)('maps the %s Headline size directly to its Tailwind text size', (size, className) => {
+    const wrapper = mount(MkHeadline, {
+      props: { size },
+      slots: { default: 'Direct size mapping' },
+    })
+
+    expect(wrapper.attributes('data-mk-size')).toBe(size)
+    expect(wrapper.classes()).toContain(className)
   })
 
   it('uses neutral-500 for body typography defaults', () => {

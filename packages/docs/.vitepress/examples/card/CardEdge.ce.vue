@@ -25,7 +25,7 @@ ${scriptEnd}
     <template #footer>
       <MkFlex align="center" gap="l" justify="space-between" style="width: 100%">
         <MkFlex direction="column" gap="xs">
-          <MkHeadline as="h3" size="xs">Coastal planning retreat</MkHeadline>
+          <MkHeadline as="h3" weight="medium">Coastal planning retreat</MkHeadline>
           <MkText size="sm">October 24–26</MkText>
         </MkFlex>
         <MkButton aria-label="More retreat options" size="sm" square variant="ghost">
@@ -56,7 +56,7 @@ import { MkButton, MkCard, MkCardEdge, MkFlex, MkHeadline, MkText } from '@modek
     <template #footer>
       <MkFlex align="center" gap="l" justify="space-between" style="width: 100%">
         <MkFlex direction="column" gap="xs">
-          <MkHeadline as="h3" size="xs">Coastal planning retreat</MkHeadline>
+          <MkHeadline as="h3" weight="medium">Coastal planning retreat</MkHeadline>
           <MkText size="sm">October 24–26</MkText>
         </MkFlex>
         <MkButton aria-label="More retreat options" size="sm" square variant="ghost">

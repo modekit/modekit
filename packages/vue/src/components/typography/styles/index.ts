@@ -59,12 +59,19 @@ const inlineSizeClasses: Record<InlineTextSize, string> = {
   ...textSizeClasses,
 }
 const headlineSizeClasses: Record<HeadlineSize, string> = {
-  xs: 'mk:text-xl',
-  sm: 'mk:text-2xl',
-  md: 'mk:text-3xl',
-  lg: 'mk:text-4xl',
-  xl: 'mk:text-5xl',
-  '2xl': 'mk:text-6xl',
+  xs: 'mk:text-xs',
+  sm: 'mk:text-sm',
+  md: 'mk:text-base',
+  lg: 'mk:text-lg',
+  xl: 'mk:text-xl',
+  '2xl': 'mk:text-2xl',
+  '3xl': 'mk:text-3xl',
+  '4xl': 'mk:text-4xl',
+  '5xl': 'mk:text-5xl',
+  '6xl': 'mk:text-6xl',
+  '7xl': 'mk:text-7xl',
+  '8xl': 'mk:text-8xl',
+  '9xl': 'mk:text-9xl',
 }
 const captionSizeClasses: Record<CaptionSize, string> = {
   xs: 'mk:text-[0.6875rem]',

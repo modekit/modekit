@@ -24,7 +24,21 @@ import {
 
 describe('typography contract', () => {
   it('exports curated finite scales and treatments', () => {
-    expect(headlineSizes).toEqual(['xs', 'sm', 'md', 'lg', 'xl', '2xl'])
+    expect(headlineSizes).toEqual([
+      'xs',
+      'sm',
+      'md',
+      'lg',
+      'xl',
+      '2xl',
+      '3xl',
+      '4xl',
+      '5xl',
+      '6xl',
+      '7xl',
+      '8xl',
+      '9xl',
+    ])
     expect(textSizes).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     expect(captionSizes).toEqual(['xs', 'sm', 'md'])
     expect(inlineTextSizes).toEqual(['inherit', 'xs', 'sm', 'md', 'lg', 'xl'])
@@ -42,6 +56,22 @@ describe('typography contract', () => {
   it('keeps semantic elements, visual sizes, primary treatment, and native attributes typed independently', () => {
     expectTypeOf<HeadlineProps['as']>().toEqualTypeOf<
       'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | import('vue').Component | undefined
+    >()
+    expectTypeOf<HeadlineProps['size']>().toEqualTypeOf<
+      | 'xs'
+      | 'sm'
+      | 'md'
+      | 'lg'
+      | 'xl'
+      | '2xl'
+      | '3xl'
+      | '4xl'
+      | '5xl'
+      | '6xl'
+      | '7xl'
+      | '8xl'
+      | '9xl'
+      | undefined
     >()
     expectTypeOf<HeadlineProps['primary']>().toEqualTypeOf<boolean | undefined>()
     expectTypeOf<'color' extends keyof TextProps ? true : false>().toEqualTypeOf<false>()

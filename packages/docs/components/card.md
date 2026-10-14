@@ -88,8 +88,8 @@ All other native div attributes, listeners, and classes are forwarded to the roo
 | `default`        | Main Card content.                                                                           |
 | `footer`         | Optional content rendered after the body.                                                    |
 
-When no `header` slot is supplied, `title` renders as an `MkHeadline` with an `h3` root and
-`description` renders as an `MkText` paragraph. Supplying the `header` slot keeps its content
+When no `header` slot is supplied, `title` renders as a medium-weight, `md` `MkHeadline` with an
+`h3` root and `description` renders as an `MkText` paragraph. Supplying the `header` slot keeps its content
 untouched and takes precedence over both convenience props. The independent `header-actions` slot
 does not replace either form of header content. Omitted regions do not render empty wrappers.
 
