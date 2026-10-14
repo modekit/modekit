@@ -202,6 +202,27 @@ export type {
   LabelStyleConfig,
   LabelUI,
 } from './label/index.js'
+export {
+  MkSeparator,
+  separatorOrientations,
+  separatorPositions,
+  separatorSizes,
+  separatorTypes,
+} from './separator/index.js'
+export type {
+  SeparatorAs,
+  SeparatorCompoundVariant,
+  SeparatorOptions,
+  SeparatorOrientation,
+  SeparatorPosition,
+  SeparatorProps,
+  SeparatorSize,
+  SeparatorSlot,
+  SeparatorSlots,
+  SeparatorStyleConfig,
+  SeparatorType,
+  SeparatorUI,
+} from './separator/index.js'
 export { MkSpacing, spacingOrientations, spacingSizes } from './spacing/index.js'
 export type {
   SpacingCSSVariable,

@@ -77,6 +77,13 @@ const components = [
     href: '/components/card',
   },
   {
+    id: 'separator',
+    name: 'Separator',
+    category: 'Element',
+    description: 'Divide related content with labeled or unadorned semantic rules.',
+    href: '/components/separator',
+  },
+  {
     id: 'headline',
     name: 'Headline',
     category: 'Typography',
@@ -339,6 +346,7 @@ function exploreComponent(href: string): void {
 
 .component-tile--badge,
 .component-tile--callout,
+.component-tile--separator,
 .component-tile--spinner {
   --tile-accent: var(--vp-c-green-1, #10b981);
 }

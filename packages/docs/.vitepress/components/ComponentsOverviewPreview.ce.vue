@@ -19,6 +19,7 @@ import {
   MkLink,
   MkMark,
   MkParagraph,
+  MkSeparator,
   MkSpacing,
   MkSpinner,
   MkTabs,
@@ -187,6 +188,14 @@ const tabItems = [
       />
     </div>
 
+    <MkSeparator
+      v-else-if="props.kind === 'separator'"
+      class="overview-preview__separator"
+      label="Section"
+      primary
+      type="dashed"
+    />
+
     <div v-else-if="props.kind === 'spinner'" class="overview-preview__spinners">
       <MkSpinner size="sm" aria-label="Loading" />
       <MkSpinner size="md" aria-label="Loading" />
@@ -256,6 +265,10 @@ const tabItems = [
 
 .overview-preview__fill {
   width: 100%;
+}
+
+.overview-preview__separator {
+  width: min(100%, 13rem);
 }
 
 .overview-preview__card {

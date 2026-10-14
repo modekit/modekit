@@ -77,6 +77,7 @@ export default defineConfig({
             { text: 'Button', link: '/components/button' },
             { text: 'Button Group', link: '/components/button-group' },
             { text: 'Card', link: '/components/card' },
+            { text: 'Separator', link: '/components/separator' },
             { text: 'Spinner', link: '/components/spinner' },
           ],
         },

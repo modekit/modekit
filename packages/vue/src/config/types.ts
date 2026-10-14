@@ -9,6 +9,7 @@ import type { FlexStyleConfig } from '../components/flex/types.js'
 import type { GridStyleConfig } from '../components/grid/types.js'
 import type { InputStyleConfig } from '../components/input/types.js'
 import type { LabelStyleConfig } from '../components/label/types.js'
+import type { SeparatorStyleConfig } from '../components/separator/types.js'
 import type { SpacingStyleConfig } from '../components/spacing/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
@@ -37,6 +38,7 @@ export interface ModeKitUIConfig {
   grid?: GridStyleConfig
   input?: InputStyleConfig
   label?: LabelStyleConfig
+  separator?: SeparatorStyleConfig
   spacing?: SpacingStyleConfig
   spinner?: SpinnerStyleConfig
   tabs?: TabsStyleConfig

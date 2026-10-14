@@ -1,0 +1,146 @@
+# Separator
+
+Separator divides related content with a semantic Reka UI separator. `MkSeparator` supports plain
+rules, labeled sections, an optional icon, horizontal or vertical orientation, and logical content
+positioning without adding layout margins of its own.
+
+## Usage
+
+### Between elements
+
+Place a vertical Separator between horizontally arranged controls to make their visual boundary
+explicit without coupling spacing or borders to either element.
+
+<ComponentPreview name="separator/SeparatorUsage" />
+
+### Type
+
+Use `type` to choose a solid, dashed, or dotted rule. It defaults to `solid`.
+
+<ComponentPreview name="separator/SeparatorType" />
+
+### Size
+
+`size` controls rule weight, content spacing, label typography, and icon geometry. It defaults to
+`sm`. The `sm`, `md`, and `lg` rules use 1, 2, and 4 pixel borders respectively.
+
+<ComponentPreview name="separator/SeparatorSize" />
+
+### Orientation
+
+Horizontal separators fill the available inline width. Vertical separators stretch across the
+available block axis in flex layouts without requiring parent alignment; elsewhere, place them in a
+container with an explicit or otherwise resolved height.
+
+<ComponentPreview name="separator/SeparatorOrientation" />
+
+### Position
+
+When a label or icon is present, `position` places that content at the logical start, center, or end
+of the separator's main axis. It defaults to `center`. Start and end positions render one rule
+segment; center renders one on each side.
+
+<ComponentPreview name="separator/SeparatorPosition" />
+
+### Primary
+
+Enable `primary` when the boundary needs the configured theme emphasis rather than the neutral
+separator color.
+
+<ComponentPreview name="separator/SeparatorPrimary" />
+
+### Icon
+
+Provide the `icon` slot to add a decorative icon before the label. Direct SVG icons inherit the
+selected Separator size.
+
+<ComponentPreview name="separator/SeparatorIcon" />
+
+## API
+
+### Props
+
+| Prop          | Type                              | Default        | Description                                                          |
+| ------------- | --------------------------------- | -------------- | -------------------------------------------------------------------- |
+| `as`          | `SeparatorAs`                     | `'div'`        | Changes the rendered root element or component.                      |
+| `label`       | `string`                          | —              | Adds visible text through `MkText` and supplies the accessible name. |
+| `primary`     | `boolean`                         | `false`        | Uses the configured primary color for the rule and content.          |
+| `size`        | `'sm' \| 'md' \| 'lg'`            | `'sm'`         | Sets rule weight, spacing, label type, and icon geometry.            |
+| `type`        | `'solid' \| 'dashed' \| 'dotted'` | `'solid'`      | Sets the rule's border style.                                        |
+| `orientation` | `'horizontal' \| 'vertical'`      | `'horizontal'` | Sets the separator axis and Reka UI orientation semantics.           |
+| `position`    | `'start' \| 'center' \| 'end'`    | `'center'`     | Positions label and icon content along the main axis.                |
+| `ui`          | `SeparatorUI`                     | —              | Adds or overrides classes for the root and named internal slots.     |
+
+All other native attributes, listeners, and classes are forwarded to the rendered root.
+
+### Slots
+
+| Slot   | Description                                               |
+| ------ | --------------------------------------------------------- |
+| `icon` | Adds a decorative icon before the optional visible label. |
+
+## Styling
+
+`SeparatorUI` exposes `base`, `line`, `content`, `icon`, and `label`. Root classes resolve as:
+built-in recipe → global base and axis configuration → matching global compound variants → local
+`ui.base` → native `class`. Named slots resolve as: built-in slot recipe → global slot configuration
+→ local slot configuration.
+
+```vue
+<MkSeparator
+  label="Archived"
+  :ui="{
+    line: 'opacity-60',
+    label: 'uppercase tracking-wide',
+  }"
+/>
+```
+
+Global configuration can change defaults, individual axes, named slots, and compound combinations:
+
+```ts
+app.use(
+  createModeKit({
+    ui: {
+      separator: {
+        slots: {
+          label: 'font-semibold',
+        },
+        variants: {
+          type: {
+            dashed: 'opacity-80',
+          },
+        },
+        compoundVariants: [
+          {
+            primary: true,
+            size: ['md', 'lg'],
+            class: 'tracking-wide',
+          },
+        ],
+        defaultVariants: {
+          size: 'sm',
+          type: 'solid',
+          orientation: 'horizontal',
+          position: 'center',
+        },
+      },
+    },
+  }),
+)
+```
+
+ModeKit ships the utilities used by the built-in recipe. Additional Tailwind utility names supplied
+through global configuration, local `ui`, or native `class` must be generated by the application's
+Tailwind build.
+
+## Accessibility
+
+Separator uses Reka UI's semantic `Separator` primitive. It renders `role="separator"`; vertical
+instances also expose `aria-orientation="vertical"`. A `label` becomes both visible content and the
+root's accessible name unless a native `aria-label` is supplied explicitly. The icon wrapper and
+visual rule segments are hidden from accessibility APIs.
+
+Use Separator for meaningful boundaries between content groups. When a rule is purely decorative,
+consider whether spacing or a container border communicates the same structure without adding a
+semantic separator.
