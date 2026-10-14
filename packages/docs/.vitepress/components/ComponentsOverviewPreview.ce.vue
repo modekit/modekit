@@ -11,12 +11,14 @@ import {
   MkCard,
   MkCheckbox,
   MkEllipsisText,
+  MkGrid,
   MkHeadline,
   MkInput,
   MkLabel,
   MkLink,
   MkMark,
   MkParagraph,
+  MkSpacing,
   MkSpinner,
   MkTabs,
   MkText,
@@ -35,6 +37,22 @@ const tabItems = [
 
 <template>
   <div class="overview-preview">
+    <MkGrid
+      v-if="props.kind === 'grid'"
+      class="overview-preview__grid"
+      :columns="3"
+      gap="xs"
+      aria-label="Grid preview"
+    >
+      <span v-for="item in 6" :key="item">{{ item }}</span>
+    </MkGrid>
+
+    <div v-else-if="props.kind === 'spacing'" class="overview-preview__spacing">
+      <span>Above</span>
+      <MkSpacing size="l" />
+      <span>Below</span>
+    </div>
+
     <MkAvatar
       v-if="props.kind === 'avatar'"
       fallback="MK"
@@ -188,6 +206,38 @@ const tabItems = [
   align-items: center;
 }
 
+.overview-preview__grid {
+  width: min(100%, 13rem);
+}
+
+.overview-preview__grid span {
+  display: grid;
+  min-height: 2rem;
+  place-items: center;
+  border: 1px solid var(--mk-neutral-300);
+  border-radius: 0.4rem;
+  background: var(--mk-neutral-50);
+  color: var(--mk-neutral-600);
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+.overview-preview__spacing {
+  width: min(100%, 13rem);
+}
+
+.overview-preview__spacing span {
+  display: grid;
+  min-height: 2rem;
+  place-items: center;
+  border: 1px solid var(--mk-neutral-300);
+  border-radius: 0.4rem;
+  background: var(--mk-neutral-50);
+  color: var(--mk-neutral-600);
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
 .overview-preview__fill {
   width: 100%;
 }
@@ -246,8 +296,16 @@ const tabItems = [
 }
 
 .dark .overview-preview__card span:last-child,
+.dark .overview-preview__grid span,
+.dark .overview-preview__spacing span,
 .dark .overview-preview__label-field {
   color: var(--mk-neutral-400);
+}
+
+.dark .overview-preview__grid span,
+.dark .overview-preview__spacing span {
+  border-color: var(--mk-neutral-700);
+  background: var(--mk-neutral-900);
 }
 
 .dark .overview-preview__label-field {

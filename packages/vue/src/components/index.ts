@@ -106,6 +106,40 @@ export type {
   CheckboxUI,
   CheckboxVariant,
 } from './checkbox/index.js'
+export {
+  gridAlignments,
+  gridDisplays,
+  gridSpacePresets,
+  gridSpecialMargins,
+  MkGrid,
+} from './grid/index.js'
+export type {
+  GridAlign,
+  GridAs,
+  GridCSSGlobalValue,
+  GridDisplay,
+  GridFlexBasis,
+  GridFlexFactor,
+  GridGap,
+  GridGapValue,
+  GridInset,
+  GridIntrinsicSize,
+  GridLayoutOptions,
+  GridLength,
+  GridMargin,
+  GridOptions,
+  GridOverflow,
+  GridPadding,
+  GridPosition,
+  GridProps,
+  GridSelfAlignment,
+  GridSize,
+  GridSlots,
+  GridSpacePreset,
+  GridSpecialMargin,
+  GridStyleConfig,
+  GridUI,
+} from './grid/index.js'
 export { inputFloatingPositions, inputSizes, inputVariants, MkInput } from './input/index.js'
 export type {
   InputEmits,
@@ -130,6 +164,17 @@ export type {
   LabelStyleConfig,
   LabelUI,
 } from './label/index.js'
+export { MkSpacing, spacingOrientations, spacingSizes } from './spacing/index.js'
+export type {
+  SpacingCSSVariable,
+  SpacingOptions,
+  SpacingOrientation,
+  SpacingPreset,
+  SpacingProps,
+  SpacingSize,
+  SpacingStyleConfig,
+  SpacingUI,
+} from './spacing/index.js'
 export { MkSpinner, spinnerSizes } from './spinner/index.js'
 export type {
   SpinnerOptions,

@@ -6,6 +6,20 @@ import ComponentsOverviewPreview from './ComponentsOverviewPreview.vue'
 
 const components = [
   {
+    id: 'grid',
+    name: 'Grid',
+    category: 'Layout',
+    description: 'Arrange content in fixed or responsive native CSS Grid tracks.',
+    href: '/components/grid',
+  },
+  {
+    id: 'spacing',
+    name: 'Spacing',
+    category: 'Layout',
+    description: 'Create explicit vertical rhythm with presets, pixels, or design tokens.',
+    href: '/components/spacing',
+  },
+  {
     id: 'avatar',
     name: 'Avatar',
     category: 'Element',
@@ -140,7 +154,7 @@ const components = [
   },
 ] as const
 
-const componentGroups = ['Element', 'Typography', 'Form', 'Feedback', 'Navigation'].map(
+const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 'Navigation'].map(
   (category) => ({
     category,
     components: components.filter((component) => component.category === category),

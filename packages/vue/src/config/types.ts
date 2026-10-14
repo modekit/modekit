@@ -5,8 +5,10 @@ import type { ButtonGroupStyleConfig } from '../components/button-group/types.js
 import type { ButtonStyleConfig } from '../components/button/types.js'
 import type { CardStyleConfig } from '../components/card/types.js'
 import type { CheckboxStyleConfig } from '../components/checkbox/types.js'
+import type { GridStyleConfig } from '../components/grid/types.js'
 import type { InputStyleConfig } from '../components/input/types.js'
 import type { LabelStyleConfig } from '../components/label/types.js'
+import type { SpacingStyleConfig } from '../components/spacing/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
 import type {
@@ -29,8 +31,10 @@ export interface ModeKitUIConfig {
   buttonGroup?: ButtonGroupStyleConfig
   card?: CardStyleConfig
   checkbox?: CheckboxStyleConfig
+  grid?: GridStyleConfig
   input?: InputStyleConfig
   label?: LabelStyleConfig
+  spacing?: SpacingStyleConfig
   spinner?: SpinnerStyleConfig
   tabs?: TabsStyleConfig
   headline?: HeadlineStyleConfig

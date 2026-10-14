@@ -61,6 +61,13 @@ export default defineConfig({
           items: [{ text: 'Overview', link: '/components/' }],
         },
         {
+          text: 'Layout',
+          items: [
+            { text: 'Grid', link: '/components/grid' },
+            { text: 'Spacing', link: '/components/spacing' },
+          ],
+        },
+        {
           text: 'Element',
           items: [
             { text: 'Avatar', link: '/components/avatar' },
