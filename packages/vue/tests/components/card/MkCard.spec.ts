@@ -2,7 +2,14 @@ import { mount } from '@vue/test-utils'
 import { Primitive } from 'reka-ui'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
-import { cardSizes, cardVariants, createModeKit, MkCard, MkGrid } from '../../../src/index.js'
+import {
+  cardBodyTreatments,
+  cardSizes,
+  cardVariants,
+  createModeKit,
+  MkCard,
+  MkGrid,
+} from '../../../src/index.js'
 
 describe('MkCard', () => {
   it('renders a neutral div container with safe defaults', () => {
@@ -11,6 +18,7 @@ describe('MkCard', () => {
     })
 
     expect((wrapper.element as HTMLElement).tagName).toBe('DIV')
+    expect(wrapper.attributes('data-mk-body')).toBe('seamless')
     expect(wrapper.attributes('data-mk-variant')).toBe('shadow')
     expect(wrapper.attributes('data-mk-size')).toBe('md')
     expect(wrapper.classes()).toContain('mk:rounded-xl')
@@ -53,9 +61,9 @@ describe('MkCard', () => {
   })
 
   it.each([
-    ['sm', ['mk:rounded-lg', 'mk:p-4'], '1rem'],
-    ['md', ['mk:rounded-xl', 'mk:p-6'], '1.5rem'],
-    ['lg', ['mk:rounded-2xl', 'mk:p-8'], '2rem'],
+    ['sm', ['mk:rounded-lg', 'mk:p-4'], '0.75rem'],
+    ['md', ['mk:rounded-xl', 'mk:p-6'], '1rem'],
+    ['lg', ['mk:rounded-2xl', 'mk:p-8'], '1.5rem'],
   ] as const)('resolves the %s size', (size, classes, gap) => {
     const wrapper = mount(MkCard, { props: { size } })
     const style = (wrapper.element as HTMLElement).style
@@ -65,6 +73,102 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toContain('mk:shadow-raised')
     expect(style.rowGap).toBe(gap)
     expect(style.columnGap).toBe(gap)
+  })
+
+  it.each([
+    ['sm', ['mk:-mx-3', 'mk:rounded-md', 'mk:p-4', 'mk:first:-mt-3', 'mk:last:-mb-3']],
+    ['md', ['mk:-mx-5', 'mk:rounded-lg', 'mk:p-5', 'mk:first:-mt-5', 'mk:last:-mb-5']],
+    ['lg', ['mk:-mx-7', 'mk:rounded-xl', 'mk:p-6', 'mk:first:-mt-7', 'mk:last:-mb-7']],
+  ] as const)('renders the inset body treatment at %s size', (size, classes) => {
+    const wrapper = mount(MkCard, {
+      props: { body: 'inset', size, variant: 'muted' },
+      slots: { default: 'Inset content' },
+    })
+    const body = wrapper.get('.mk-card__body')
+
+    expect(wrapper.attributes('data-mk-body')).toBe('inset')
+    expect(body.classes()).toEqual(
+      expect.arrayContaining([
+        'mk:border',
+        'mk:border-solid',
+        'mk:border-neutral-200',
+        'mk:bg-white',
+        'mk:shadow-sm',
+        ...classes,
+      ]),
+    )
+  })
+
+  it.each([
+    ['sm', ['mk:-mx-4', 'mk:rounded-lg', 'mk:p-4', 'mk:first:-mt-4', 'mk:last:-mb-4']],
+    ['md', ['mk:-mx-6', 'mk:rounded-xl', 'mk:p-5', 'mk:first:-mt-6', 'mk:last:-mb-6']],
+    ['lg', ['mk:-mx-8', 'mk:rounded-2xl', 'mk:p-6', 'mk:first:-mt-8', 'mk:last:-mb-8']],
+  ] as const)('renders the flush body treatment at %s size', (size, classes) => {
+    const wrapper = mount(MkCard, {
+      props: { body: 'flush', size, variant: 'muted' },
+      slots: { default: 'Flush content' },
+    })
+    const body = wrapper.get('.mk-card__body')
+
+    expect(wrapper.attributes('data-mk-body')).toBe('flush')
+    expect(body.classes()).toEqual(
+      expect.arrayContaining([
+        'mk:border',
+        'mk:border-solid',
+        'mk:border-neutral-200',
+        'mk:bg-white',
+        'mk:shadow-sm',
+        ...classes,
+      ]),
+    )
+  })
+
+  it.each(['inset', 'flush'] as const)(
+    'renders the %s body as a raised panel on a muted surface',
+    (bodyTreatment) => {
+      const wrapper = mount(MkCard, {
+        props: { body: bodyTreatment, variant: 'muted' },
+        slots: { default: 'Raised content' },
+      })
+      const body = wrapper.get('.mk-card__body')
+
+      expect(body.classes()).toContain('mk:bg-white')
+      expect(body.classes()).toContain('mk:shadow-sm')
+      expect(body.classes()).not.toContain('mk:shadow-inner')
+    },
+  )
+
+  it.each([
+    ['inset', 'shadow'],
+    ['inset', 'outline'],
+    ['inset', 'plain'],
+    ['flush', 'shadow'],
+    ['flush', 'outline'],
+    ['flush', 'plain'],
+  ] as const)(
+    'renders the %s body as a recessed well on the %s surface',
+    (bodyTreatment, variant) => {
+      const wrapper = mount(MkCard, {
+        props: { body: bodyTreatment, variant },
+        slots: { default: 'Recessed content' },
+      })
+      const body = wrapper.get('.mk-card__body')
+
+      expect(body.classes()).toContain('mk:bg-neutral-50')
+      expect(body.classes()).toContain('mk:shadow-inner')
+      expect(body.classes()).not.toContain('mk:shadow-sm')
+    },
+  )
+
+  it('keeps the seamless body unframed and unpadded', () => {
+    const wrapper = mount(MkCard, {
+      slots: { default: 'Seamless content' },
+    })
+    const body = wrapper.get('.mk-card__body')
+
+    expect(body.classes()).not.toContain('mk:border')
+    expect(body.classes()).not.toContain('mk:shadow-sm')
+    expect(body.classes()).not.toContain('mk:p-5')
   })
 
   it('renders header, body, and footer slots in order', () => {
@@ -103,6 +207,50 @@ describe('MkCard', () => {
     expect((description.element as HTMLElement).tagName).toBe('P')
     expect(description.attributes('data-mk-size')).toBe('sm')
     expect(description.text()).toBe('Sign in to continue to your account.')
+  })
+
+  it('adds header actions without replacing generated title and description content', () => {
+    const wrapper = mount(MkCard, {
+      props: {
+        title: 'Profile',
+        description: 'Manage public account details.',
+      },
+      slots: {
+        'header-actions': '<button type="button">Edit</button>',
+      },
+    })
+
+    const header = wrapper.get('.mk-card__header')
+    const content = header.get('.mk-card__header-content')
+    const actions = header.get('.mk-card__header-actions')
+
+    expect(content.get('.mk-headline').text()).toBe('Profile')
+    expect(content.get('.mk-text').text()).toBe('Manage public account details.')
+    expect(actions.get('button').text()).toBe('Edit')
+  })
+
+  it('composes header and header-actions slots without replacing either region', () => {
+    const wrapper = mount(MkCard, {
+      slots: {
+        header: '<span class="custom-header">Custom heading</span>',
+        'header-actions': '<button type="button">More</button>',
+      },
+    })
+
+    expect(wrapper.get('.mk-card__header-content .custom-header').text()).toBe('Custom heading')
+    expect(wrapper.get('.mk-card__header-actions button').text()).toBe('More')
+  })
+
+  it('renders header actions without an empty content wrapper', () => {
+    const wrapper = mount(MkCard, {
+      slots: {
+        'header-actions': '<button type="button">More</button>',
+      },
+    })
+
+    expect(wrapper.find('.mk-card__header').exists()).toBe(true)
+    expect(wrapper.find('.mk-card__header-content').exists()).toBe(false)
+    expect(wrapper.get('.mk-card__header-actions').classes()).toContain('mk:ml-auto')
   })
 
   it('renders a header when only the title prop is supplied', () => {
@@ -170,6 +318,8 @@ describe('MkCard', () => {
         ui: {
           base: 'rounded-none p-10',
           header: 'gap-4',
+          headerContent: 'basis-2/3',
+          headerActions: 'self-center',
           body: 'text-sm',
           footer: 'justify-end',
         },
@@ -177,6 +327,7 @@ describe('MkCard', () => {
       },
       slots: {
         header: 'Heading',
+        'header-actions': 'Actions',
         default: 'Body',
         footer: 'Footer',
       },
@@ -189,6 +340,8 @@ describe('MkCard', () => {
     expect(wrapper.classes()).toContain('mk:rounded-xl')
     expect(wrapper.classes()).toContain('mk:p-6')
     expect(wrapper.get('.mk-card__header').classes()).toContain('gap-4')
+    expect(wrapper.get('.mk-card__header-content').classes()).toContain('basis-2/3')
+    expect(wrapper.get('.mk-card__header-actions').classes()).toContain('self-center')
     expect(wrapper.get('.mk-card__body').classes()).toContain('text-sm')
     expect(wrapper.get('.mk-card__footer').classes()).toContain('justify-end')
   })
@@ -203,10 +356,14 @@ describe('MkCard', () => {
                 base: 'rounded-3xl',
                 slots: {
                   header: 'uppercase',
+                  headerActions: 'items-end',
                   body: 'border-2',
                   footer: 'justify-between',
                 },
                 variants: {
+                  body: {
+                    inset: 'ring-2',
+                  },
                   variant: {
                     outline: 'border-2',
                   },
@@ -215,6 +372,7 @@ describe('MkCard', () => {
                   },
                 },
                 defaultVariants: {
+                  body: 'inset',
                   variant: 'outline',
                   size: 'lg',
                 },
@@ -225,31 +383,40 @@ describe('MkCard', () => {
       },
       slots: {
         header: 'Heading',
+        'header-actions': 'Actions',
         default: 'Body',
         footer: 'Footer',
       },
     })
 
+    expect(wrapper.attributes('data-mk-body')).toBe('inset')
     expect(wrapper.attributes('data-mk-variant')).toBe('outline')
     expect(wrapper.attributes('data-mk-size')).toBe('lg')
     expect(wrapper.classes()).toContain('rounded-3xl')
+    expect(wrapper.classes()).not.toContain('ring-2')
     expect(wrapper.classes()).toContain('border-2')
     expect(wrapper.classes()).toContain('p-10')
     expect(wrapper.classes()).toContain('mk:rounded-2xl')
     expect(wrapper.classes()).toContain('mk:border')
     expect(wrapper.classes()).toContain('mk:p-8')
     expect(wrapper.get('.mk-card__header').classes()).toContain('uppercase')
+    expect(wrapper.get('.mk-card__header-actions').classes()).toContain('items-end')
+    expect(wrapper.get('.mk-card__body').classes()).toContain('ring-2')
     expect(wrapper.get('.mk-card__body').classes()).toContain('border-2')
     expect(wrapper.get('.mk-card__footer').classes()).toContain('justify-between')
   })
 
-  it('exports finite variant and size contracts', () => {
+  it('exports finite body treatment, variant, and size contracts', () => {
+    expect(cardBodyTreatments).toEqual(['seamless', 'inset', 'flush'])
     expect(cardVariants).toEqual(['shadow', 'muted', 'outline', 'plain'])
     expect(cardSizes).toEqual(['sm', 'md', 'lg'])
   })
 
   it('keeps native attributes in the exported component type', () => {
     expectTypeOf<Parameters<typeof MkCard>[0]['aria-label']>().toEqualTypeOf<string | undefined>()
+    expectTypeOf<Parameters<typeof MkCard>[0]['body']>().toEqualTypeOf<
+      'seamless' | 'inset' | 'flush' | undefined
+    >()
     expectTypeOf<Parameters<typeof MkCard>[0]['id']>().toEqualTypeOf<string | undefined>()
     expectTypeOf<Parameters<typeof MkCard>[0]['title']>().toEqualTypeOf<string | undefined>()
     expectTypeOf<Parameters<typeof MkCard>[0]['description']>().toEqualTypeOf<string | undefined>()

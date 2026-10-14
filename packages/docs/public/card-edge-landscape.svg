@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Layered coastal cliffs at sunset</title>
+  <desc id="description">An abstract landscape with a warm sun, distant mountains, and dark coastal cliffs.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dbeafe"/>
+      <stop offset="0.55" stop-color="#fef3c7"/>
+      <stop offset="1" stop-color="#fed7aa"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="cliff" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#475569"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#sky)"/>
+  <circle cx="870" cy="180" r="78" fill="#f59e0b" opacity="0.82"/>
+  <path d="M0 340 180 230 350 345 520 205 735 355 925 240 1200 360V470H0Z" fill="#94a3b8" opacity="0.6"/>
+  <path d="M0 390 210 290 390 405 600 270 790 410 1020 305 1200 390V485H0Z" fill="#64748b" opacity="0.72"/>
+  <path d="M0 430H1200V675H0Z" fill="url(#sea)"/>
+  <path d="M0 420 185 385 285 455 440 475 520 675H0Z" fill="url(#cliff)"/>
+  <path d="M1200 405 1030 390 930 450 820 485 755 675H1200Z" fill="url(#cliff)"/>
+  <path d="M525 535C650 505 720 515 805 555" fill="none" stroke="#e0f2fe" stroke-width="18" stroke-linecap="round" opacity="0.72"/>
+  <path d="M540 580C655 555 705 565 780 595" fill="none" stroke="#f0f9ff" stroke-width="9" stroke-linecap="round" opacity="0.58"/>
+</svg>
