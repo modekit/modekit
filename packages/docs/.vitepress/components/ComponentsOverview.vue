@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ArrowUpRight } from '@lucide/vue'
-import { withBase } from 'vitepress'
+import { MkButton, MkCard, MkCardEdge, MkFlex, MkHeadline, MkText } from '@modekit/vue'
+import { useRouter, withBase } from 'vitepress'
 
 import ComponentsOverviewPreview from './ComponentsOverviewPreview.vue'
 
@@ -167,6 +168,12 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
     components: components.filter((component) => component.category === category),
   }),
 )
+
+const router = useRouter()
+
+function exploreComponent(href: string): void {
+  void router.go(withBase(href))
+}
 </script>
 
 <template>
@@ -189,25 +196,44 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
           class="component-tile"
           :class="`component-tile--${component.id}`"
         >
-          <div class="component-tile__preview" inert aria-hidden="true">
-            <ComponentsOverviewPreview :kind="component.id" />
-          </div>
+          <MkCard body="inset" class="component-tile__card" size="sm" variant="outline">
+            <MkCardEdge>
+              <div class="component-tile__preview" inert aria-hidden="true">
+                <ComponentsOverviewPreview :kind="component.id" />
+              </div>
+            </MkCardEdge>
 
-          <div class="component-tile__body">
-            <div class="component-tile__meta">
-              <span>{{ component.category }}</span>
-              <a
-                class="component-tile__link"
-                :href="withBase(component.href)"
-                :aria-label="`Explore ${component.name}`"
-              >
-                Explore
-                <ArrowUpRight :size="15" aria-hidden="true" />
-              </a>
-            </div>
-            <h3>{{ component.name }}</h3>
-            <p>{{ component.description }}</p>
-          </div>
+            <template #footer>
+              <MkFlex align="start" gap="m" justify="space-between" style="width: 100%">
+                <MkFlex class="component-tile__copy" direction="column" gap="xs">
+                  <MkHeadline
+                    :id="`component-${component.id}`"
+                    as="h6"
+                    class="component-tile__title"
+                    weight="medium"
+                  >
+                    {{ component.name }}
+                  </MkHeadline>
+                  <MkText as="span" class="component-tile__description" size="sm">
+                    {{ component.description }}
+                  </MkText>
+                </MkFlex>
+                <MkButton
+                  class="component-tile__link"
+                  color="primary"
+                  size="xs"
+                  variant="link"
+                  :aria-label="`Explore ${component.name}`"
+                  @click="exploreComponent(component.href)"
+                >
+                  Explore
+                  <template #trailing>
+                    <ArrowUpRight aria-hidden="true" />
+                  </template>
+                </MkButton>
+              </MkFlex>
+            </template>
+          </MkCard>
         </article>
       </div>
     </section>
@@ -268,24 +294,31 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
   --tile-accent: var(--vp-c-brand-1);
   position: relative;
   min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 0.9rem;
-  background: var(--vp-c-bg);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
-  transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .component-tile:hover {
-  border-color: color-mix(in srgb, var(--tile-accent) 42%, var(--vp-c-divider));
-  box-shadow: 0 14px 34px rgb(0 0 0 / 9%);
   transform: translateY(-2px);
 }
 
-.component-tile:has(.component-tile__link:focus-visible) {
+.component-tile__card {
+  height: 100%;
+  grid-template-rows: max-content minmax(0, 1fr);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.component-tile__card :deep(.mk-card__footer) {
+  align-items: flex-start;
+}
+
+.component-tile:hover .component-tile__card {
+  border-color: color-mix(in srgb, var(--tile-accent) 42%, var(--vp-c-divider));
+  box-shadow: 0 14px 34px rgb(0 0 0 / 9%);
+}
+
+.component-tile:has(.component-tile__link:focus-visible) .component-tile__card {
   border-color: var(--vp-c-brand-1);
   outline: 3px solid color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent);
   outline-offset: 2px;
@@ -324,7 +357,6 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
   justify-content: center;
   padding: 1.25rem;
   overflow: hidden;
-  border-bottom: 1px solid var(--vp-c-divider);
   background:
     linear-gradient(color-mix(in srgb, var(--vp-c-divider) 45%, transparent) 1px, transparent 1px),
     linear-gradient(
@@ -357,33 +389,22 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
   pointer-events: none;
 }
 
-.component-tile__body {
-  padding: 1rem 1rem 1.1rem;
+.component-tile__copy {
+  min-width: 0;
+  flex: 1;
 }
 
-.component-tile__meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.45rem;
+.component-tile__title,
+.component-tile__description {
+  margin: 0;
 }
 
-.component-tile__meta > span {
-  color: var(--vp-c-text-3);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+.component-tile__description {
+  overflow-wrap: anywhere;
 }
 
 .component-tile__link {
-  display: inline-flex;
-  gap: 0.25rem;
-  align-items: center;
-  color: var(--vp-c-brand-1);
-  font-size: 0.75rem;
-  font-weight: 650;
-  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .component-tile__link::after {
@@ -404,21 +425,6 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
   transform: translate(1px, -1px);
 }
 
-.component-tile h3 {
-  margin: 0;
-  color: var(--vp-c-text-1);
-  font-size: 1rem;
-  letter-spacing: -0.01em;
-}
-
-.component-tile p {
-  margin: 0.35rem 0 0;
-  overflow-wrap: anywhere;
-  color: var(--vp-c-text-2);
-  font-size: 0.8125rem;
-  line-height: 1.55;
-}
-
 @media (max-width: 959px) {
   .components-overview__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -437,6 +443,7 @@ const componentGroups = ['Layout', 'Element', 'Typography', 'Form', 'Feedback', 
 
 @media (prefers-reduced-motion: reduce) {
   .component-tile,
+  .component-tile__card,
   .component-tile__link svg {
     transition: none;
   }
