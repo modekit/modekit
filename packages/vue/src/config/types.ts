@@ -9,6 +9,15 @@ import type { InputStyleConfig } from '../components/input/types.js'
 import type { LabelStyleConfig } from '../components/label/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
+import type {
+  CaptionStyleConfig,
+  EllipsisTextStyleConfig,
+  HeadlineStyleConfig,
+  LinkStyleConfig,
+  MarkStyleConfig,
+  ParagraphStyleConfig,
+  TextStyleConfig,
+} from '../components/typography/types.js'
 import type { ModeKitNeutralColor, ModeKitPrimaryColor } from '../colors.js'
 
 export interface ModeKitUIConfig {
@@ -24,6 +33,13 @@ export interface ModeKitUIConfig {
   label?: LabelStyleConfig
   spinner?: SpinnerStyleConfig
   tabs?: TabsStyleConfig
+  headline?: HeadlineStyleConfig
+  text?: TextStyleConfig
+  paragraph?: ParagraphStyleConfig
+  caption?: CaptionStyleConfig
+  ellipsisText?: EllipsisTextStyleConfig
+  mark?: MarkStyleConfig
+  link?: LinkStyleConfig
 }
 
 export interface ModeKitThemeConfig {

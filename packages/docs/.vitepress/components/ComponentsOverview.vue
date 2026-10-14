@@ -55,6 +55,55 @@ const components = [
     href: '/components/card',
   },
   {
+    id: 'headline',
+    name: 'Headline',
+    category: 'Typography',
+    description: 'Create semantic headings with an independent visual hierarchy.',
+    href: '/components/headline',
+  },
+  {
+    id: 'text',
+    name: 'Text',
+    category: 'Typography',
+    description: 'Style labels, metadata, and short interface copy consistently.',
+    href: '/components/text',
+  },
+  {
+    id: 'paragraph',
+    name: 'Paragraph',
+    category: 'Typography',
+    description: 'Render readable body copy with size-aware rhythm.',
+    href: '/components/paragraph',
+  },
+  {
+    id: 'caption',
+    name: 'Caption',
+    category: 'Typography',
+    description: 'Present subordinate metadata on a compact text scale.',
+    href: '/components/caption',
+  },
+  {
+    id: 'ellipsis-text',
+    name: 'Ellipsis Text',
+    category: 'Typography',
+    description: 'Constrain long content to a predictable number of lines.',
+    href: '/components/ellipsis-text',
+  },
+  {
+    id: 'mark',
+    name: 'Mark',
+    category: 'Typography',
+    description: 'Highlight relevant inline content with semantic treatments.',
+    href: '/components/mark',
+  },
+  {
+    id: 'link',
+    name: 'Link',
+    category: 'Typography',
+    description: 'Apply consistent treatments to native anchor navigation.',
+    href: '/components/link',
+  },
+  {
     id: 'checkbox',
     name: 'Checkbox',
     category: 'Form',
@@ -91,10 +140,12 @@ const components = [
   },
 ] as const
 
-const componentGroups = ['Element', 'Form', 'Feedback', 'Navigation'].map((category) => ({
-  category,
-  components: components.filter((component) => component.category === category),
-}))
+const componentGroups = ['Element', 'Typography', 'Form', 'Feedback', 'Navigation'].map(
+  (category) => ({
+    category,
+    components: components.filter((component) => component.category === category),
+  }),
+)
 </script>
 
 <template>
@@ -220,6 +271,13 @@ const componentGroups = ['Element', 'Form', 'Feedback', 'Navigation'].map((categ
 }
 
 .component-tile--avatar-group,
+.component-tile--headline,
+.component-tile--text,
+.component-tile--paragraph,
+.component-tile--caption,
+.component-tile--ellipsis-text,
+.component-tile--mark,
+.component-tile--link,
 .component-tile--input,
 .component-tile--tabs {
   --tile-accent: var(--vp-c-indigo-1, #6366f1);

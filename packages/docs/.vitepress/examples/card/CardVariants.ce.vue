@@ -5,7 +5,7 @@ import { definePreview, selectOptions } from '../../components/preview.js'
 
 export const preview = definePreview({
   componentName: 'MkCard',
-  content: 'ModeKit keeps composition explicit.',
+  content: '',
   controls: [
     {
       prop: 'variant',
@@ -20,26 +20,57 @@ export const preview = definePreview({
       options: selectOptions(cardSizes),
     },
   ],
-  code: (values) => `<MkCard
-  variant="${String(values.variant)}"
-  size="${String(values.size)}"
->
-  <template #header>
-    <strong>Weekly overview</strong>
-  </template>
-  ModeKit keeps composition explicit.
-  <template #footer>
-    <small>Updated just now</small>
-  </template>
-</MkCard>`,
+  code: (values) => `<template>
+  <MkCard
+    description="Sign in to continue to your account."
+    title="Welcome back"
+    variant="${String(values.variant)}"
+    size="${String(values.size)}"
+    style="width: min(100%, 24rem)"
+  >
+    <form style="display: grid; gap: 1rem" @submit.prevent>
+      <div style="display: grid; gap: 0.5rem">
+        <MkLabel for="login-email">Email address</MkLabel>
+        <MkInput
+          id="login-email"
+          autocomplete="email"
+          placeholder="name@example.com"
+          required
+          type="email"
+        />
+      </div>
+
+      <div style="display: grid; gap: 0.5rem">
+        <MkLabel for="login-password">Password</MkLabel>
+        <MkInput
+          id="login-password"
+          autocomplete="current-password"
+          placeholder="Enter your password"
+          required
+          type="password"
+        />
+      </div>
+
+      <MkCheckbox label="Remember me" />
+      <MkButton style="width: 100%" type="submit">Sign in</MkButton>
+    </form>
+
+    <template #footer>
+      <MkText as="p" size="sm">
+        New to ModeKit?
+        <MkLink href="#create-account" primary weight="semibold">Create an account</MkLink>
+      </MkText>
+    </template>
+  </MkCard>
+</template>`,
 })
 </script>
 
 <script setup lang="ts">
-import { MkCard } from '@modekit/vue'
+import { MkButton, MkCard, MkCheckbox, MkInput, MkLabel, MkLink, MkText } from '@modekit/vue'
 import type { CardSize, CardVariant } from '@modekit/vue'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     size?: CardSize
     variant?: CardVariant
@@ -52,13 +83,45 @@ withDefaults(
 </script>
 
 <template>
-  <MkCard :size="size" :variant="variant">
-    <template #header>
-      <strong>Weekly overview</strong>
-    </template>
-    ModeKit keeps composition explicit.
+  <MkCard
+    description="Sign in to continue to your account."
+    :size="props.size"
+    style="width: min(100%, 24rem)"
+    title="Welcome back"
+    :variant="props.variant"
+  >
+    <form style="display: grid; gap: 1rem" @submit.prevent>
+      <div style="display: grid; gap: 0.5rem">
+        <MkLabel for="login-email">Email address</MkLabel>
+        <MkInput
+          id="login-email"
+          autocomplete="email"
+          placeholder="name@example.com"
+          required
+          type="email"
+        />
+      </div>
+
+      <div style="display: grid; gap: 0.5rem">
+        <MkLabel for="login-password">Password</MkLabel>
+        <MkInput
+          id="login-password"
+          autocomplete="current-password"
+          placeholder="Enter your password"
+          required
+          type="password"
+        />
+      </div>
+
+      <MkCheckbox label="Remember me" />
+      <MkButton style="width: 100%" type="submit">Sign in</MkButton>
+    </form>
+
     <template #footer>
-      <small>Updated just now</small>
+      <MkText as="p" size="sm">
+        New to ModeKit?
+        <MkLink href="#create-account" primary weight="semibold">Create an account</MkLink>
+      </MkText>
     </template>
   </MkCard>
 </template>

@@ -1,9 +1,15 @@
-@layer modekit.theme, modekit.utilities;
+@layer modekit.preflight, modekit.theme, modekit.base, modekit.utilities;
 
 @import 'tailwindcss/theme.css' layer(modekit.theme) prefix(mk);
 @import 'tailwindcss/utilities.css' layer(modekit.utilities) prefix(mk);
 
 @source './components/**/*.ts';
+
+@layer modekit.base {
+  :where(.mk-headline, .mk-text, .mk-paragraph, .mk-caption) {
+    margin: 0;
+  }
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 

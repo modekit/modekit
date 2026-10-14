@@ -32,8 +32,22 @@ mk:rounded-lg
 ```
 
 This keeps ModeKit's generated utility selectors and theme variables separate from similarly named
-application styles. ModeKit does not include Tailwind Preflight, so importing the package does not
-reset the application's elements.
+application styles. The standard stylesheet does not include Tailwind Preflight, so importing it
+does not reset the application's elements. ModeKit applies narrowly scoped normalization only to
+its own component roots, such as removing browser-default margins from its typography components.
+
+## Optional Preflight
+
+Applications that use ModeKit as their CSS foundation can opt into Tailwind Preflight separately:
+
+```ts
+import '@modekit/vue/preflight.css'
+import '@modekit/vue/styles.css'
+```
+
+Import Preflight before the component stylesheet. It globally normalizes native elements, including
+margins, borders, headings, lists, form controls, and replaced media. Do not import it when another
+framework or application reset already owns those global defaults.
 
 ## Theme colors
 

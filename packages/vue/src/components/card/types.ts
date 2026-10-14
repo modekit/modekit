@@ -31,6 +31,8 @@ export interface CardStyleConfig {
 export interface CardOptions {
   variant?: CardVariant
   size?: CardSize
+  title?: string
+  description?: string
   ui?: CardUI
 }
 

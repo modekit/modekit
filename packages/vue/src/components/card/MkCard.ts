@@ -8,6 +8,8 @@ import type {
 } from 'vue'
 
 import { useModeKitOptions } from '../../config/context.js'
+import { MkHeadline } from '../typography/MkHeadline.js'
+import { MkText } from '../typography/MkText.js'
 import { getCardClasses, getCardSlotClasses } from './styles/index.js'
 import { cardSizes, cardVariants } from './types.js'
 import type { CardOptions, CardProps, CardSize, CardSlots, CardUI, CardVariant } from './types.js'
@@ -20,6 +22,14 @@ const runtimeProps = {
   size: {
     type: String as PropType<CardSize>,
     validator: (value: CardSize) => cardSizes.includes(value),
+  },
+  title: {
+    type: String,
+    default: undefined,
+  },
+  description: {
+    type: String,
+    default: undefined,
   },
   ui: {
     type: Object as PropType<CardUI>,
@@ -36,6 +46,18 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
   const variant = props.variant ?? cardConfig?.defaultVariants?.variant ?? 'shadow'
   const size = props.size ?? cardConfig?.defaultVariants?.size ?? 'md'
   const attributes: HTMLAttributes = attrs
+  const hasHeader =
+    slots.header !== undefined || props.title !== undefined || props.description !== undefined
+  const headerContent = slots.header
+    ? [slots.header()]
+    : [
+        props.title !== undefined
+          ? h(MkHeadline, { as: 'h3', size: 'xs' }, { default: () => props.title })
+          : undefined,
+        props.description !== undefined
+          ? h(MkText, { as: 'p', size: 'sm' }, { default: () => props.description })
+          : undefined,
+      ]
 
   return h(
     Primitive,
@@ -54,7 +76,7 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
     },
     {
       default: () => [
-        slots.header
+        hasHeader
           ? h(
               'div',
               {
@@ -64,7 +86,7 @@ export const MkCard: FunctionalComponent<CardProps, Record<string, never>, CardS
                   ui: props.ui,
                 }),
               },
-              [slots.header()],
+              headerContent,
             )
           : undefined,
         slots.default

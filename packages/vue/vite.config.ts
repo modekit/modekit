@@ -8,22 +8,31 @@ export default defineConfig({
     tailwindcss(),
     vue(),
     dts({
+      beforeWriteFile: (filePath) => (filePath.endsWith('/preflight.d.ts') ? false : undefined),
       copyDtsFiles: true,
       entryRoot: 'src',
+      exclude: ['src/preflight.css'],
       include: ['src'],
       insertTypesEntry: true,
       tsconfigPath: './tsconfig.json',
     }),
   ],
   build: {
+    cssCodeSplit: true,
     lib: {
-      cssFileName: 'styles',
-      entry: 'src/index.ts',
-      fileName: 'index',
+      entry: {
+        index: 'src/index.ts',
+        preflight: 'src/preflight.css',
+      },
+      fileName: (_format, entryName) => `${entryName}.js`,
       formats: ['es'],
     },
     rollupOptions: {
       external: ['reka-ui', 'vue'],
+      output: {
+        assetFileNames: (assetInfo) =>
+          assetInfo.names.includes('index.css') ? 'styles.css' : '[name][extname]',
+      },
     },
     sourcemap: true,
   },

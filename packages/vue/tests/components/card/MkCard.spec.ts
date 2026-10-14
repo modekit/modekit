@@ -77,7 +77,62 @@ describe('MkCard', () => {
     expect(wrapper.text()).toBe('HeadingBodyAction')
   })
 
-  it('does not render wrappers for omitted slots', () => {
+  it('renders title and description props through typography components', () => {
+    const wrapper = mount(MkCard, {
+      props: {
+        title: 'Welcome back',
+        description: 'Sign in to continue to your account.',
+      },
+    })
+
+    const header = wrapper.get('.mk-card__header')
+    const title = header.get('.mk-headline')
+    const description = header.get('.mk-text')
+
+    expect((title.element as HTMLElement).tagName).toBe('H3')
+    expect(title.attributes('data-mk-size')).toBe('xs')
+    expect(title.text()).toBe('Welcome back')
+    expect((description.element as HTMLElement).tagName).toBe('P')
+    expect(description.attributes('data-mk-size')).toBe('sm')
+    expect(description.text()).toBe('Sign in to continue to your account.')
+  })
+
+  it('renders a header when only the title prop is supplied', () => {
+    const wrapper = mount(MkCard, { props: { title: 'Title only' } })
+
+    expect(wrapper.get('.mk-card__header').text()).toBe('Title only')
+    expect(wrapper.get('.mk-headline').text()).toBe('Title only')
+    expect(wrapper.find('.mk-text').exists()).toBe(false)
+  })
+
+  it('renders a header when only the description prop is supplied', () => {
+    const wrapper = mount(MkCard, { props: { description: 'Description only' } })
+
+    expect(wrapper.get('.mk-card__header').text()).toBe('Description only')
+    expect(wrapper.get('.mk-text').text()).toBe('Description only')
+    expect(wrapper.find('.mk-headline').exists()).toBe(false)
+  })
+
+  it('gives the header slot precedence over title and description props', () => {
+    const wrapper = mount(MkCard, {
+      props: {
+        title: 'Generated title',
+        description: 'Generated description',
+      },
+      slots: {
+        header: '<span class="custom-header">Custom header</span>',
+      },
+    })
+
+    const header = wrapper.get('.mk-card__header')
+    expect(header.get('.custom-header').text()).toBe('Custom header')
+    expect(header.find('.mk-headline').exists()).toBe(false)
+    expect(header.find('.mk-text').exists()).toBe(false)
+    expect(wrapper.text()).not.toContain('Generated title')
+    expect(wrapper.text()).not.toContain('Generated description')
+  })
+
+  it('does not render wrappers for omitted slots and header props', () => {
     const wrapper = mount(MkCard, {
       slots: { header: 'Heading' },
     })
@@ -188,5 +243,7 @@ describe('MkCard', () => {
   it('keeps native attributes in the exported component type', () => {
     expectTypeOf<Parameters<typeof MkCard>[0]['aria-label']>().toEqualTypeOf<string | undefined>()
     expectTypeOf<Parameters<typeof MkCard>[0]['id']>().toEqualTypeOf<string | undefined>()
+    expectTypeOf<Parameters<typeof MkCard>[0]['title']>().toEqualTypeOf<string | undefined>()
+    expectTypeOf<Parameters<typeof MkCard>[0]['description']>().toEqualTypeOf<string | undefined>()
   })
 })

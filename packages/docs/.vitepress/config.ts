@@ -73,6 +73,18 @@ export default defineConfig({
           ],
         },
         {
+          text: 'Typography',
+          items: [
+            { text: 'Headline', link: '/components/headline' },
+            { text: 'Text', link: '/components/text' },
+            { text: 'Paragraph', link: '/components/paragraph' },
+            { text: 'Caption', link: '/components/caption' },
+            { text: 'Ellipsis Text', link: '/components/ellipsis-text' },
+            { text: 'Mark', link: '/components/mark' },
+            { text: 'Link', link: '/components/link' },
+          ],
+        },
+        {
           text: 'Form',
           items: [
             { text: 'Checkbox', link: '/components/checkbox' },

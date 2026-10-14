@@ -12,7 +12,8 @@ roles live as static CSS variables in the Tailwind entry, and components consume
 generated Tailwind utilities. ModeKit prefixes its internal utility selectors and theme variables
 with `mk` so they do not claim generic Tailwind names in the consuming application. Each component
 keeps rendering and behavior in its component module and its CVA recipe in a separate style module.
-The package ships the compiled CSS required by built-in classes and does not include Preflight.
+The package ships the compiled CSS required by built-in classes, limits its default base rules to
+ModeKit-owned selectors, and exposes Tailwind Preflight through a separate opt-in stylesheet.
 
 An optional `createModeKit()` Vue plugin selects the primary and neutral palette families and
 provides application-wide class overrides and default variants. Components use the default black

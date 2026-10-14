@@ -72,7 +72,7 @@ try {
   )
   writeFileSync(
     join(consumerDirectory, 'verify.mjs'),
-    `import assert from 'node:assert/strict'\nimport { readFile } from 'node:fs/promises'\nimport { createSSRApp, h } from 'vue'\nimport { renderToString } from 'vue/server-renderer'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ theme: { primary: 'green', neutral: 'slate' }, ui: { button: { defaultVariants: { size: 'sm' } } } }))\nconst html = await renderToString(app)\nassert.match(html, /<button/)\nassert.match(html, /type="submit"/)\nassert.match(html, /data-mk-size="sm"/)\nassert.match(html, /Save/)\nassert.match(html, /<\\/button>$/)\n\nconst cssUrl = import.meta.resolve('@modekit/vue/styles.css')\nconst css = await readFile(new URL(cssUrl), 'utf8')\nassert.match(css, /\\.mk-button/)\nassert.match(css, /data-mk-primary/)\nassert.match(css, /data-mk-neutral/)\n`,
+    `import assert from 'node:assert/strict'\nimport { readFile } from 'node:fs/promises'\nimport { createSSRApp, h } from 'vue'\nimport { renderToString } from 'vue/server-renderer'\nimport { createModeKit, MkButton } from '@modekit/vue'\n\nconst app = createSSRApp({ render: () => h(MkButton, { type: 'submit' }, () => 'Save') })\napp.use(createModeKit({ theme: { primary: 'green', neutral: 'slate' }, ui: { button: { defaultVariants: { size: 'sm' } } } }))\nconst html = await renderToString(app)\nassert.match(html, /<button/)\nassert.match(html, /type="submit"/)\nassert.match(html, /data-mk-size="sm"/)\nassert.match(html, /Save/)\nassert.match(html, /<\\/button>$/)\n\nconst cssUrl = import.meta.resolve('@modekit/vue/styles.css')\nconst css = await readFile(new URL(cssUrl), 'utf8')\nassert.match(css, /\\.mk-button/)\nassert.match(css, /data-mk-primary/)\nassert.match(css, /data-mk-neutral/)\nassert.match(css, /:where\\(\\.mk-headline,\\.mk-text,\\.mk-paragraph,\\.mk-caption\\)\\{margin:0\\}/)\nassert.doesNotMatch(css, /box-sizing:border-box;border:0 solid;margin:0;padding:0/)\n\nconst preflightUrl = import.meta.resolve('@modekit/vue/preflight.css')\nconst preflight = await readFile(new URL(preflightUrl), 'utf8')\nassert.match(preflight, /box-sizing:border-box;border:0 solid;margin:0;padding:0/)\nassert.match(preflight, /h1,h2,h3,h4,h5,h6\\{font-size:inherit;font-weight:inherit\\}/)\n`,
   )
 
   runPnpm(['install', '--ignore-scripts', '--prefer-offline'], consumerDirectory)
@@ -84,6 +84,7 @@ try {
   )
   assert.equal(packedManifest.exports['.'].types, './dist/index.d.ts')
   assert.equal(packedManifest.exports['./styles.css'].default, './dist/styles.css')
+  assert.equal(packedManifest.exports['./preflight.css'].default, './dist/preflight.css')
   process.stdout.write('Packed @modekit/vue consumer validation passed.\n')
 } finally {
   rmSync(temporaryDirectory, { force: true, recursive: true })

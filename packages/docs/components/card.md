@@ -31,23 +31,25 @@ same size, so a Button placed inside a Card remains visually subordinate to its 
 
 ### Props
 
-| Prop      | Type                                          | Default    | Description                                      |
-| --------- | --------------------------------------------- | ---------- | ------------------------------------------------ |
-| `variant` | `'shadow' \| 'muted' \| 'outline' \| 'plain'` | `'shadow'` | Sets the neutral surface treatment.              |
-| `size`    | `'sm' \| 'md' \| 'lg'`                        | `'md'`     | Sets the gap and padding scale.                  |
-| `ui`      | `CardUI`                                      | —          | Adds or overrides root and slot wrapper classes. |
+| Prop          | Type                                          | Default    | Description                                                   |
+| ------------- | --------------------------------------------- | ---------- | ------------------------------------------------------------- |
+| `variant`     | `'shadow' \| 'muted' \| 'outline' \| 'plain'` | `'shadow'` | Sets the neutral surface treatment.                           |
+| `size`        | `'sm' \| 'md' \| 'lg'`                        | `'md'`     | Sets the gap and padding scale.                               |
+| `title`       | `string`                                      | —          | Renders an `MkHeadline` in the header when no slot is given.  |
+| `description` | `string`                                      | —          | Renders an `MkText` description when no header slot is given. |
+| `ui`          | `CardUI`                                      | —          | Adds or overrides root and slot wrapper classes.              |
 
 All other native div attributes, listeners, and classes are forwarded to the root `<div>`.
 
 ### Slots
 
-| Slot      | Description                                |
-| --------- | ------------------------------------------ |
-| `header`  | Optional content rendered before the body. |
-| `default` | Main Card content.                         |
-| `footer`  | Optional content rendered after the body.  |
+| Slot      | Description                                                                                  |
+| --------- | -------------------------------------------------------------------------------------------- |
+| `header`  | Optional content rendered before the body; replaces generated title and description content. |
+| `default` | Main Card content.                                                                           |
+| `footer`  | Optional content rendered after the body.                                                    |
 
-Omitted slots do not render empty wrappers.
+When no `header` slot is supplied, `title` renders as an `MkHeadline` with an `h3` root and `description` renders as an `MkText` paragraph. Supplying the slot keeps its content untouched and takes precedence over both convenience props. Omitted regions do not render empty wrappers.
 
 ## Styling
 
@@ -63,9 +65,13 @@ Use `ui` for local root or slot wrapper customization. Native `class` applies la
     footer: 'justify-end',
   }"
 >
-  <template #header>Account summary</template>
+  <template #header>
+    <MkHeadline as="h2" size="xs">Account summary</MkHeadline>
+  </template>
   Current balance
-  <template #footer>Updated now</template>
+  <template #footer>
+    <MkCaption>Updated now</MkCaption>
+  </template>
 </MkCard>
 ```
 
@@ -107,6 +113,6 @@ slot config. Conflicts are merged independently within the ModeKit and applicati
 ## Accessibility
 
 Card uses a Reka UI `Primitive` rendered as a neutral `<div>` and adds no landmark semantics
-automatically. Supply native `role` and an
-accessible name only when the Card represents a meaningful region. Keep heading hierarchy in the
-slotted content rather than encoding it in the container.
+automatically. Supply native `role` and an accessible name only when the Card represents a
+meaningful region. The `title` convenience prop renders an `h3`; use the `header` slot with
+`MkHeadline` when the surrounding document requires a different heading level.

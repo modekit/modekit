@@ -7,12 +7,19 @@ import {
   MkButton,
   MkButtonGroup,
   MkCallout,
+  MkCaption,
   MkCard,
   MkCheckbox,
+  MkEllipsisText,
+  MkHeadline,
   MkInput,
   MkLabel,
+  MkLink,
+  MkMark,
+  MkParagraph,
   MkSpinner,
   MkTabs,
+  MkText,
 } from '@modekit/vue'
 
 const props = defineProps<{
@@ -91,6 +98,36 @@ const tabItems = [
       <strong>2,480</strong>
       <span>active users</span>
     </MkCard>
+
+    <div v-else-if="props.kind === 'headline'" class="overview-preview__typography">
+      <MkHeadline as="h3" size="sm">Clear visual hierarchy</MkHeadline>
+    </div>
+
+    <div v-else-if="props.kind === 'text'" class="overview-preview__typography">
+      <MkText size="lg" weight="medium">Consistent interface copy</MkText>
+    </div>
+
+    <div v-else-if="props.kind === 'paragraph'" class="overview-preview__typography">
+      <MkParagraph size="sm"> Readable body copy with a controlled scale and rhythm. </MkParagraph>
+    </div>
+
+    <div v-else-if="props.kind === 'caption'" class="overview-preview__typography">
+      <MkCaption variant="uppercase">Updated just now</MkCaption>
+    </div>
+
+    <div v-else-if="props.kind === 'ellipsis-text'" class="overview-preview__typography">
+      <MkEllipsisText :lines="2" size="sm">
+        Long interface content stays within a predictable number of visible lines.
+      </MkEllipsisText>
+    </div>
+
+    <div v-else-if="props.kind === 'mark'" class="overview-preview__typography">
+      <MkMark variant="soft">Intentional emphasis</MkMark>
+    </div>
+
+    <div v-else-if="props.kind === 'link'" class="overview-preview__typography">
+      <MkLink href="#components" primary variant="underline">Explore the documentation</MkLink>
+    </div>
 
     <MkCheckbox
       v-else-if="props.kind === 'checkbox'"
@@ -180,8 +217,14 @@ const tabItems = [
   font-size: 0.7rem;
 }
 
-.overview-preview__label-demo {
+.overview-preview__label-demo,
+.overview-preview__typography {
   width: min(100%, 13rem);
+}
+
+.overview-preview__typography {
+  display: grid;
+  gap: 0.5rem;
 }
 
 .overview-preview__label-field {
