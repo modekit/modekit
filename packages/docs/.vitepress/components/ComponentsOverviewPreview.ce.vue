@@ -11,6 +11,7 @@ import {
   MkCard,
   MkCheckbox,
   MkEllipsisText,
+  MkFlex,
   MkGrid,
   MkHeadline,
   MkInput,
@@ -37,8 +38,21 @@ const tabItems = [
 
 <template>
   <div class="overview-preview">
+    <MkFlex
+      v-if="props.kind === 'flex'"
+      class="overview-preview__flex"
+      align="center"
+      justify="space-between"
+      gap="xs"
+      aria-label="Flex preview"
+    >
+      <span>Start</span>
+      <span>Center</span>
+      <span>End</span>
+    </MkFlex>
+
     <MkGrid
-      v-if="props.kind === 'grid'"
+      v-else-if="props.kind === 'grid'"
       class="overview-preview__grid"
       :columns="3"
       gap="xs"
@@ -206,10 +220,12 @@ const tabItems = [
   align-items: center;
 }
 
+.overview-preview__flex,
 .overview-preview__grid {
   width: min(100%, 13rem);
 }
 
+.overview-preview__flex span,
 .overview-preview__grid span {
   display: grid;
   min-height: 2rem;
@@ -296,12 +312,14 @@ const tabItems = [
 }
 
 .dark .overview-preview__card span:last-child,
+.dark .overview-preview__flex span,
 .dark .overview-preview__grid span,
 .dark .overview-preview__spacing span,
 .dark .overview-preview__label-field {
   color: var(--mk-neutral-400);
 }
 
+.dark .overview-preview__flex span,
 .dark .overview-preview__grid span,
 .dark .overview-preview__spacing span {
   border-color: var(--mk-neutral-700);

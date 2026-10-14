@@ -6,6 +6,13 @@ import ComponentsOverviewPreview from './ComponentsOverviewPreview.vue'
 
 const components = [
   {
+    id: 'flex',
+    name: 'Flex',
+    category: 'Layout',
+    description: 'Arrange and distribute content along a native flexbox axis.',
+    href: '/components/flex',
+  },
+  {
     id: 'grid',
     name: 'Grid',
     category: 'Layout',
@@ -16,7 +23,7 @@ const components = [
     id: 'spacing',
     name: 'Spacing',
     category: 'Layout',
-    description: 'Create explicit vertical rhythm with presets, pixels, or design tokens.',
+    description: 'Create fixed or flexible whitespace on either logical axis.',
     href: '/components/spacing',
   },
   {

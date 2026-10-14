@@ -107,6 +107,37 @@ export type {
   CheckboxVariant,
 } from './checkbox/index.js'
 export {
+  flexAlignments,
+  flexContentAlignments,
+  flexDirections,
+  flexDisplays,
+  flexJustifications,
+  flexSelfAlignments,
+  flexSpacePresets,
+  flexWraps,
+  MkFlex,
+} from './flex/index.js'
+export type {
+  FlexAlign,
+  FlexAs,
+  FlexBasis,
+  FlexContentAlign,
+  FlexDirection,
+  FlexDisplay,
+  FlexGap,
+  FlexGapValue,
+  FlexJustify,
+  FlexOptions,
+  FlexProps,
+  FlexSelfAlign,
+  FlexShorthand,
+  FlexSlots,
+  FlexSpacePreset,
+  FlexStyleConfig,
+  FlexUI,
+  FlexWrap,
+} from './flex/index.js'
+export {
   gridAlignments,
   gridDisplays,
   gridSpacePresets,

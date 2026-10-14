@@ -63,6 +63,7 @@ export default defineConfig({
         {
           text: 'Layout',
           items: [
+            { text: 'Flex', link: '/components/flex' },
             { text: 'Grid', link: '/components/grid' },
             { text: 'Spacing', link: '/components/spacing' },
           ],
