@@ -5,6 +5,7 @@ import type { ButtonGroupStyleConfig } from '../components/button-group/types.js
 import type { ButtonStyleConfig } from '../components/button/types.js'
 import type { CardEdgeStyleConfig, CardStyleConfig } from '../components/card/types.js'
 import type { CheckboxStyleConfig } from '../components/checkbox/types.js'
+import type { DropdownStyleConfig } from '../components/dropdown/types.js'
 import type { FlexStyleConfig } from '../components/flex/types.js'
 import type { GridStyleConfig } from '../components/grid/types.js'
 import type { InputStyleConfig } from '../components/input/types.js'
@@ -36,6 +37,7 @@ export interface ModeKitUIConfig {
   card?: CardStyleConfig
   cardEdge?: CardEdgeStyleConfig
   checkbox?: CheckboxStyleConfig
+  dropdown?: DropdownStyleConfig
   flex?: FlexStyleConfig
   grid?: GridStyleConfig
   input?: InputStyleConfig

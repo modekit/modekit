@@ -84,6 +84,13 @@ const components = [
     href: '/components/separator',
   },
   {
+    id: 'dropdown',
+    name: 'Dropdown',
+    category: 'Overlay',
+    description: 'Present keyboard-accessible actions, choices, and nested menus.',
+    href: '/components/dropdown',
+  },
+  {
     id: 'popover',
     name: 'Popover',
     category: 'Overlay',

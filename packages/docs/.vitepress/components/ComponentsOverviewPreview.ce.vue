@@ -10,6 +10,9 @@ import {
   MkCaption,
   MkCard,
   MkCheckbox,
+  MkDropdown,
+  MkDropdownItem,
+  MkDropdownSeparator,
   MkEllipsisText,
   MkFlex,
   MkGrid,
@@ -189,6 +192,25 @@ const tabItems = [
         readonly
       />
     </div>
+
+    <MkDropdown
+      v-else-if="props.kind === 'dropdown'"
+      align="center"
+      :default-open="true"
+      :modal="false"
+      :portal="false"
+      :side-offset="4"
+      position-strategy="absolute"
+      size="sm"
+    >
+      <MkButton size="xs">Actions</MkButton>
+      <template #content>
+        <MkDropdownItem>Edit</MkDropdownItem>
+        <MkDropdownItem>Duplicate</MkDropdownItem>
+        <MkDropdownSeparator />
+        <MkDropdownItem color="red">Delete</MkDropdownItem>
+      </template>
+    </MkDropdown>
 
     <MkPopover
       v-else-if="props.kind === 'popover'"

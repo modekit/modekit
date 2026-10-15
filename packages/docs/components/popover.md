@@ -85,7 +85,7 @@ close action in that case.
 
 Popover supplies the floating surface rather than prescribing its internal layout. Compose existing
 ModeKit controls and layout primitives inside the content slot. Purpose-built components such as
-Dropdown Menu should still own their specialized selection and keyboard semantics.
+Dropdown should still own their specialized selection and keyboard semantics.
 
 ## Features
 
