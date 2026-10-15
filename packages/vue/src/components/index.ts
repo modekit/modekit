@@ -300,6 +300,31 @@ export type {
   TabsValue,
   TabsVariant,
 } from './tabs/index.js'
+export {
+  MkTooltip,
+  MkTooltipProvider,
+  tooltipAlignments,
+  tooltipPositionStrategies,
+  tooltipSides,
+} from './tooltip/index.js'
+export type {
+  TooltipAlign,
+  TooltipAs,
+  TooltipCollisionPadding,
+  TooltipEmits,
+  TooltipOptions,
+  TooltipPortalTarget,
+  TooltipPositionStrategy,
+  TooltipProps,
+  TooltipProviderOptions,
+  TooltipProviderProps,
+  TooltipProviderSlots,
+  TooltipSide,
+  TooltipSlotProps,
+  TooltipSlots,
+  TooltipStyleConfig,
+  TooltipUI,
+} from './tooltip/index.js'
 export type {
   CaptionAs,
   CaptionOptions,

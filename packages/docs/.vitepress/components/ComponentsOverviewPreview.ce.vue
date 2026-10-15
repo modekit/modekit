@@ -25,6 +25,7 @@ import {
   MkSpinner,
   MkTabs,
   MkText,
+  MkTooltip,
 } from '@modekit/vue'
 
 const props = defineProps<{
@@ -204,6 +205,19 @@ const tabItems = [
         <MkText size="xs">Anchored content</MkText>
       </template>
     </MkPopover>
+
+    <MkTooltip
+      v-else-if="props.kind === 'tooltip'"
+      align="center"
+      arrow
+      :default-open="true"
+      :portal="false"
+      :side-offset="4"
+      position-strategy="absolute"
+    >
+      <MkButton size="xs">Hover details</MkButton>
+      <template #content>Concise context</template>
+    </MkTooltip>
 
     <MkSeparator
       v-else-if="props.kind === 'separator'"

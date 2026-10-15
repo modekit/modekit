@@ -103,7 +103,10 @@ export default defineConfig({
         },
         {
           text: 'Overlay',
-          items: [{ text: 'Popover', link: '/components/popover' }],
+          items: [
+            { text: 'Popover', link: '/components/popover' },
+            { text: 'Tooltip', link: '/components/tooltip' },
+          ],
         },
         {
           text: 'Feedback',

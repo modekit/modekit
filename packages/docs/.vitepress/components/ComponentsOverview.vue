@@ -91,6 +91,13 @@ const components = [
     href: '/components/popover',
   },
   {
+    id: 'tooltip',
+    name: 'Tooltip',
+    category: 'Overlay',
+    description: 'Describe controls with delayed pointer and keyboard context.',
+    href: '/components/tooltip',
+  },
+  {
     id: 'headline',
     name: 'Headline',
     category: 'Typography',
