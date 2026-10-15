@@ -84,6 +84,13 @@ const components = [
     href: '/components/separator',
   },
   {
+    id: 'alert-dialog',
+    name: 'Alert Dialog',
+    category: 'Overlay',
+    description: 'Require an explicit safe or consequential choice before continuing.',
+    href: '/components/alert-dialog',
+  },
+  {
     id: 'dialog',
     name: 'Dialog',
     category: 'Overlay',

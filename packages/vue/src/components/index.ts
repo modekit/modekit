@@ -1,3 +1,19 @@
+export { MkAlertDialog } from './alert-dialog/index.js'
+export type {
+  AlertDialogAnimation,
+  AlertDialogAs,
+  AlertDialogDescriptionSlotProps,
+  AlertDialogEmits,
+  AlertDialogOptions,
+  AlertDialogPortalTarget,
+  AlertDialogProps,
+  AlertDialogSize,
+  AlertDialogSlotProps,
+  AlertDialogSlots,
+  AlertDialogStyleConfig,
+  AlertDialogTitleSlotProps,
+  AlertDialogUI,
+} from './alert-dialog/index.js'
 export { calloutColors, calloutSizes, calloutVariants, MkCallout } from './callout/index.js'
 export type {
   CalloutAs,

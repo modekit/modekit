@@ -1,3 +1,4 @@
+import type { AlertDialogStyleConfig } from '../components/alert-dialog/types.js'
 import type { CalloutStyleConfig } from '../components/callout/types.js'
 import type { AvatarGroupStyleConfig, AvatarStyleConfig } from '../components/avatar/types.js'
 import type { BadgeStyleConfig } from '../components/badge/types.js'
@@ -30,6 +31,7 @@ import type {
 import type { ModeKitNeutralColor, ModeKitPrimaryColor } from '../colors.js'
 
 export interface ModeKitUIConfig {
+  alertDialog?: AlertDialogStyleConfig
   callout?: CalloutStyleConfig
   avatar?: AvatarStyleConfig
   avatarGroup?: AvatarGroupStyleConfig

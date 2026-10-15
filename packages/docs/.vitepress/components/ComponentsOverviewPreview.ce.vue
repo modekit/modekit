@@ -195,6 +195,15 @@ const tabItems = [
       />
     </div>
 
+    <div v-else-if="props.kind === 'alert-dialog'" class="overview-preview__alert-dialog">
+      <strong>Delete project?</strong>
+      <span>This cannot be undone.</span>
+      <div>
+        <MkButton size="xs" variant="outline">Cancel</MkButton>
+        <MkButton color="red" size="xs">Delete</MkButton>
+      </div>
+    </div>
+
     <MkDialog
       v-else-if="props.kind === 'dialog'"
       class="overview-preview__dialog"
@@ -356,6 +365,28 @@ const tabItems = [
 
 .overview-preview__separator {
   width: min(100%, 13rem);
+}
+
+.overview-preview__alert-dialog {
+  display: grid;
+  width: min(100%, 14rem);
+  gap: 0.5rem;
+  padding: 0.875rem;
+  border: 1px solid color-mix(in srgb, var(--vp-c-border) 80%, transparent);
+  border-radius: 0.75rem;
+  background: var(--vp-c-bg);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 12%);
+  font-size: 0.75rem;
+}
+
+.overview-preview__alert-dialog > span {
+  color: var(--vp-c-text-2);
+}
+
+.overview-preview__alert-dialog > div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.375rem;
 }
 
 .overview-preview__dialog {
