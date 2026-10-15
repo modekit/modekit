@@ -113,6 +113,22 @@ export type {
   CheckboxUI,
   CheckboxVariant,
 } from './checkbox/index.js'
+export { dialogAnimations, dialogSizes, MkDialog } from './dialog/index.js'
+export type {
+  DialogAnimation,
+  DialogAs,
+  DialogDescriptionSlotProps,
+  DialogEmits,
+  DialogOptions,
+  DialogPortalTarget,
+  DialogProps,
+  DialogSize,
+  DialogSlotProps,
+  DialogSlots,
+  DialogStyleConfig,
+  DialogTitleSlotProps,
+  DialogUI,
+} from './dialog/index.js'
 export {
   dropdownAlignments,
   dropdownDirections,

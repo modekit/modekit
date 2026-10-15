@@ -84,6 +84,13 @@ const components = [
     href: '/components/separator',
   },
   {
+    id: 'dialog',
+    name: 'Dialog',
+    category: 'Overlay',
+    description: 'Focus attention on modal workflows with accessible structure and state.',
+    href: '/components/dialog',
+  },
+  {
     id: 'dropdown',
     name: 'Dropdown',
     category: 'Overlay',

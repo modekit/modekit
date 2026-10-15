@@ -41,6 +41,72 @@
   }
 }
 
+@keyframes mk-dialog-overlay-open {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes mk-dialog-overlay-close {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mk-dialog-scale-open {
+  from {
+    opacity: 0;
+    scale: 0.88;
+  }
+}
+
+@keyframes mk-dialog-scale-close {
+  to {
+    opacity: 0;
+    scale: 0.88;
+  }
+}
+
+@keyframes mk-dialog-fade-open {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes mk-dialog-fade-close {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mk-dialog-slide-up-open {
+  from {
+    opacity: 0;
+    translate: -50% calc(-50% + 2.5rem);
+  }
+}
+
+@keyframes mk-dialog-slide-up-close {
+  to {
+    opacity: 0;
+    translate: -50% calc(-50% + 2.5rem);
+  }
+}
+
+@keyframes mk-dialog-slide-down-open {
+  from {
+    opacity: 0;
+    translate: -50% calc(-50% - 2.5rem);
+  }
+}
+
+@keyframes mk-dialog-slide-down-close {
+  to {
+    opacity: 0;
+    translate: -50% calc(-50% - 2.5rem);
+  }
+}
+
 @theme static inline {
   --color-primary: var(--mk-primary);
   --color-primary-foreground: var(--mk-primary-foreground);

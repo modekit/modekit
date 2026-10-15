@@ -10,6 +10,7 @@ import {
   MkCaption,
   MkCard,
   MkCheckbox,
+  MkDialog,
   MkDropdown,
   MkDropdownItem,
   MkDropdownSeparator,
@@ -194,6 +195,22 @@ const tabItems = [
       />
     </div>
 
+    <MkDialog
+      v-else-if="props.kind === 'dialog'"
+      class="overview-preview__dialog"
+      :close-button="false"
+      :default-open="true"
+      description="A focused workflow"
+      :modal="false"
+      :portal="false"
+      style="position: absolute; inset: auto; width: 13rem; transform: none"
+      title="Edit project"
+    >
+      <template #content>
+        <MkText size="xs">Review details before saving.</MkText>
+      </template>
+    </MkDialog>
+
     <MkDropdown
       v-else-if="props.kind === 'dropdown'"
       align="center"
@@ -339,6 +356,10 @@ const tabItems = [
 
 .overview-preview__separator {
   width: min(100%, 13rem);
+}
+
+.overview-preview__dialog {
+  max-height: none;
 }
 
 .overview-preview__hover-card,
