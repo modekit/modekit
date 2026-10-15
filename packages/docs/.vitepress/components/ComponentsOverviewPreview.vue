@@ -41,7 +41,7 @@ const frameStyles = `
   align-items: center;
   justify-content: center;
   color: var(--mk-neutral-950);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--vp-font-family-base, Inter, ui-sans-serif, system-ui, sans-serif);
 }
 
 .mk-docs-overview-preview-surface.dark {

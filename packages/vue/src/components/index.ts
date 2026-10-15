@@ -408,6 +408,42 @@ export type {
   SeparatorType,
   SeparatorUI,
 } from './separator/index.js'
+export {
+  MkSelect,
+  selectAlignments,
+  selectDirections,
+  selectPositions,
+  selectPositionStrategies,
+  selectSides,
+  selectSizes,
+  selectVariants,
+} from './select/index.js'
+export type {
+  SelectAlign,
+  SelectCollisionPadding,
+  SelectDirection,
+  SelectEmits,
+  SelectGroup,
+  SelectItem,
+  SelectItemSlotProps,
+  SelectModelValue,
+  SelectOption,
+  SelectOptions,
+  SelectPortalTarget,
+  SelectPosition,
+  SelectPositionStrategy,
+  SelectProps,
+  SelectSeparator,
+  SelectSide,
+  SelectSize,
+  SelectSlotProps,
+  SelectSlots,
+  SelectStyleConfig,
+  SelectUI,
+  SelectValue,
+  SelectValueSlotProps,
+  SelectVariant,
+} from './select/index.js'
 export { MkSpacing, spacingOrientations, spacingSizes } from './spacing/index.js'
 export type {
   SpacingCSSVariable,

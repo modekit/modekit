@@ -25,6 +25,7 @@ import {
   MkMark,
   MkParagraph,
   MkPopover,
+  MkSelect,
   MkSeparator,
   MkSheet,
   MkSpacing,
@@ -185,6 +186,19 @@ const tabItems = [
     >
       <template #leading><Search aria-hidden="true" /></template>
     </MkInput>
+
+    <MkSelect
+      v-else-if="props.kind === 'select'"
+      class="overview-preview__fill"
+      aria-label="Project status"
+      default-value="progress"
+      :items="[
+        { label: 'Backlog', value: 'backlog' },
+        { label: 'In progress', value: 'progress' },
+        { label: 'Done', value: 'done' },
+      ]"
+      :portal="false"
+    />
 
     <div v-else-if="props.kind === 'label'" class="overview-preview__label-demo">
       <MkLabel for="overview-workspace" required>Workspace name</MkLabel>

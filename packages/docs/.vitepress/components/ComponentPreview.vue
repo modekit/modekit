@@ -69,7 +69,7 @@ const frameStyles = `
   padding: 2rem;
   background-color: var(--vp-c-bg);
   color: var(--vp-c-text-1);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--vp-font-family-base, Inter, ui-sans-serif, system-ui, sans-serif);
 }
 
 @media (max-width: 639px) {
@@ -87,7 +87,7 @@ const portalFrameStyles = `
 }
 
 .mk-docs-preview-portal {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--vp-font-family-base, Inter, ui-sans-serif, system-ui, sans-serif);
 }
 `
 

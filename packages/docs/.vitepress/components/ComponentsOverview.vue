@@ -203,6 +203,13 @@ const components = [
     href: '/components/label',
   },
   {
+    id: 'select',
+    name: 'Select',
+    category: 'Form',
+    description: 'Choose one or more values with grouped options and keyboard navigation.',
+    href: '/components/select',
+  },
+  {
     id: 'spinner',
     name: 'Spinner',
     category: 'Feedback',

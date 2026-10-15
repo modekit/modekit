@@ -99,6 +99,7 @@ export default defineConfig({
             { text: 'Checkbox', link: '/components/checkbox' },
             { text: 'Input', link: '/components/input' },
             { text: 'Label', link: '/components/label' },
+            { text: 'Select', link: '/components/select' },
           ],
         },
         {

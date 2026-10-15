@@ -8,6 +8,7 @@ import type { CardEdgeStyleConfig, CardStyleConfig } from '../components/card/ty
 import type { CheckboxStyleConfig } from '../components/checkbox/types.js'
 import type { DialogStyleConfig } from '../components/dialog/types.js'
 import type { SheetStyleConfig } from '../components/sheet/types.js'
+import type { SelectStyleConfig } from '../components/select/types.js'
 import type { DropdownStyleConfig } from '../components/dropdown/types.js'
 import type { FlexStyleConfig } from '../components/flex/types.js'
 import type { GridStyleConfig } from '../components/grid/types.js'
@@ -44,6 +45,7 @@ export interface ModeKitUIConfig {
   checkbox?: CheckboxStyleConfig
   dialog?: DialogStyleConfig
   sheet?: SheetStyleConfig
+  select?: SelectStyleConfig
   dropdown?: DropdownStyleConfig
   flex?: FlexStyleConfig
   grid?: GridStyleConfig
