@@ -56,7 +56,6 @@ export interface SheetOptions {
   defaultOpen?: boolean
   modal?: boolean
   dismissible?: boolean
-  unmountOnHide?: boolean
   side?: SheetSide
   size?: SheetSize
   variant?: SheetVariant

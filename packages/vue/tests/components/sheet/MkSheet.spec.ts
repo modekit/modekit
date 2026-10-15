@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { DrawerContent, DrawerRoot } from 'reka-ui'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -34,6 +34,8 @@ async function settle(): Promise<void> {
   await nextTick()
   await nextTick()
 }
+
+enableAutoUnmount(afterEach)
 
 afterEach(async () => {
   await settle()
@@ -231,7 +233,7 @@ describe('MkSheet', () => {
     expect(wrapper.emitted('update:open')).toEqual([[false]])
   })
 
-  it('forwards modal, focus, and persistent-mount behavior', () => {
+  it('forwards modal and focus behavior', () => {
     const initialFocus = document.createElement('button')
     const finalFocus = document.createElement('button')
     const wrapper = mountSheet({
@@ -239,7 +241,6 @@ describe('MkSheet', () => {
       initialFocus,
       finalFocus,
       modal: false,
-      unmountOnHide: false,
     })
     const root = wrapper.getComponent(DrawerRoot)
     const content = wrapper.getComponent(DrawerContent)
@@ -247,7 +248,29 @@ describe('MkSheet', () => {
     expect(root.props('modal')).toBe(false)
     expect(content.props('initialFocus')).toBe(initialFocus)
     expect(content.props('finalFocus')).toBe(finalFocus)
-    expect(content.props('forceMount')).toBe(true)
+  })
+
+  it.each([false, true])('releases modal effects after closing with portal=%s', async (portal) => {
+    const outside = document.createElement('button')
+    outside.textContent = 'Outside action'
+    document.body.append(outside)
+    const wrapper = mountSheet({ open: true, portal })
+
+    await settle()
+
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull()
+    expect(document.body.style.pointerEvents).toBe('none')
+    expect(outside.getAttribute('aria-hidden')).toBe('true')
+
+    await wrapper.setProps({ open: false })
+    await settle()
+
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull()
+    expect(document.body.style.pointerEvents).not.toBe('none')
+    expect(outside.getAttribute('aria-hidden')).toBeNull()
+
+    wrapper.unmount()
+    outside.remove()
   })
 
   it('forwards content lifecycle events', () => {

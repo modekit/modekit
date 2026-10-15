@@ -143,7 +143,6 @@ const isDesktop = useMediaQuery('(min-width: 768px)')
 - Independently scrollable body with persistent header and footer regions
 - Body portal by default, inline rendering, and custom portal targets
 - Built-in accessible close control with custom label and graphic
-- Optional persistent mounting
 - Light and dark surfaces, reduced-motion handling, and coordinated overlay motion
 - Global configuration, local slot classes, and native panel-class overrides
 
@@ -151,27 +150,26 @@ const isDesktop = useMediaQuery('(min-width: 768px)')
 
 ### Props
 
-| Prop            | Type                                     | Default         | Description                                                        |
-| --------------- | ---------------------------------------- | --------------- | ------------------------------------------------------------------ |
-| `as`            | `string \| Component`                    | `'div'`         | Changes the sheet content element.                                 |
-| `title`         | `string`                                 | —               | Supplies the required accessible title.                            |
-| `description`   | `string`                                 | —               | Supplies optional supporting text.                                 |
-| `open`          | `boolean`                                | —               | Controls the open state.                                           |
-| `defaultOpen`   | `boolean`                                | `false`         | Sets the initial uncontrolled open state.                          |
-| `modal`         | `boolean`                                | `true`          | Traps focus and blocks background interaction while open.          |
-| `dismissible`   | `boolean`                                | `true`          | Allows swipe, Escape, and outside-press dismissal.                 |
-| `unmountOnHide` | `boolean`                                | `true`          | Unmounts sheet content after its close transition.                 |
-| `side`          | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'`       | Selects the attached edge and swipe direction.                     |
-| `size`          | `'sm' \| 'md' \| 'lg' \| 'xl'`           | `'md'`          | Selects width for side sheets or maximum height for vertical ones. |
-| `variant`       | `'edge' \| 'inset'`                      | `'edge'`        | Attaches to the edge or adds a viewport gutter and full radius.    |
-| `handle`        | `boolean`                                | `false`         | Renders a decorative direction-aware drag affordance.              |
-| `overlay`       | `boolean`                                | `true`          | Renders the modal backdrop.                                        |
-| `closeButton`   | `boolean`                                | `true`          | Renders the built-in top-right close control.                      |
-| `closeLabel`    | `string`                                 | `'Close sheet'` | Sets the close control's accessible name.                          |
-| `initialFocus`  | `boolean \| HTMLElement \| null`         | `true`          | Selects automatic focus behavior when opening.                     |
-| `finalFocus`    | `boolean \| HTMLElement \| null`         | `true`          | Selects focus restoration behavior when closing.                   |
-| `portal`        | `boolean \| string \| HTMLElement`       | `true`          | Portals to body, renders inline, or selects a custom target.       |
-| `ui`            | `SheetUI`                                | —               | Adds classes to the panel and structural slots.                    |
+| Prop           | Type                                     | Default         | Description                                                        |
+| -------------- | ---------------------------------------- | --------------- | ------------------------------------------------------------------ |
+| `as`           | `string \| Component`                    | `'div'`         | Changes the sheet content element.                                 |
+| `title`        | `string`                                 | —               | Supplies the required accessible title.                            |
+| `description`  | `string`                                 | —               | Supplies optional supporting text.                                 |
+| `open`         | `boolean`                                | —               | Controls the open state.                                           |
+| `defaultOpen`  | `boolean`                                | `false`         | Sets the initial uncontrolled open state.                          |
+| `modal`        | `boolean`                                | `true`          | Traps focus and blocks background interaction while open.          |
+| `dismissible`  | `boolean`                                | `true`          | Allows swipe, Escape, and outside-press dismissal.                 |
+| `side`         | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'`       | Selects the attached edge and swipe direction.                     |
+| `size`         | `'sm' \| 'md' \| 'lg' \| 'xl'`           | `'md'`          | Selects width for side sheets or maximum height for vertical ones. |
+| `variant`      | `'edge' \| 'inset'`                      | `'edge'`        | Attaches to the edge or adds a viewport gutter and full radius.    |
+| `handle`       | `boolean`                                | `false`         | Renders a decorative direction-aware drag affordance.              |
+| `overlay`      | `boolean`                                | `true`          | Renders the modal backdrop.                                        |
+| `closeButton`  | `boolean`                                | `true`          | Renders the built-in top-right close control.                      |
+| `closeLabel`   | `string`                                 | `'Close sheet'` | Sets the close control's accessible name.                          |
+| `initialFocus` | `boolean \| HTMLElement \| null`         | `true`          | Selects automatic focus behavior when opening.                     |
+| `finalFocus`   | `boolean \| HTMLElement \| null`         | `true`          | Selects focus restoration behavior when closing.                   |
+| `portal`       | `boolean \| string \| HTMLElement`       | `true`          | Portals to body, renders inline, or selects a custom target.       |
+| `ui`           | `SheetUI`                                | —               | Adds classes to the panel and structural slots.                    |
 
 Native attributes and listeners apply to the sheet content element. Native `class` resolves after
 built-in, global, and local panel classes. The trigger remains consumer-owned.

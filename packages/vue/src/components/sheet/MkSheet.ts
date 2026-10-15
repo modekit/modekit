@@ -86,10 +86,6 @@ export const MkSheet = defineComponent({
       type: Boolean,
       default: true,
     },
-    unmountOnHide: {
-      type: Boolean,
-      default: true,
-    },
     side: {
       type: String as PropType<SheetSide>,
       default: undefined,
@@ -218,7 +214,6 @@ export const MkSheet = defineComponent({
               'data-mk-side': side,
               'data-mk-size': size,
               'data-mk-variant': variant,
-              forceMount: !props.unmountOnHide,
               initialFocus: props.initialFocus,
               finalFocus: props.finalFocus,
               onEscapeKeyDown: (event: KeyboardEvent) => {
@@ -401,7 +396,6 @@ export const MkSheet = defineComponent({
                   config: sheetConfig,
                   ui: props.ui,
                 }),
-                forceMount: !props.unmountOnHide,
               })
             : undefined
           const layer =

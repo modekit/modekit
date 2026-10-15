@@ -29,6 +29,7 @@ describe('MkSheet types', () => {
       | 'close-press'
     >()
     expectTypeOf<SheetProps>().toExtend<HTMLAttributes>()
+    expectTypeOf<SheetProps>().not.toHaveProperty('unmountOnHide')
     expectTypeOf<SheetEmits['update:open']>().toEqualTypeOf<[value: boolean]>()
     expectTypeOf<SheetEmits['afterOpen']>().toEqualTypeOf<[]>()
     expectTypeOf<SheetEmits['afterClose']>().toEqualTypeOf<[]>()
