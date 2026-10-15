@@ -6,6 +6,7 @@ import { definePreview, selectOptions } from '../../components/preview.js'
 export const preview = definePreview({
   componentName: 'MkPopover',
   content: '',
+  teleport: true,
   controls: [
     {
       prop: 'side',
@@ -22,7 +23,7 @@ export const preview = definePreview({
   ],
   code: (previewState) => `<template>
   <MkPopover side="${String(previewState.side)}" align="${String(previewState.align)}">
-    <MkButton variant="outline">Open popover</MkButton>
+    <MkButton>Open popover</MkButton>
 
     <template #content>
       <MkText size="sm">Positioned content</MkText>
@@ -36,6 +37,9 @@ export const preview = definePreview({
 import { MkButton, MkPopover, MkText } from '@modekit/vue'
 import type { PopoverAlign, PopoverSide } from '@modekit/vue'
 
+import { usePreviewPortalTarget } from '../../components/preview-portal.js'
+
+const portalTarget = usePreviewPortalTarget()
 const props = withDefaults(
   defineProps<{
     side?: PopoverSide
@@ -49,8 +53,8 @@ const props = withDefaults(
 </script>
 
 <template>
-  <MkPopover :side="props.side" :align="props.align">
-    <MkButton variant="outline">Open popover</MkButton>
+  <MkPopover :side="props.side" :align="props.align" :portal="portalTarget">
+    <MkButton>Open popover</MkButton>
 
     <template #content>
       <MkText size="sm">Positioned content</MkText>

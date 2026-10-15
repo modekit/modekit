@@ -4,6 +4,7 @@ import { definePreview } from '../../components/preview.js'
 export const preview = definePreview({
   componentName: 'MkPopover',
   content: '',
+  teleport: true,
   controls: [
     {
       prop: 'modal',
@@ -29,7 +30,7 @@ export const preview = definePreview({
     :modal="${String(previewState.modal)}"
     :dismissible="${String(previewState.dismissible)}"
   >
-    <MkButton variant="outline">Open popover</MkButton>
+    <MkButton>Open popover</MkButton>
 
     <template #content="{ close }">
       <MkGrid gap="m" style="width: 15rem">
@@ -45,6 +46,9 @@ export const preview = definePreview({
 <script setup lang="ts">
 import { MkButton, MkGrid, MkPopover, MkText } from '@modekit/vue'
 
+import { usePreviewPortalTarget } from '../../components/preview-portal.js'
+
+const portalTarget = usePreviewPortalTarget()
 const props = withDefaults(
   defineProps<{
     modal?: boolean
@@ -58,8 +62,8 @@ const props = withDefaults(
 </script>
 
 <template>
-  <MkPopover :modal="props.modal" :dismissible="props.dismissible">
-    <MkButton variant="outline">Open popover</MkButton>
+  <MkPopover :modal="props.modal" :dismissible="props.dismissible" :portal="portalTarget">
+    <MkButton>Open popover</MkButton>
 
     <template #content="{ close }">
       <MkGrid gap="m" style="width: 15rem">

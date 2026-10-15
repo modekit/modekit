@@ -209,7 +209,12 @@ describe('MkPopover', () => {
     const arrow = wrapper.get('.mk-popover__arrow')
 
     expect(arrow.classes()).toEqual(
-      expect.arrayContaining(['mk-popover__arrow', 'mk:fill-white', 'mk:stroke-neutral-200']),
+      expect.arrayContaining([
+        'mk-popover__arrow',
+        'mk:-translate-y-px',
+        'mk:fill-white',
+        'mk:stroke-neutral-200',
+      ]),
     )
     expect(wrapper.find('.custom-arrow-path').exists()).toBe(true)
   })

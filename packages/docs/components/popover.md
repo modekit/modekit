@@ -8,9 +8,12 @@ content fully composable.
 
 <ComponentPreview name="popover/PopoverBasic" />
 
-The default slot must contain exactly one trigger element. Popover augments that element directly
-with its dialog relationship and open state instead of adding a wrapper. The `content` slot receives
-`open` and `close`, so actions inside the panel can dismiss it without owning external state.
+The default slot must contain exactly one trigger element. Use the default Button treatment for the
+standard Popover trigger, then choose another Button variant only when the surrounding hierarchy
+requires it. Popover augments that element directly with its dialog relationship and open state
+instead of adding a wrapper. The `content` slot receives `open` and `close`, so actions inside the
+panel can dismiss it without owning external state. Use `as` when the floating content needs a
+semantic root other than `div`; native attributes and listeners are forwarded to that root.
 
 Popover is intended for click-triggered interactive content. Use a dedicated Tooltip or Hover Card
 component for hover-triggered information so pointer, keyboard, focus, and touch behavior remain
@@ -22,24 +25,50 @@ appropriate to that interaction.
 
 `side` selects the preferred edge and `align` positions the panel along that edge. These are
 preferences: with collision handling enabled, the resolved position may change to keep content in
-the available viewport. `side-offset` controls the gap from the trigger, while `align-offset` shifts
-content along the alignment axis.
+the available viewport.
+
+### Offsets
+
+<ComponentPreview name="popover/PopoverOffsets" />
+
+`side-offset` controls the gap from the trigger. `align-offset` shifts content along the alignment
+axis and accepts negative values.
+
+### Collision and positioning strategy
+
+<ComponentPreview name="popover/PopoverCollision" />
+
+`avoid-collisions` allows the preferred side and alignment to change when space is constrained.
+`collision-padding` accepts either one number for every boundary or a per-side object such as
+`:collision-padding="{ top: 16, right: 12 }"`. `hide-when-detached` hides content when the reference
+is fully clipped. The default `fixed` strategy follows viewport-positioned interfaces; use
+`absolute` only when the containing layout requires document-relative positioning.
 
 ## Arrow
 
 <ComponentPreview name="popover/PopoverArrow" />
 
-Set `arrow` to visually connect the panel to its trigger. The arrow tracks the resolved side and
-alignment after collisions. Use the `arrow` slot only when the default rounded arrow graphic must be
-replaced; `ui.arrow` controls its visual classes.
+Set `arrow` to visually connect the panel to its trigger. The arrow overlaps the panel border by one
+pixel so its fill and border form one continuous surface on every resolved side. It tracks the
+resolved side and alignment after collisions. Use the `arrow` slot only when the default rounded
+arrow path must be replaced; `ui.arrow` controls its visual classes.
+
+```vue
+<MkPopover arrow>
+  <MkButton>Open popover</MkButton>
+
+  <template #content>Custom content</template>
+  <template #arrow><path d="M0 0 6 6 12 0" /></template>
+</MkPopover>
+```
 
 ## Controlled state
 
 <ComponentPreview name="popover/PopoverControlled" />
 
 Use `v-model:open` when application state owns visibility. Use `default-open` for an initially open,
-otherwise uncontrolled Popover. The `close` slot action works in either mode and emits the same
-state update.
+otherwise uncontrolled Popover. Omit both props for the default closed, uncontrolled state. The
+`close` slot action works in every state mode and emits the same `update:open` request.
 
 ## Modal and dismissal behavior
 
@@ -123,12 +152,51 @@ Popover prevents Escape and outside-interaction dismissal after emitting the eve
 ## Portal behavior
 
 The default portal keeps floating content clear of clipping and stacking contexts. Set
-`portal="false"` only when inline rendering is intentionally required. A selector or element can be
-passed when an application owns a dedicated overlay container.
+`:portal="false"` only when inline rendering is intentionally required. Pass a selector or an
+`HTMLElement` when an application owns a dedicated overlay container.
+
+```vue
+<!-- Body portal (default) -->
+<MkPopover>...</MkPopover>
+
+<!-- Inline content -->
+<MkPopover :portal="false">...</MkPopover>
+
+<!-- Application overlay container -->
+<MkPopover portal="#app-overlays">...</MkPopover>
+<MkPopover :portal="overlayElement">...</MkPopover>
+```
 
 Because the content leaves its source subtree when portalled, application selectors that depend on
-that subtree do not apply to it. Prefer ModeKit configuration, `ui`, native content classes, CSS
-variables, or selectors attached directly to the content.
+that subtree do not apply to it. Import `@modekit/vue/styles.css` in document scope and prefer ModeKit
+configuration, `ui`, native content classes, CSS variables, or selectors attached directly to the
+content.
+
+When ModeKit is rendered inside a Shadow DOM and its stylesheet exists only inside that shadow root,
+the default body portal cannot retain those styles. Pass an element inside a styled shadow root as
+the portal target, or load ModeKit CSS in both the document and shadow scopes.
+
+## Lifecycle events
+
+Popover exposes the state update and every outside-interaction and focus lifecycle boundary. Event
+handlers may inspect the original event. Prevent `open-auto-focus` or `close-auto-focus` to own focus
+placement; `dismissible="false"` automatically prevents Escape and outside dismissal after emitting
+the corresponding events.
+
+```vue
+<MkPopover
+  v-model:open="open"
+  @escape-key-down="onEscape"
+  @pointer-down-outside="onPointerOutside"
+  @focus-outside="onFocusOutside"
+  @interact-outside="onInteractOutside"
+  @open-auto-focus="onOpenAutoFocus"
+  @close-auto-focus="onCloseAutoFocus"
+>
+  <MkButton>Open popover</MkButton>
+  <template #content="{ close }">...</template>
+</MkPopover>
+```
 
 ## Accessibility
 

@@ -4,10 +4,11 @@ import { definePreview } from '../../components/preview.js'
 export const preview = definePreview({
   componentName: 'MkPopover',
   content: '',
+  teleport: true,
   controls: [],
   code: () => `<template>
   <MkPopover align="start" arrow>
-    <MkButton variant="outline">Filter projects</MkButton>
+    <MkButton>Filter projects</MkButton>
 
     <template #content="{ close }">
       <MkGrid gap="m" style="width: 18rem">
@@ -37,11 +38,15 @@ import {
   MkPopover,
   MkSeparator,
 } from '@modekit/vue'
+
+import { usePreviewPortalTarget } from '../../components/preview-portal.js'
+
+const portalTarget = usePreviewPortalTarget()
 </script>
 
 <template>
-  <MkPopover align="start" arrow>
-    <MkButton variant="outline">Filter projects</MkButton>
+  <MkPopover align="start" arrow :portal="portalTarget">
+    <MkButton>Filter projects</MkButton>
 
     <template #content="{ close }">
       <MkGrid gap="m" style="width: 18rem">

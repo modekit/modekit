@@ -12,7 +12,7 @@ const popoverClasses = [
 
 const popoverArrowClasses = [
   'mk-popover__arrow',
-  'mk:fill-white mk:stroke-neutral-200 mk:stroke-1 mk:dark:fill-neutral-900 mk:dark:stroke-neutral-700',
+  'mk:-translate-y-px mk:fill-white mk:stroke-neutral-200 mk:stroke-1 mk:dark:fill-neutral-900 mk:dark:stroke-neutral-700',
 ]
 
 interface PopoverClassOptions {

@@ -199,7 +199,7 @@ const tabItems = [
       :side-offset="4"
       position-strategy="absolute"
     >
-      <MkButton size="xs" variant="outline">Open details</MkButton>
+      <MkButton size="xs">Open details</MkButton>
       <template #content>
         <MkText size="xs">Anchored content</MkText>
       </template>

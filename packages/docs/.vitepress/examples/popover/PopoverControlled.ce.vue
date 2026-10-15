@@ -4,6 +4,7 @@ import { definePreview } from '../../components/preview.js'
 export const preview = definePreview({
   componentName: 'MkPopover',
   content: '',
+  teleport: true,
   controls: [],
   code: () => `<script setup lang="ts">
 import { ref } from 'vue'
@@ -13,7 +14,7 @@ const open = ref(false)
 
 <template>
   <MkPopover v-model:open="open">
-    <MkButton variant="outline">{{ open ? 'Close' : 'Open' }} popover</MkButton>
+    <MkButton>{{ open ? 'Close' : 'Open' }} popover</MkButton>
 
     <template #content="{ close }">
       <MkGrid gap="m" style="width: 14rem">
@@ -30,12 +31,15 @@ const open = ref(false)
 import { MkButton, MkGrid, MkPopover, MkText } from '@modekit/vue'
 import { ref } from 'vue'
 
+import { usePreviewPortalTarget } from '../../components/preview-portal.js'
+
 const open = ref(false)
+const portalTarget = usePreviewPortalTarget()
 </script>
 
 <template>
-  <MkPopover v-model:open="open">
-    <MkButton variant="outline">{{ open ? 'Close' : 'Open' }} popover</MkButton>
+  <MkPopover v-model:open="open" :portal="portalTarget">
+    <MkButton>{{ open ? 'Close' : 'Open' }} popover</MkButton>
 
     <template #content="{ close }">
       <MkGrid gap="m" style="width: 14rem">

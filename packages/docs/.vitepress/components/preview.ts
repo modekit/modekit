@@ -16,6 +16,7 @@ export interface PreviewDefinition {
   componentName: string
   content: string
   controls: readonly PreviewControl[]
+  teleport?: boolean
   code?: (values: Readonly<Record<string, PreviewControlValue>>) => string
 }
 
