@@ -21,15 +21,48 @@ For every interactive component we need to answer:
 
 ## How we test it
 
-1. Static linting and type checks
-2. Component behavior tests
-3. Automated accessibility checks in a real browser
-4. Keyboard interaction tests
-5. Manual screen-reader review for complex components
-6. Visual regression across component variants, sizes, states, and color schemes
+Current automated evidence includes:
+
+1. static linting and type checks;
+2. fast component behavior tests in jsdom;
+3. Chromium interaction tests against the built package and packaged stylesheet;
+4. keyboard, focus, dismissal, disabled-state, nested-overlay, and portal checks for Sheet, Dialog,
+   Select, Dropdown, and Tooltip;
+5. automated WCAG A/AA scans of the fixture and its active overlay surfaces; and
+6. reviewed Chromium snapshots for selected light, dark, size, error, disabled, and reduced-motion
+   states.
+
+The portalled Select and Dropdown surfaces are scanned at the active listbox or menu while their
+modal behavior intentionally hides the application root. Idle, Dialog, Sheet, and Tooltip states
+receive full-page scans.
+
+The browser suite currently runs only in Chromium. Firefox, WebKit, touch interaction, increased or
+forced contrast, zoom, and screen-reader combinations are not yet release-tested. Do not describe
+those environments as supported based on the current suite.
 
 Automated tools catch useful problems, but a passing scan does not prove that a component is
 accessible. Dialogs, menus, selects, and tabs still need manual keyboard and screen-reader testing.
+
+## Manual release checklist
+
+Before expanding browser-support claims or promoting a prerelease, record the reviewer, date,
+browser, operating system, assistive technology, result, and any issue link for each relevant item:
+
+- [ ] Complete a keyboard-only pass: logical tab order, visible focus, operation, dismissal, and
+      focus return.
+- [ ] Review Dialog, Sheet, Select, Dropdown, Tooltip, and Tabs with at least one desktop screen
+      reader and browser combination.
+- [ ] Check content and controls at 200% browser zoom without loss of information or operation.
+- [ ] Check increased/forced-contrast rendering, including focus and disabled states.
+- [ ] Check touch operation and target sizing on a real or emulated touch viewport.
+- [ ] Confirm reduced-motion behavior for overlays and other animated components.
+
+### Current review record
+
+As of 2026-10-15, the automated Chromium interaction, accessibility-scan, and snapshot checks above
+pass locally. No manual screen-reader, forced-contrast, zoom, or touch review has been recorded yet.
+The current evidence is therefore not an accessibility certification or a blanket WCAG conformance
+claim.
 
 ## Component documentation
 

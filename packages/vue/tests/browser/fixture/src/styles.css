@@ -1,0 +1,118 @@
+:root {
+  color-scheme: light dark;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  color: #18181b;
+  background: #f4f4f5;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.fixture-shell {
+  display: grid;
+  width: min(1040px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 40px 0 64px;
+  gap: 24px;
+}
+
+.fixture-shell > header p,
+.fixture-shell h1,
+.fixture-shell h2 {
+  margin: 0;
+}
+
+.fixture-shell > header {
+  display: grid;
+  gap: 8px;
+}
+
+.eyebrow {
+  color: #52525b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fixture-section {
+  display: grid;
+  padding: 24px;
+  border: 1px solid #d4d4d8;
+  border-radius: 16px;
+  background: #fff;
+  gap: 18px;
+}
+
+.fixture-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.fixture-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.fixture-grid > div {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+output {
+  min-height: 20px;
+  color: #52525b;
+  font-size: 13px;
+}
+
+.mk-dialog input,
+.mk-sheet input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid #a1a1aa;
+  border-radius: 8px;
+  background: #fff;
+  color: #18181b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root,
+  body {
+    background: #09090b;
+    color: #fafafa;
+  }
+
+  .eyebrow,
+  output {
+    color: #a1a1aa;
+  }
+
+  .fixture-section {
+    border-color: #3f3f46;
+    background: #18181b;
+  }
+
+  .mk-dialog input,
+  .mk-sheet input {
+    border-color: #52525b;
+    background: #18181b;
+    color: #fafafa;
+  }
+}

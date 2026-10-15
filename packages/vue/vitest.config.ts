@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     clearMocks: true,
     environment: 'jsdom',
+    exclude: ['tests/browser/**'],
     include: ['tests/**/*.spec.ts'],
     restoreMocks: true,
   },
