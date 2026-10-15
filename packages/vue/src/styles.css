@@ -107,6 +107,54 @@
   }
 }
 
+@keyframes mk-sheet-top-open {
+  from {
+    translate: 0 -100%;
+  }
+}
+
+@keyframes mk-sheet-top-close {
+  to {
+    translate: 0 -100%;
+  }
+}
+
+@keyframes mk-sheet-right-open {
+  from {
+    translate: 100% 0;
+  }
+}
+
+@keyframes mk-sheet-right-close {
+  to {
+    translate: 100% 0;
+  }
+}
+
+@keyframes mk-sheet-bottom-open {
+  from {
+    translate: 0 100%;
+  }
+}
+
+@keyframes mk-sheet-bottom-close {
+  to {
+    translate: 0 100%;
+  }
+}
+
+@keyframes mk-sheet-left-open {
+  from {
+    translate: -100% 0;
+  }
+}
+
+@keyframes mk-sheet-left-close {
+  to {
+    translate: -100% 0;
+  }
+}
+
 @theme static inline {
   --color-primary: var(--mk-primary);
   --color-primary-foreground: var(--mk-primary-foreground);

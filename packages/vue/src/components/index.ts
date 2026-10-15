@@ -145,6 +145,24 @@ export type {
   DialogTitleSlotProps,
   DialogUI,
 } from './dialog/index.js'
+export { MkSheet, sheetSides, sheetSizes, sheetVariants } from './sheet/index.js'
+export type {
+  SheetAs,
+  SheetCloseReason,
+  SheetDescriptionSlotProps,
+  SheetEmits,
+  SheetOptions,
+  SheetPortalTarget,
+  SheetProps,
+  SheetSide,
+  SheetSize,
+  SheetSlotProps,
+  SheetSlots,
+  SheetStyleConfig,
+  SheetTitleSlotProps,
+  SheetUI,
+  SheetVariant,
+} from './sheet/index.js'
 export {
   dropdownAlignments,
   dropdownDirections,

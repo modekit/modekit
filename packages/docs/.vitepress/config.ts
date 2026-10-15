@@ -106,6 +106,7 @@ export default defineConfig({
           items: [
             { text: 'Alert Dialog', link: '/components/alert-dialog' },
             { text: 'Dialog', link: '/components/dialog' },
+            { text: 'Sheet (Alpha)', link: '/components/sheet' },
             { text: 'Dropdown', link: '/components/dropdown' },
             { text: 'Hover Card', link: '/components/hover-card' },
             { text: 'Popover', link: '/components/popover' },

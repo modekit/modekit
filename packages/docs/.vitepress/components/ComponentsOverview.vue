@@ -98,6 +98,13 @@ const components = [
     href: '/components/dialog',
   },
   {
+    id: 'sheet',
+    name: 'Sheet',
+    category: 'Overlay',
+    description: 'Slide a swipe-dismissible Alpha panel from any viewport edge.',
+    href: '/components/sheet',
+  },
+  {
     id: 'dropdown',
     name: 'Dropdown',
     category: 'Overlay',

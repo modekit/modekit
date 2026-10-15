@@ -26,6 +26,7 @@ import {
   MkParagraph,
   MkPopover,
   MkSeparator,
+  MkSheet,
   MkSpacing,
   MkSpinner,
   MkTabs,
@@ -219,6 +220,30 @@ const tabItems = [
         <MkText size="xs">Review details before saving.</MkText>
       </template>
     </MkDialog>
+
+    <MkSheet
+      v-else-if="props.kind === 'sheet'"
+      :close-button="false"
+      :default-open="true"
+      :modal="false"
+      :portal="false"
+      side="right"
+      size="sm"
+      style="
+        position: absolute;
+        inset: 0 0 0 auto;
+        width: 8rem;
+        height: 100%;
+        transform: none;
+        translate: none;
+      "
+      title="Details"
+      :ui="{ body: 'px-4 py-3' }"
+    >
+      <template #content>
+        <MkText size="xs">Swipeable edge panel</MkText>
+      </template>
+    </MkSheet>
 
     <MkDropdown
       v-else-if="props.kind === 'dropdown'"
