@@ -8,6 +8,7 @@ import type { CheckboxStyleConfig } from '../components/checkbox/types.js'
 import type { DropdownStyleConfig } from '../components/dropdown/types.js'
 import type { FlexStyleConfig } from '../components/flex/types.js'
 import type { GridStyleConfig } from '../components/grid/types.js'
+import type { HoverCardStyleConfig } from '../components/hover-card/types.js'
 import type { InputStyleConfig } from '../components/input/types.js'
 import type { LabelStyleConfig } from '../components/label/types.js'
 import type { PopoverStyleConfig } from '../components/popover/types.js'
@@ -40,6 +41,7 @@ export interface ModeKitUIConfig {
   dropdown?: DropdownStyleConfig
   flex?: FlexStyleConfig
   grid?: GridStyleConfig
+  hoverCard?: HoverCardStyleConfig
   input?: InputStyleConfig
   label?: LabelStyleConfig
   popover?: PopoverStyleConfig

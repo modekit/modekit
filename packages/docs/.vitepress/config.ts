@@ -105,6 +105,7 @@ export default defineConfig({
           text: 'Overlay',
           items: [
             { text: 'Dropdown', link: '/components/dropdown' },
+            { text: 'Hover Card', link: '/components/hover-card' },
             { text: 'Popover', link: '/components/popover' },
             { text: 'Tooltip', link: '/components/tooltip' },
           ],

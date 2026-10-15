@@ -91,6 +91,13 @@ const components = [
     href: '/components/dropdown',
   },
   {
+    id: 'hover-card',
+    name: 'Hover Card',
+    category: 'Overlay',
+    description: 'Preview supplementary content through delayed hover and keyboard focus.',
+    href: '/components/hover-card',
+  },
+  {
     id: 'popover',
     name: 'Popover',
     category: 'Overlay',

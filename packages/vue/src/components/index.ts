@@ -271,6 +271,27 @@ export type {
   GridStyleConfig,
   GridUI,
 } from './grid/index.js'
+export {
+  hoverCardAlignments,
+  hoverCardPositionStrategies,
+  hoverCardSides,
+  MkHoverCard,
+} from './hover-card/index.js'
+export type {
+  HoverCardAlign,
+  HoverCardAs,
+  HoverCardCollisionPadding,
+  HoverCardEmits,
+  HoverCardOptions,
+  HoverCardPortalTarget,
+  HoverCardPositionStrategy,
+  HoverCardProps,
+  HoverCardSide,
+  HoverCardSlotProps,
+  HoverCardSlots,
+  HoverCardStyleConfig,
+  HoverCardUI,
+} from './hover-card/index.js'
 export { inputFloatingPositions, inputSizes, inputVariants, MkInput } from './input/index.js'
 export type {
   InputEmits,

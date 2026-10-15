@@ -17,6 +17,7 @@ import {
   MkFlex,
   MkGrid,
   MkHeadline,
+  MkHoverCard,
   MkInput,
   MkLabel,
   MkLink,
@@ -212,6 +213,22 @@ const tabItems = [
       </template>
     </MkDropdown>
 
+    <MkHoverCard
+      v-else-if="props.kind === 'hover-card'"
+      align="center"
+      arrow
+      class="overview-preview__hover-card"
+      :default-open="true"
+      :portal="false"
+      :side-offset="4"
+      position-strategy="absolute"
+    >
+      <MkLink href="#hover-card">@maya</MkLink>
+      <template #content>
+        <MkText size="xs">Design systems engineer</MkText>
+      </template>
+    </MkHoverCard>
+
     <MkPopover
       v-else-if="props.kind === 'popover'"
       align="center"
@@ -324,8 +341,10 @@ const tabItems = [
   width: min(100%, 13rem);
 }
 
+.overview-preview__hover-card,
 .overview-preview__popover {
   min-width: 9rem;
+  width: auto;
   padding: 0.625rem 0.75rem;
 }
 
