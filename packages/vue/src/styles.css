@@ -21,7 +21,10 @@
     .mk-select,
     .mk-sheet__close,
     .mk-switch__control,
-    .mk-tabs__trigger
+    .mk-tabs__trigger,
+    .mk-textarea__control,
+    .mk-toast__action,
+    .mk-toast__close
   ) {
     font: inherit;
     font-feature-settings: inherit;
@@ -171,6 +174,28 @@
 @keyframes mk-sheet-left-close {
   to {
     translate: -100% 0;
+  }
+}
+
+@keyframes mk-toast-open {
+  from {
+    opacity: 0;
+    scale: 0.96;
+    translate: 0 -0.5rem;
+  }
+}
+
+@keyframes mk-toast-close {
+  to {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+
+@keyframes mk-toast-swipe-end {
+  to {
+    opacity: 0;
+    translate: var(--reka-toast-swipe-end-x, 0) var(--reka-toast-swipe-end-y, 0);
   }
 }
 

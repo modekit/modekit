@@ -112,6 +112,7 @@ export default defineConfig({
             { text: 'Radio Group', link: '/components/radio-group' },
             { text: 'Select', link: '/components/select' },
             { text: 'Switch', link: '/components/switch' },
+            { text: 'Textarea', link: '/components/textarea' },
           ],
         },
         {
@@ -128,7 +129,10 @@ export default defineConfig({
         },
         {
           text: 'Feedback',
-          items: [{ text: 'Callout', link: '/components/callout' }],
+          items: [
+            { text: 'Callout', link: '/components/callout' },
+            { text: 'Toast', link: '/components/toast' },
+          ],
         },
         {
           text: 'Navigation',

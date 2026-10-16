@@ -22,7 +22,9 @@ import type { SpacingStyleConfig } from '../components/spacing/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
 import type { SwitchStyleConfig } from '../components/switch/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
+import type { TextareaStyleConfig } from '../components/textarea/types.js'
 import type { TooltipStyleConfig } from '../components/tooltip/types.js'
+import type { ToastProviderStyleConfig, ToastStyleConfig } from '../components/toast/types.js'
 import type {
   CaptionStyleConfig,
   EllipsisTextStyleConfig,
@@ -61,7 +63,10 @@ export interface ModeKitUIConfig {
   spinner?: SpinnerStyleConfig
   switch?: SwitchStyleConfig
   tabs?: TabsStyleConfig
+  textarea?: TextareaStyleConfig
   tooltip?: TooltipStyleConfig
+  toast?: ToastStyleConfig
+  toastProvider?: ToastProviderStyleConfig
   headline?: HeadlineStyleConfig
   text?: TextStyleConfig
   paragraph?: ParagraphStyleConfig

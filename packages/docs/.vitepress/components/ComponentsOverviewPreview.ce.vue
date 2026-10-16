@@ -34,7 +34,10 @@ import {
   MkSwitch,
   MkTabs,
   MkText,
+  MkTextarea,
   MkTooltip,
+  MkToast,
+  MkToastProvider,
 } from '@modekit/vue'
 
 const props = defineProps<{
@@ -196,6 +199,14 @@ const tabItems = [
       <template #leading><Search aria-hidden="true" /></template>
     </MkInput>
 
+    <MkTextarea
+      v-else-if="props.kind === 'textarea'"
+      class="overview-preview__fill"
+      aria-label="Project notes"
+      default-value="A flexible native text area."
+      :rows="3"
+    />
+
     <MkRadioGroup
       v-else-if="props.kind === 'radio-group'"
       aria-label="Workspace plan"
@@ -351,6 +362,12 @@ const tabItems = [
       type="dashed"
     />
 
+    <MkToastProvider v-else-if="props.kind === 'toast'" :portal="false">
+      <MkToast color="green" title="Changes saved" :duration="0" :ui="{ base: 'shadow-raised' }">
+        Your workspace is up to date.
+      </MkToast>
+    </MkToastProvider>
+
     <div v-else-if="props.kind === 'spinner'" class="overview-preview__spinners">
       <MkSpinner size="sm" aria-label="Loading" />
       <MkSpinner size="md" aria-label="Loading" />
@@ -420,6 +437,13 @@ const tabItems = [
 
 .overview-preview__fill {
   width: 100%;
+}
+
+.overview-preview .mk-toast-viewport {
+  position: static;
+  width: min(100%, 16rem);
+  max-height: none;
+  padding: 0;
 }
 
 .overview-preview__separator {

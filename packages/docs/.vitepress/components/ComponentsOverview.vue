@@ -70,6 +70,13 @@ const components = [
     href: '/components/callout',
   },
   {
+    id: 'toast',
+    name: 'Toast',
+    category: 'Feedback',
+    description: 'Deliver accessible, time-limited feedback and actions.',
+    href: '/components/toast',
+  },
+  {
     id: 'card',
     name: 'Card',
     category: 'Element',
@@ -222,6 +229,13 @@ const components = [
     category: 'Form',
     description: 'Turn settings on or off with an accessible binary control.',
     href: '/components/switch',
+  },
+  {
+    id: 'textarea',
+    name: 'Textarea',
+    category: 'Form',
+    description: 'Collect longer text with native sizing, limits, and resize behavior.',
+    href: '/components/textarea',
   },
   {
     id: 'spinner',
@@ -416,6 +430,7 @@ function exploreComponent(href: string): void {
 .component-tile--mark,
 .component-tile--link,
 .component-tile--input,
+.component-tile--textarea,
 .component-tile--tabs {
   --tile-accent: var(--vp-c-indigo-1, #6366f1);
 }
