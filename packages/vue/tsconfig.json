@@ -3,6 +3,9 @@
   "compilerOptions": {
     "jsx": "preserve",
     "noEmit": true,
+    "paths": {
+      "@modekit/vue": ["./src/index.ts"]
+    },
     "types": ["vite/client"]
   },
   "include": [
