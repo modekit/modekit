@@ -15,6 +15,7 @@
     "vue": "3.5.43"
   },
   "devDependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@tailwindcss/vite": "4.3.3",
     "@types/node": "24.10.1",
     "shiki": "2.5.0",

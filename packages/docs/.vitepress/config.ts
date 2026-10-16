@@ -10,10 +10,20 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/modekit-icon.svg' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&family=Inter:opsz,wght@14..32,100..900&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:wght@200..800&family=Space+Grotesk:wght@300..700&display=swap',
+      },
+    ],
     [
       'script',
       {},
-      `(function(){try{var primaryColors=['black','slate','gray','zinc','stone','red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];var neutralColors=['slate','gray','zinc','stone'];var primary=localStorage.getItem('modekit-primary-color');var neutral=localStorage.getItem('modekit-neutral-color');document.documentElement.dataset.mkPrimary=primaryColors.includes(primary)?primary:'black';document.documentElement.dataset.mkNeutral=neutralColors.includes(neutral)?neutral:'zinc'}catch{document.documentElement.dataset.mkPrimary='black';document.documentElement.dataset.mkNeutral='zinc'}})()`,
+      `(function(){try{var primaryColors=['black','slate','gray','zinc','stone','red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];var neutralColors=['slate','gray','zinc','stone'];var fonts=['dm-sans','inter','manrope','plus-jakarta-sans','space-grotesk','system'];var primary=localStorage.getItem('modekit-primary-color');var neutral=localStorage.getItem('modekit-neutral-color');var font=localStorage.getItem('modekit-content-font');document.documentElement.dataset.mkPrimary=primaryColors.includes(primary)?primary:'black';document.documentElement.dataset.mkNeutral=neutralColors.includes(neutral)?neutral:'zinc';document.documentElement.dataset.mkFont=fonts.includes(font)?font:'dm-sans'}catch{document.documentElement.dataset.mkPrimary='black';document.documentElement.dataset.mkNeutral='zinc';document.documentElement.dataset.mkFont='dm-sans'}})()`,
     ],
   ],
   vite: {
@@ -31,7 +41,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/about', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/', activeMatch: '/components/' },
-      { component: 'PrimaryColorSwitcher' },
+      { component: 'ThemeSwitcher' },
     ],
     sidebar: {
       '/guide/': [
