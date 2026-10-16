@@ -9,6 +9,24 @@
   :where(.mk-headline, .mk-text, .mk-paragraph, .mk-caption) {
     margin: 0;
   }
+
+  :where(
+    .mk-button,
+    .mk-callout__close,
+    .mk-checkbox__control,
+    .mk-dialog__close,
+    .mk-dropdown__filter,
+    .mk-input__control,
+    .mk-select,
+    .mk-sheet__close,
+    .mk-switch__control,
+    .mk-tabs__trigger
+  ) {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+  }
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
