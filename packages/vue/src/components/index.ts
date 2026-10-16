@@ -129,6 +129,28 @@ export type {
   CheckboxUI,
   CheckboxVariant,
 } from './checkbox/index.js'
+export {
+  MkRadioGroup,
+  radioGroupOrientations,
+  radioGroupSizes,
+  radioGroupVariants,
+} from './radio-group/index.js'
+export type {
+  RadioGroupDescriptionSlotProps,
+  RadioGroupEmits,
+  RadioGroupItem,
+  RadioGroupItemSlotProps,
+  RadioGroupLabelSlotProps,
+  RadioGroupOptions,
+  RadioGroupOrientation,
+  RadioGroupProps,
+  RadioGroupSize,
+  RadioGroupSlots,
+  RadioGroupStyleConfig,
+  RadioGroupUI,
+  RadioGroupValue,
+  RadioGroupVariant,
+} from './radio-group/index.js'
 export { MkSwitch, switchAlignments, switchSizes, switchVariants } from './switch/index.js'
 export type {
   SwitchAlignment,

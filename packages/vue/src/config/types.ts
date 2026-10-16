@@ -16,6 +16,7 @@ import type { HoverCardStyleConfig } from '../components/hover-card/types.js'
 import type { InputStyleConfig } from '../components/input/types.js'
 import type { LabelStyleConfig } from '../components/label/types.js'
 import type { PopoverStyleConfig } from '../components/popover/types.js'
+import type { RadioGroupStyleConfig } from '../components/radio-group/types.js'
 import type { SeparatorStyleConfig } from '../components/separator/types.js'
 import type { SpacingStyleConfig } from '../components/spacing/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
@@ -54,6 +55,7 @@ export interface ModeKitUIConfig {
   input?: InputStyleConfig
   label?: LabelStyleConfig
   popover?: PopoverStyleConfig
+  radioGroup?: RadioGroupStyleConfig
   separator?: SeparatorStyleConfig
   spacing?: SpacingStyleConfig
   spinner?: SpinnerStyleConfig

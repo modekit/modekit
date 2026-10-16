@@ -203,6 +203,13 @@ const components = [
     href: '/components/label',
   },
   {
+    id: 'radio-group',
+    name: 'Radio Group',
+    category: 'Form',
+    description: 'Choose one value from an accessible set of visible options.',
+    href: '/components/radio-group',
+  },
+  {
     id: 'select',
     name: 'Select',
     category: 'Form',

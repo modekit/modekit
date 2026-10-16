@@ -25,6 +25,7 @@ import {
   MkMark,
   MkParagraph,
   MkPopover,
+  MkRadioGroup,
   MkSelect,
   MkSeparator,
   MkSheet,
@@ -194,6 +195,17 @@ const tabItems = [
     >
       <template #leading><Search aria-hidden="true" /></template>
     </MkInput>
+
+    <MkRadioGroup
+      v-else-if="props.kind === 'radio-group'"
+      aria-label="Workspace plan"
+      default-value="team"
+      orientation="horizontal"
+      :items="[
+        { label: 'Starter', value: 'starter' },
+        { label: 'Team', value: 'team' },
+      ]"
+    />
 
     <MkSelect
       v-else-if="props.kind === 'select'"
