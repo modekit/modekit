@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "pnpm --recursive --if-present build",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:changesets && pnpm test:package",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:changesets && pnpm test:release && pnpm test:package",
     "changeset": "changeset",
     "docs:dev": "pnpm --filter @modekit/docs dev",
     "docs:preview": "pnpm --filter @modekit/docs preview",
@@ -22,6 +22,7 @@
     "test": "pnpm --recursive --if-present test",
     "test:changesets": "node scripts/validate-changesets.mjs",
     "test:package": "pnpm --filter @modekit/vue build && node scripts/validate-package.mjs",
+    "test:release": "node scripts/validate-release-automation.mjs",
     "typecheck": "pnpm --recursive --if-present typecheck"
   },
   "devDependencies": {
@@ -34,6 +35,7 @@
     "prettier": "3.9.9",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.1",
-    "vue-eslint-parser": "10.4.1"
+    "vue-eslint-parser": "10.4.1",
+    "yaml": "2.9.1"
   }
 }

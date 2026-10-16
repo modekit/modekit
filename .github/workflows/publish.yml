@@ -1,0 +1,289 @@
+name: Publish approved release
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Full SHA of the reviewed release commit on main
+        required: true
+        type: string
+      npm-tag:
+        description: npm distribution tag approved for this release
+        required: true
+        type: choice
+        options:
+          - alpha
+          - beta
+          - rc
+          - next
+          - latest
+
+permissions: {}
+
+concurrency:
+  group: modekit-npm-publish
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Verify and pack release candidate
+    if: github.repository == 'modekit/modekit' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+
+    outputs:
+      git-tag: ${{ steps.metadata.outputs.git-tag }}
+      npm-tag: ${{ steps.metadata.outputs.npm-tag }}
+      package-name: ${{ steps.metadata.outputs.package-name }}
+      version: ${{ steps.metadata.outputs.version }}
+
+    steps:
+      - name: Check out the approved commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify release metadata and main-branch identity
+        id: metadata
+        env:
+          RELEASE_COMMIT: ${{ inputs.commit }}
+          NPM_TAG: ${{ inputs.npm-tag }}
+        run: |
+          git fetch --no-tags origin main
+          node scripts/release-candidate.mjs \
+            --commit "$RELEASE_COMMIT" \
+            --main-ref origin/main \
+            --npm-tag "$NPM_TAG" \
+            --output-directory "$RUNNER_TEMP/modekit-release"
+
+      - name: Require the public canonical repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          visibility=$(gh api "repos/$GITHUB_REPOSITORY" --jq .visibility)
+          [ "$visibility" = 'public' ] || {
+            echo "Publishing and npm provenance require the canonical repository to be public." >&2
+            exit 1
+          }
+
+      - name: Confirm version and tag are unpublished
+        env:
+          GIT_TAG: ${{ steps.metadata.outputs.git-tag }}
+          PACKAGE_NAME: ${{ steps.metadata.outputs.package-name }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/$GIT_TAG" >/dev/null 2>&1; then
+            echo "Git tag already exists: $GIT_TAG" >&2
+            exit 1
+          fi
+
+          set +e
+          npm view "$PACKAGE_NAME@$VERSION" version >/tmp/modekit-npm-view.out 2>/tmp/modekit-npm-view.err
+          view_status=$?
+          set -e
+
+          if [ "$view_status" -eq 0 ]; then
+            echo "npm version already exists: $PACKAGE_NAME@$VERSION" >&2
+            exit 1
+          fi
+          if ! grep -q 'E404' /tmp/modekit-npm-view.err; then
+            cat /tmp/modekit-npm-view.err >&2
+            echo "Could not prove that the npm version is unpublished." >&2
+            exit 1
+          fi
+
+      - name: Run full quality checks
+        run: pnpm check
+
+      - name: Build package and versioned documentation
+        run: pnpm build
+
+      - name: Install Chromium
+        run: pnpm --filter @modekit/vue exec playwright install --with-deps chromium
+
+      - name: Run browser verification
+        run: pnpm --filter @modekit/vue test:browser
+
+      - name: Pack the verified package
+        run: |
+          mkdir -p "$RUNNER_TEMP/modekit-release/artifact"
+          pnpm --filter @modekit/vue pack \
+            --out "$RUNNER_TEMP/modekit-release/artifact/modekit-vue.tgz"
+          cp "$RUNNER_TEMP/modekit-release/metadata.json" \
+            "$RUNNER_TEMP/modekit-release/artifact/metadata.json"
+          cp "$RUNNER_TEMP/modekit-release/release-notes.md" \
+            "$RUNNER_TEMP/modekit-release/artifact/release-notes.md"
+          cd "$RUNNER_TEMP/modekit-release/artifact"
+          sha256sum modekit-vue.tgz > SHA256SUMS
+
+      - name: Upload the exact package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: modekit-release-${{ steps.metadata.outputs.version }}
+          path: ${{ runner.temp }}/modekit-release/artifact
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload documentation from the release commit
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: packages/docs/.vitepress/dist
+          retention-days: 7
+
+  publish:
+    name: Publish exact approved artifact
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: npm-production
+
+    permissions:
+      contents: write
+      id-token: write
+
+    outputs:
+      release-url: ${{ steps.release.outputs.url }}
+
+    steps:
+      - name: Check out release metadata
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.commit }}
+          persist-credentials: false
+
+      - name: Set up Node.js for npm trusted publishing
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Pin an OIDC-capable npm CLI
+        run: npm install --global npm@11.21.1
+
+      - name: Download the verified package artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: modekit-release-${{ needs.prepare.outputs.version }}
+          path: release-artifact
+
+      - name: Verify artifact identity
+        env:
+          RELEASE_COMMIT: ${{ inputs.commit }}
+          EXPECTED_NPM_TAG: ${{ needs.prepare.outputs.npm-tag }}
+          EXPECTED_PACKAGE: ${{ needs.prepare.outputs.package-name }}
+          EXPECTED_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          cd release-artifact
+          sha256sum --check SHA256SUMS
+          node --input-type=module <<'EOF'
+          import assert from 'node:assert/strict'
+          import { readFileSync } from 'node:fs'
+
+          const metadata = JSON.parse(readFileSync('metadata.json', 'utf8'))
+          assert.equal(metadata.commit, process.env.RELEASE_COMMIT.toLowerCase())
+          assert.equal(metadata.npmTag, process.env.EXPECTED_NPM_TAG)
+          assert.equal(metadata.packageName, process.env.EXPECTED_PACKAGE)
+          assert.equal(metadata.version, process.env.EXPECTED_VERSION)
+          EOF
+
+      - name: Publish to the approved npm channel
+        env:
+          NPM_TAG: ${{ needs.prepare.outputs.npm-tag }}
+        run: npm publish release-artifact/modekit-vue.tgz --access public --tag "$NPM_TAG"
+
+      - name: Verify npm registry state
+        env:
+          NPM_TAG: ${{ needs.prepare.outputs.npm-tag }}
+          PACKAGE_NAME: ${{ needs.prepare.outputs.package-name }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            published_version=$(npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null || true)
+            [ "$published_version" = "$VERSION" ] && break
+            sleep 10
+          done
+          [ "$published_version" = "$VERSION" ]
+
+          npm view "$PACKAGE_NAME" dist-tags --json > /tmp/modekit-dist-tags.json
+          node --input-type=module <<'EOF'
+          import assert from 'node:assert/strict'
+          import { readFileSync } from 'node:fs'
+
+          const tags = JSON.parse(readFileSync('/tmp/modekit-dist-tags.json', 'utf8'))
+          assert.equal(tags[process.env.NPM_TAG], process.env.VERSION)
+          if (process.env.NPM_TAG !== 'latest') {
+            assert.notEqual(tags.latest, process.env.VERSION)
+          }
+          EOF
+
+      - name: Verify a clean registry installation and provenance
+        env:
+          PACKAGE_NAME: ${{ needs.prepare.outputs.package-name }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          consumer_directory=$(mktemp -d)
+          cd "$consumer_directory"
+          npm init --yes
+          npm install --ignore-scripts "$PACKAGE_NAME@$VERSION" vue@3.5.0
+          node --input-type=module <<'EOF'
+          import assert from 'node:assert/strict'
+
+          const modekit = await import('@modekit/vue')
+          assert.equal(typeof modekit.createModeKit, 'function')
+          EOF
+          npm audit signatures
+
+      - name: Create matching GitHub release and tag
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_TAG: ${{ needs.prepare.outputs.git-tag }}
+          RELEASE_COMMIT: ${{ inputs.commit }}
+        run: |
+          gh release create "$GIT_TAG" \
+            release-artifact/modekit-vue.tgz \
+            release-artifact/SHA256SUMS \
+            --target "$RELEASE_COMMIT" \
+            --title "$GIT_TAG" \
+            --notes-file release-artifact/release-notes.md
+          release_url=$(gh release view "$GIT_TAG" --json url --jq .url)
+          echo "url=$release_url" >> "$GITHUB_OUTPUT"
+
+  deploy-docs:
+    name: Deploy documentation for published version
+    needs:
+      - prepare
+      - publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
+
+    steps:
+      - name: Deploy versioned documentation
+        id: deployment
+        uses: actions/deploy-pages@v4

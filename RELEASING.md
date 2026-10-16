@@ -41,6 +41,10 @@ The presence of `release:publish` is not authorization to run it. Publication ch
 Git tag state and requires explicit maintainer approval for the exact reviewed release commit and
 distribution tag.
 
+The production workflow does not call this manual script. It validates the approved workflow input
+against Changesets prerelease state, builds and checksums one tarball, pauses at the protected
+`npm-production` environment, and publishes that exact tarball with an explicit npm tag.
+
 ## Release pull request
 
 Changesets is the source of truth for version and changelog updates:
@@ -79,6 +83,10 @@ pnpm view @modekit/vue dist-tags --json
 
 Additional reviewed changesets on the same prerelease line produce `0.1.0-alpha.1` and later alpha
 versions. Use `--tag alpha` for every publication and verify that `latest` did not move.
+
+For an automated release, manually dispatch `publish.yml` with the full reviewed `main` commit SHA
+and `alpha`. The workflow applies the explicit tag to `npm publish`; it does not rely on the version
+suffix or Changesets' special handling for a package's first publication.
 
 To finish the line as the ordinary `0.1.0` release:
 
@@ -136,6 +144,11 @@ Verify the registry version, dist-tag, package provenance when configured, tarba
 fresh consumer installation before announcing the release. A version containing `alpha`, `beta`,
 or `rc` does not by itself prevent npm from assigning `latest`; the explicit publish tag and the
 post-publication `dist-tags` check are both required.
+
+Repository protection, the `npm-production` approval environment, npm ownership, trusted
+publishing, and Pages/custom-domain setup are external activation requirements documented in
+[`.github/REPOSITORY-SETTINGS.md`](.github/REPOSITORY-SETTINGS.md). Do not claim they are enabled
+until a maintainer verifies them in the relevant service.
 
 ## Failed-release recovery
 

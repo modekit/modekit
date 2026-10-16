@@ -1,7 +1,16 @@
+import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitepress'
+
+const packageManifest = JSON.parse(
+  readFileSync(new URL('../../vue/package.json', import.meta.url), 'utf8'),
+) as { private?: boolean; version: string }
+const documentationVersion =
+  packageManifest.private || packageManifest.version === '0.0.0'
+    ? 'Unreleased'
+    : `v${packageManifest.version}`
 
 export default defineConfig({
   lang: 'en-US',
@@ -41,6 +50,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/about', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/', activeMatch: '/components/' },
+      { text: documentationVersion, link: '/guide/compatibility' },
       { component: 'ThemeSwitcher' },
     ],
     sidebar: {
