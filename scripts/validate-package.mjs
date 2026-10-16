@@ -130,6 +130,14 @@ function verifyConsumer(versions) {
   const packedManifest = JSON.parse(
     readFileSync(join(consumerDirectory, 'node_modules/@modekit/vue/package.json'), 'utf8'),
   )
+  const packedReadme = readFileSync(
+    join(consumerDirectory, 'node_modules/@modekit/vue/README.md'),
+    'utf8',
+  )
+  const packedLicense = readFileSync(
+    join(consumerDirectory, 'node_modules/@modekit/vue/LICENSE'),
+    'utf8',
+  )
   const installedVueManifest = JSON.parse(
     readFileSync(join(consumerDirectory, 'node_modules/vue/package.json'), 'utf8'),
   )
@@ -145,6 +153,20 @@ function verifyConsumer(versions) {
   assert.equal(packedManifest.exports['.'].types, './dist/index.d.ts')
   assert.equal(packedManifest.exports['./styles.css'].default, './dist/styles.css')
   assert.equal(packedManifest.exports['./preflight.css'].default, './dist/preflight.css')
+  assert.equal(packedManifest.license, 'MIT')
+  assert.equal(packedManifest.homepage, 'https://github.com/modekit/modekit#readme')
+  assert.equal(packedManifest.bugs.url, 'https://github.com/modekit/modekit/issues')
+  assert.deepEqual(packedManifest.repository, {
+    type: 'git',
+    url: 'git+https://github.com/modekit/modekit.git',
+    directory: 'packages/vue',
+  })
+  assert.ok(packedManifest.keywords.includes('vue'))
+  assert.ok(packedManifest.keywords.includes('accessible'))
+  assert.match(packedReadme, /import '@modekit\/vue\/styles\.css'/)
+  assert.match(packedReadme, /createModeKit/)
+  assert.match(packedLicense, /^MIT License/)
+  assert.match(packedLicense, /Copyright \(c\) 2026 ModeKit/)
   assert.equal(installedVueManifest.version, versions.vue)
   assert.equal(installedTypeScriptManifest.version, versions.typescript)
   assert.equal(installedViteManifest.version, consumerToolVersions.vite)

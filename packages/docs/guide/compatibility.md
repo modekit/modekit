@@ -4,6 +4,27 @@ ModeKit treats its documented Vue APIs, package entry points, and customization 
 public compatibility contract. Reviews must assess changes against this contract even when an
 implementation refactor produces no TypeScript error.
 
+## Tested environments
+
+| Area               | Current evidence                                                                  |
+| ------------------ | --------------------------------------------------------------------------------- |
+| Vue                | `3.5.0` minimum and the repository's current Vue 3.5 release                      |
+| TypeScript         | `5.0.4` minimum for declarations/templates and the repository's current version   |
+| Node/build tooling | Node `22.22.2` and Node 24 CI; package engine floor is `>=22.22.2`                |
+| Module format      | ESM package imports through the declared `exports` map                            |
+| Browser automation | Current Playwright Chromium interaction, accessibility, and visual checks         |
+| SSR and hydration  | Vue server rendering plus client hydration smoke tests, including portalled UI    |
+| Styling            | Compiled CSS; consuming applications do not need Tailwind for built-in components |
+
+Firefox, WebKit, screen readers, forced contrast, zoom, and touch combinations are not yet
+release-tested. Passing automated Chromium checks is not a blanket browser or accessibility
+certification. See [Accessibility](./accessibility) for the current evidence and manual test gaps.
+
+The package avoids browser globals during server rendering. Palette selection cannot run without a
+document, so SSR hosts must render matching theme attributes into the initial HTML. See
+[Styling](./styling#server-rendered-pages) for the document-global theme, first-paint, portal, and
+Shadow DOM boundaries.
+
 ## Supported public surface
 
 The compatibility-sensitive surface includes:

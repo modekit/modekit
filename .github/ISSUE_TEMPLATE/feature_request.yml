@@ -1,0 +1,37 @@
+name: Feature request
+description: Propose a focused improvement to ModeKit.
+title: 'Feature: '
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the user or developer problem, not only the desired implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain the API or behavior you expect and include a usage example when possible.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Installed ModeKit version
+      placeholder: '@modekit/vue 0.x.x or not yet using ModeKit'
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and constraints
+      description: Include Vue, browser, SSR, accessibility, or design-system constraints that matter.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Note existing components, composition patterns, or libraries you considered.

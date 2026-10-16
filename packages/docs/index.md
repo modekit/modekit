@@ -14,8 +14,8 @@ hero:
       link: /components/
 
 features:
-  - title: Product-ready components
-    details: Cover real application states, variants, composition, and accessibility instead of stopping at visual primitives.
+  - title: Product-focused, experimental components
+    details: Cover real application states, variants, composition, and accessibility while the prerelease compatibility contract is still being proven.
   - title: Predictable Vue APIs
     details: Use typed props, slots, events, and native attribute forwarding consistently across the library.
   - title: Flexible styling

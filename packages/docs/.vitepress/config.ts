@@ -47,7 +47,10 @@ export default defineConfig({
       '/guide/': [
         {
           text: 'Introduction',
-          items: [{ text: 'About ModeKit', link: '/guide/about' }],
+          items: [
+            { text: 'About ModeKit', link: '/guide/about' },
+            { text: 'Getting started', link: '/guide/getting-started' },
+          ],
         },
         {
           text: 'Foundations',
