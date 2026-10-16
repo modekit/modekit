@@ -53,6 +53,7 @@ export default defineConfig({
           text: 'Foundations',
           items: [
             { text: 'Styling', link: '/guide/styling' },
+            { text: 'Compatibility', link: '/guide/compatibility' },
             { text: 'Icons', link: '/guide/icons' },
             { text: 'Accessibility', link: '/guide/accessibility' },
           ],

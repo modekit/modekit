@@ -44,6 +44,11 @@ together and be verified by the same repository build.
 
 ## Public API guidelines
 
+The [compatibility contract](./compatibility) defines the supported package imports, Vue APIs,
+customization keys, CSS variables, defaults, and behavior. Undocumented rendered structure and
+generated classes remain implementation details, while accessibility and visible behavior must
+still be assessed during review.
+
 - Keep semantic intent in props such as `color="primary"` and surface treatment in props such as
   `variant="soft"`.
 - Use CVA for finite visual choices, expose typed class overrides through global config and local
