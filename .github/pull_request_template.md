@@ -27,4 +27,6 @@
 
 ## Release impact
 
-<!-- Link the changeset, or explain why none is needed. Until Changesets is configured, state the intended impact. -->
+<!-- Link the changeset, or explain why this change has no consumer-visible release impact. -->
+
+- [ ] The proposed bump and user-facing release note were reviewed

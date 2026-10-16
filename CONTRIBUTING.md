@@ -33,9 +33,11 @@ pnpm --filter @modekit/vue test:browser
   variables, configuration keys, package imports, accessibility, and visible behavior.
 - Avoid drive-by refactors that make the requested change harder to review.
 
-Changesets are not configured yet. Until they are, state the intended release impact in the pull
-request. After Changesets is configured, every consumer-visible change must include a changeset or
-an explanation of why none is required.
+Every consumer-visible change must include a changeset. Run `pnpm changeset`, select
+`@modekit/vue`, review the proposed bump, and write the summary for package users. Documentation-only
+work and internal refactors may omit a changeset when the pull request explicitly explains why no
+consumer-visible release impact exists. See [`.changeset/README.md`](.changeset/README.md) for the
+`0.x` bump policy and release-note expectations.
 
 ## Review criteria
 

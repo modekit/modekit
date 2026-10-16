@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "baseBranch": "main",
+  "access": "public",
+  "format": "prettier",
+  "changelog": ["@changesets/changelog-github", { "repo": "modekit/modekit" }],
+  "commit": false,
+  "ignore": ["modekit", "@modekit/docs"],
+  "fixed": [],
+  "linked": [],
+  "updateInternalDependencies": "patch",
+  "privatePackages": {
+    "version": true,
+    "tag": false
+  }
+}
