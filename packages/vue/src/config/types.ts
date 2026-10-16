@@ -19,6 +19,7 @@ import type { PopoverStyleConfig } from '../components/popover/types.js'
 import type { SeparatorStyleConfig } from '../components/separator/types.js'
 import type { SpacingStyleConfig } from '../components/spacing/types.js'
 import type { SpinnerStyleConfig } from '../components/spinner/types.js'
+import type { SwitchStyleConfig } from '../components/switch/types.js'
 import type { TabsStyleConfig } from '../components/tabs/types.js'
 import type { TooltipStyleConfig } from '../components/tooltip/types.js'
 import type {
@@ -56,6 +57,7 @@ export interface ModeKitUIConfig {
   separator?: SeparatorStyleConfig
   spacing?: SpacingStyleConfig
   spinner?: SpinnerStyleConfig
+  switch?: SwitchStyleConfig
   tabs?: TabsStyleConfig
   tooltip?: TooltipStyleConfig
   headline?: HeadlineStyleConfig

@@ -14,6 +14,7 @@ describe('MkSpinner', () => {
     expect(wrapper.classes()).toContain('mk:size-4')
     expect(wrapper.classes()).toContain('mk:animate-spin')
     expect(wrapper.classes()).toContain('mk:motion-reduce:animate-none')
+    expect(wrapper.classes()).toContain('mk:box-border')
     expect(wrapper.classes()).toContain('mk:border-solid')
     expect(wrapper.classes()).toContain('mk:border-current')
     expect(wrapper.classes()).toContain('mk:border-r-transparent')

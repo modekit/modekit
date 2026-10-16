@@ -30,6 +30,7 @@ import {
   MkSheet,
   MkSpacing,
   MkSpinner,
+  MkSwitch,
   MkTabs,
   MkText,
   MkTooltip,
@@ -173,6 +174,13 @@ const tabItems = [
 
     <MkCheckbox
       v-else-if="props.kind === 'checkbox'"
+      :default-value="true"
+      label="Email notifications"
+      description="Receive important updates."
+    />
+
+    <MkSwitch
+      v-else-if="props.kind === 'switch'"
       :default-value="true"
       label="Email notifications"
       description="Receive important updates."

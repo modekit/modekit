@@ -12,7 +12,7 @@ import './theme.css'
 
 export default {
   extends: DefaultTheme,
-  Layout: ModeKitLayout,
+  Layout: ModeKitLayout as unknown as NonNullable<Theme['Layout']>,
   enhanceApp({ app }) {
     app.component('ComponentPreview', ComponentPreview)
     app.component('ComponentsOverview', ComponentsOverview)

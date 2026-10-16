@@ -210,6 +210,13 @@ const components = [
     href: '/components/select',
   },
   {
+    id: 'switch',
+    name: 'Switch',
+    category: 'Form',
+    description: 'Turn settings on or off with an accessible binary control.',
+    href: '/components/switch',
+  },
+  {
     id: 'spinner',
     name: 'Spinner',
     category: 'Feedback',

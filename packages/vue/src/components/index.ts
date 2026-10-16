@@ -129,6 +129,21 @@ export type {
   CheckboxUI,
   CheckboxVariant,
 } from './checkbox/index.js'
+export { MkSwitch, switchAlignments, switchSizes, switchVariants } from './switch/index.js'
+export type {
+  SwitchAlignment,
+  SwitchDescriptionSlotProps,
+  SwitchEmits,
+  SwitchLabelSlotProps,
+  SwitchOptions,
+  SwitchProps,
+  SwitchSize,
+  SwitchSlots,
+  SwitchStyleConfig,
+  SwitchThumbSlotProps,
+  SwitchUI,
+  SwitchVariant,
+} from './switch/index.js'
 export { dialogAnimations, dialogSizes, MkDialog } from './dialog/index.js'
 export type {
   DialogAnimation,
