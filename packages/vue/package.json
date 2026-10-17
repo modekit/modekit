@@ -1,6 +1,6 @@
 {
   "name": "@modekit/vue",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "description": "Accessible, feature-rich UI components for Vue.",
   "license": "MIT",
   "keywords": [
