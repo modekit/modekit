@@ -73,10 +73,10 @@ initial HTML.
 
 ## Documentation
 
-- [Getting started](https://github.com/modekit/modekit/blob/main/packages/docs/guide/getting-started.md)
-- [Styling and theme behavior](https://github.com/modekit/modekit/blob/main/packages/docs/guide/styling.md)
-- [Compatibility contract](https://github.com/modekit/modekit/blob/main/packages/docs/guide/compatibility.md)
-- [Components](https://github.com/modekit/modekit/tree/main/packages/docs/components)
+- [Getting started](https://modekit.dev/guide/getting-started)
+- [Styling and theme behavior](https://modekit.dev/guide/styling)
+- [Compatibility contract](https://modekit.dev/guide/compatibility)
+- [Components](https://modekit.dev/components/)
 
 Only the package root, `@modekit/vue/styles.css`, and optional `@modekit/vue/preflight.css` are
 public import paths. Deep imports are unsupported.

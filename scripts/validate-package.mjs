@@ -154,7 +154,7 @@ function verifyConsumer(versions) {
   assert.equal(packedManifest.exports['./styles.css'].default, './dist/styles.css')
   assert.equal(packedManifest.exports['./preflight.css'].default, './dist/preflight.css')
   assert.equal(packedManifest.license, 'MIT')
-  assert.equal(packedManifest.homepage, 'https://github.com/modekit/modekit#readme')
+  assert.equal(packedManifest.homepage, 'https://modekit.dev')
   assert.equal(packedManifest.bugs.url, 'https://github.com/modekit/modekit/issues')
   assert.deepEqual(packedManifest.repository, {
     type: 'git',
