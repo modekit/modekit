@@ -6,12 +6,13 @@ versions receive no guaranteed fixes.
 
 ## Reporting
 
-A private vulnerability-reporting route has not yet been verified for this repository. Do not put
-embargoed vulnerability details, credentials, or exploit code in a public issue.
+Report security vulnerabilities through GitHub's private vulnerability-reporting form:
 
-Before the first publication, maintainers must enable and test a private reporting route, add its
-verified instructions here, and confirm who receives and triages reports. Until that happens,
-ModeKit must not claim that private security reporting is available.
+<https://github.com/modekit/modekit/security/advisories/new>
+
+Reports are delivered privately to the ModeKit repository maintainers. Include the affected
+version, impact, reproduction steps, and any suggested mitigation. Do not put embargoed
+vulnerability details, credentials, or exploit code in a public issue.
 
 Non-sensitive hardening suggestions may use the normal bug-report template. This is not a substitute
 for a private vulnerability report.
