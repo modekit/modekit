@@ -11,14 +11,15 @@ activating publication; do not mark them enabled from workflow presence alone.
   is short-lived and ensures CI runs on the pull request the app creates.
 - Keep the default workflow token read-only. The release-PR workflow uses the narrowly scoped app
   token; the protected publish job alone receives `id-token: write`.
-- Enable GitHub Pages through Actions and configure the verified `modekit.dev` custom domain before
-  the first documentation deployment.
+- GitHub Pages is enabled through Actions with `modekit.dev` as the custom domain. Point the domain's
+  DNS records to GitHub Pages and enable HTTPS before the first documentation deployment.
 
 ## Protected `main`
 
-Use a branch ruleset or branch protection rule that:
+The `main` branch protection rule currently:
 
-- requires pull requests and at least one maintainer approval;
+- requires pull requests; add one required maintainer approval after a second trusted maintainer is
+  available so the solo maintainer is not locked out of ordinary pull requests;
 - requires resolved conversations;
 - requires the two `Verify` matrix checks and `Browser verification (Chromium)`;
 - requires branches to be current before merging;
@@ -31,16 +32,15 @@ pull requests follow the same review and CI path as feature pull requests.
 
 ## `npm-production` environment
 
-Create a GitHub environment named exactly `npm-production` and:
+The GitHub environment named exactly `npm-production` currently:
 
 - restrict deployment to protected `main`;
 - require Mustaf Shllaku's approval;
 - prevent administrators from bypassing protection when the account plan supports it; and
 - do not add a long-lived npm token.
 
-On GitHub Free, Pro, and Team, required environment reviewers are only available for public
-repositories. While ModeKit remains private, do not activate publication if the account plan cannot
-provide the approval gate. `workflow_dispatch` is deliberate but is not a substitute for the
+The environment requires Mustaf Shllaku's approval and deployments from protected branches. Keep
+the approval rule active; `workflow_dispatch` is deliberate but is not a substitute for the
 protected environment.
 
 ## npm ownership and trusted publisher
