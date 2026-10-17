@@ -159,6 +159,19 @@ function testWorkflowBoundaries() {
   assert.equal(publish.jobs.publish.permissions['id-token'], 'write')
   assert.equal(publish.jobs.publish.permissions.contents, 'write')
 
+  const docsRelease = readWorkflow('docs-release.yml')
+  assert.deepEqual(docsRelease.permissions, {})
+  assert.ok(Object.hasOwn(docsRelease.on, 'workflow_dispatch'))
+  assert.equal(docsRelease.on.pull_request, undefined)
+  assert.equal(docsRelease.on.pull_request_target, undefined)
+  assert.equal(docsRelease.on.schedule, undefined)
+  assert.equal(docsRelease.concurrency['cancel-in-progress'], false)
+  assert.equal(docsRelease.jobs.build.permissions.contents, 'read')
+  assert.match(docsRelease.jobs.build.if, /github\.ref\s*==\s*'refs\/heads\/main'/)
+  assert.equal(docsRelease.jobs.deploy.environment.name, 'github-pages')
+  assert.equal(docsRelease.jobs.deploy.permissions.pages, 'write')
+  assert.equal(docsRelease.jobs.deploy.permissions['id-token'], 'write')
+
   const source = readFileSync(join(repositoryRoot, '.github/workflows/publish.yml'), 'utf8')
   assert.doesNotMatch(source, /NPM_TOKEN/)
   assert.match(source, /npm publish/)
@@ -167,6 +180,15 @@ function testWorkflowBoundaries() {
   assert.match(source, /actions\/download-artifact@/)
   assert.match(source, /visibility.*public/)
   assert.match(source, /npm audit signatures/)
+
+  const docsReleaseSource = readFileSync(
+    join(repositoryRoot, '.github/workflows/docs-release.yml'),
+    'utf8',
+  )
+  assert.doesNotMatch(docsReleaseSource, /NPM_TOKEN/)
+  assert.match(docsReleaseSource, /releases\/tags\/\$\{encodeURIComponent\(tag\)\}/)
+  assert.match(docsReleaseSource, /actions\/upload-pages-artifact@/)
+  assert.match(docsReleaseSource, /actions\/deploy-pages@/)
 
   const releasePullRequestSource = readFileSync(
     join(repositoryRoot, '.github/workflows/release-pr.yml'),

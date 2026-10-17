@@ -1,0 +1,112 @@
+name: Deploy release documentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing ModeKit release tag to deploy
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build documentation from release tag
+    if: github.repository == 'modekit/modekit' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out the release tag
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify tag, package version, and published release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          node --input-type=module <<'EOF'
+          import assert from 'node:assert/strict'
+          import { execFileSync } from 'node:child_process'
+          import { readFileSync } from 'node:fs'
+
+          const tag = process.env.RELEASE_TAG
+          const packageJson = JSON.parse(readFileSync('packages/vue/package.json', 'utf8'))
+          const expectedTag = `${packageJson.name}@${packageJson.version}`
+
+          assert.equal(tag, expectedTag, 'Release tag must match the checked-out package version')
+
+          const tagCommit = execFileSync('git', ['rev-list', '-n', '1', tag], {
+            encoding: 'utf8',
+          }).trim()
+          const headCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+          assert.equal(tagCommit, headCommit, 'Release tag must point to the checked-out commit')
+
+          const response = await fetch(
+            `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/releases/tags/${encodeURIComponent(tag)}`,
+            {
+              headers: {
+                Accept: 'application/vnd.github+json',
+                Authorization: `Bearer ${process.env.GH_TOKEN}`,
+                'X-GitHub-Api-Version': '2022-11-28',
+              },
+            },
+          )
+          assert.equal(response.status, 200, 'A published GitHub release must exist for the tag')
+          const release = await response.json()
+          assert.equal(release.draft, false, 'Draft releases cannot be deployed')
+          EOF
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build package and documentation
+        run: pnpm build
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload documentation artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: packages/docs/.vitepress/dist
+          retention-days: 7
+
+  deploy:
+    name: Deploy documentation to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
