@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "Accessible, feature-rich UI components for Vue.",
   "license": "MIT",
-  "private": true,
   "keywords": [
     "vue",
     "vue-components",
@@ -11,7 +10,7 @@
     "component-library",
     "accessible"
   ],
-  "homepage": "https://github.com/modekit/modekit#readme",
+  "homepage": "https://modekit.dev",
   "bugs": {
     "url": "https://github.com/modekit/modekit/issues"
   },

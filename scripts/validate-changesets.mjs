@@ -47,7 +47,6 @@ function createFixture() {
   writeJson(join(directory, 'packages/vue/package.json'), {
     name: '@modekit/vue',
     version: '0.0.0',
-    private: true,
   })
   writeFileSync(
     join(directory, '.changeset/test-release.md'),

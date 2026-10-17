@@ -8,9 +8,5 @@
   "ignore": ["modekit", "@modekit/docs"],
   "fixed": [],
   "linked": [],
-  "updateInternalDependencies": "patch",
-  "privatePackages": {
-    "version": true,
-    "tag": false
-  }
+  "updateInternalDependencies": "patch"
 }
