@@ -109,6 +109,34 @@ jobs:
             exit 1
           fi
 
+      - name: Validate current npm distribution tags
+        env:
+          NPM_TAG: ${{ steps.metadata.outputs.npm-tag }}
+          PACKAGE_NAME: ${{ steps.metadata.outputs.package-name }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set +e
+          npm view "$PACKAGE_NAME" dist-tags --json \
+            >/tmp/modekit-dist-tags.json 2>/tmp/modekit-dist-tags.err
+          view_status=$?
+          set -e
+
+          if [ "$view_status" -ne 0 ]; then
+            if grep -q 'E404' /tmp/modekit-dist-tags.err; then
+              printf '{}\n' >/tmp/modekit-dist-tags.json
+            else
+              cat /tmp/modekit-dist-tags.err >&2
+              echo "Could not inspect the current npm distribution tags." >&2
+              exit 1
+            fi
+          fi
+
+          node scripts/validate-registry-tags.mjs \
+            --tags-file /tmp/modekit-dist-tags.json \
+            --version "$VERSION" \
+            --npm-tag "$NPM_TAG" \
+            --phase before
+
       - name: Run full quality checks
         run: pnpm check
 
@@ -223,16 +251,11 @@ jobs:
           [ "$published_version" = "$VERSION" ]
 
           npm view "$PACKAGE_NAME" dist-tags --json > /tmp/modekit-dist-tags.json
-          node --input-type=module <<'EOF'
-          import assert from 'node:assert/strict'
-          import { readFileSync } from 'node:fs'
-
-          const tags = JSON.parse(readFileSync('/tmp/modekit-dist-tags.json', 'utf8'))
-          assert.equal(tags[process.env.NPM_TAG], process.env.VERSION)
-          if (process.env.NPM_TAG !== 'latest') {
-            assert.notEqual(tags.latest, process.env.VERSION)
-          }
-          EOF
+          node scripts/validate-registry-tags.mjs \
+            --tags-file /tmp/modekit-dist-tags.json \
+            --version "$VERSION" \
+            --npm-tag "$NPM_TAG" \
+            --phase after
 
       - name: Verify a clean registry installation and provenance
         env:

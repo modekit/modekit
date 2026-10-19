@@ -7,6 +7,7 @@ import process from 'node:process'
 import { fileURLToPath, URL } from 'node:url'
 import { parse } from 'yaml'
 import { inspectReleaseCandidate } from './release-candidate.mjs'
+import { validateRegistryTags } from './validate-registry-tags.mjs'
 
 const repositoryRoot = dirname(fileURLToPath(new URL('../package.json', import.meta.url)))
 const releaseCandidateScript = join(repositoryRoot, 'scripts/release-candidate.mjs')
@@ -98,8 +99,13 @@ function testCandidateCliInDisposableRepository() {
     execFileSync('git', ['init', '--quiet'], { cwd: directory })
     execFileSync('git', ['config', 'user.name', 'ModeKit release test'], { cwd: directory })
     execFileSync('git', ['config', 'user.email', 'release-test@modekit.dev'], { cwd: directory })
+    execFileSync('git', ['config', 'commit.gpgsign', 'true'], { cwd: directory })
     execFileSync('git', ['add', '.'], { cwd: directory })
-    execFileSync('git', ['commit', '--quiet', '-m', 'test: release candidate'], { cwd: directory })
+    execFileSync(
+      'git',
+      ['-c', 'commit.gpgsign=false', 'commit', '--quiet', '-m', 'test: release candidate'],
+      { cwd: directory },
+    )
     const commit = execFileSync('git', ['rev-parse', 'HEAD'], {
       cwd: directory,
       encoding: 'utf8',
@@ -130,6 +136,64 @@ function testCandidateCliInDisposableRepository() {
   } finally {
     rmSync(directory, { force: true, recursive: true })
   }
+}
+
+function testRegistryTagValidation() {
+  validateRegistryTags({
+    npmTag: 'alpha',
+    phase: 'before',
+    tags: { alpha: '0.1.0-alpha.0' },
+    version: '0.1.0-alpha.1',
+  })
+  validateRegistryTags({
+    npmTag: 'alpha',
+    phase: 'after',
+    tags: { alpha: '0.1.0-alpha.1' },
+    version: '0.1.0-alpha.1',
+  })
+  validateRegistryTags({
+    npmTag: 'alpha',
+    phase: 'after',
+    tags: { alpha: '0.2.0-alpha.0', latest: '0.1.0' },
+    version: '0.2.0-alpha.0',
+  })
+  validateRegistryTags({
+    npmTag: 'latest',
+    phase: 'after',
+    tags: { alpha: '0.1.0-alpha.1', latest: '0.1.0' },
+    version: '0.1.0',
+  })
+
+  assert.throws(
+    () =>
+      validateRegistryTags({
+        npmTag: 'alpha',
+        phase: 'before',
+        tags: { alpha: '0.1.0-alpha.0', latest: '0.1.0-alpha.0' },
+        version: '0.1.0-alpha.1',
+      }),
+    /npm latest must point to a stable version/,
+  )
+  assert.throws(
+    () =>
+      validateRegistryTags({
+        npmTag: 'alpha',
+        phase: 'after',
+        tags: { alpha: '0.1.0-alpha.1', latest: '0.1.0-alpha.0' },
+        version: '0.1.0-alpha.1',
+      }),
+    /npm latest must point to a stable version/,
+  )
+  assert.throws(
+    () =>
+      validateRegistryTags({
+        npmTag: 'latest',
+        phase: 'after',
+        tags: { latest: '0.1.0-alpha.1' },
+        version: '0.1.0-alpha.1',
+      }),
+    /npm latest must point to a stable version/,
+  )
 }
 
 function readWorkflow(name) {
@@ -180,6 +244,9 @@ function testWorkflowBoundaries() {
   assert.match(source, /actions\/download-artifact@/)
   assert.match(source, /visibility.*public/)
   assert.match(source, /npm audit signatures/)
+  assert.equal((source.match(/scripts\/validate-registry-tags\.mjs/g) ?? []).length, 2)
+  assert.match(source, /--phase before/)
+  assert.match(source, /--phase after/)
 
   const docsReleaseSource = readFileSync(
     join(repositoryRoot, '.github/workflows/docs-release.yml'),
@@ -201,5 +268,6 @@ function testWorkflowBoundaries() {
 
 testCandidateValidation()
 testCandidateCliInDisposableRepository()
+testRegistryTagValidation()
 testWorkflowBoundaries()
 process.stdout.write('Release metadata and workflow boundary validation passed.\n')

@@ -145,6 +145,13 @@ fresh consumer installation before announcing the release. A version containing 
 or `rc` does not by itself prevent npm from assigning `latest`; the explicit publish tag and the
 post-publication `dist-tags` check are both required.
 
+The automated workflow validates the existing registry tags before publishing and refuses to
+continue while `latest` points to any prerelease, including an older prerelease. If a first-package
+bootstrap incorrectly creates a prerelease `latest`, stop publication. After explicit maintainer
+approval, remove the incorrect default tag with `npm dist-tag rm @modekit/vue latest`, verify that
+`latest` is absent, and rerun the approved release workflow. Once a stable version exists, `latest`
+must point to a stable version instead of being absent.
+
 Repository protection, the `npm-production` approval environment, npm ownership, trusted
 publishing, and Pages/custom-domain setup are external activation requirements documented in
 [`.github/REPOSITORY-SETTINGS.md`](.github/REPOSITORY-SETTINGS.md). Do not claim they are enabled
@@ -152,7 +159,8 @@ until a maintainer verifies them in the relevant service.
 
 ## Failed-release recovery
 
-- If validation fails before publication, fix the release pull request and rerun every gate.
+- If validation fails before publication, fix the release pull request or registry precondition and
+  rerun every gate. Never bypass the registry-tag validation.
 - Never overwrite an npm version that was already published. Fix forward with a new patch or
   prerelease version.
 - If a dist-tag is wrong, move only the tag after verifying the intended published version.
